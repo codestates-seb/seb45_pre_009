@@ -30,4 +30,6 @@ public class Member {
     @Column(nullable = true)
     private LocalDateTime modifiedAt;
 
+    123123123
+
 }
