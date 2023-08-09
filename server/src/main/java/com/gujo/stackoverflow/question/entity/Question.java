@@ -27,7 +27,7 @@ public class Question {
     private String content;
 
     @Column(nullable = false)
-    private Long point;
+    private Long point = 0L; // 초기값 설정
 
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
