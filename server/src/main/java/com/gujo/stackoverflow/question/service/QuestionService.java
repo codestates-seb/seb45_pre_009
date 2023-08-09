@@ -9,13 +9,17 @@ import java.util.List;
 
 @Service
 public class QuestionService {
-    private QuestionRepository repository;
+    private final QuestionRepository repository;
+
+    public QuestionService(QuestionRepository repository) {
+        this.repository = repository;
+    }
 
     public Question createQuestion(Question question) {
         return repository.save(question);
     }
 
-    public List<Question> getAllQuestions(Pageable pageable) {
+    public List<Question> getQuestions(Pageable pageable) {
         return repository.findAll(pageable).getContent();
     }
 
