@@ -11,17 +11,17 @@ import java.time.LocalDateTime;
 public class Answer {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
-    private long answerId;
+    private Long answerId;
 
     @Column(nullable = false)
     private String content;
 
     @Column(nullable = false)
-    private int point;
+    private Long point;
 
     @Column(nullable = false)
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private LocalDateTime modifiedAt;
 }
