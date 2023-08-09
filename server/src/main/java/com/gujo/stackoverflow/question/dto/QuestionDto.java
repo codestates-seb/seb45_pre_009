@@ -46,4 +46,11 @@ public class QuestionDto {
 
         private LocalDateTime modifiedAt;
     }
+
+    @Getter
+    public static class PatchDto {
+        private String title;
+
+        private String content;
+    }
 }

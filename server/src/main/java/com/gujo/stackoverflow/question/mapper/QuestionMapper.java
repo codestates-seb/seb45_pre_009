@@ -11,4 +11,6 @@ public interface QuestionMapper {
     QuestionDto.ResponseDto questionToQuestionResponseDto(Question question);
 
     QuestionDto.getQuestionsResponseDto questionToGetQuestionsResponseDto(Question question);
+
+    Question questionPatchDtoToQuestion(QuestionDto.PatchDto patchDto);
 }
