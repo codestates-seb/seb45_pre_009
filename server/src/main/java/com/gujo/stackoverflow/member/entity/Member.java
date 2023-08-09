@@ -1,4 +1,4 @@
-package com.gujo.stackoverflow.entity;
+package com.gujo.stackoverflow.member.entity;
 
 import lombok.Getter;
 import lombok.Setter;
