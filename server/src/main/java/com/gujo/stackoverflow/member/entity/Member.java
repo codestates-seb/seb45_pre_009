@@ -1,4 +1,4 @@
-package com.gujo.stackoverflow.entity;
+package com.gujo.stackoverflow.member.entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +13,7 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long memberId;
 
     @Column(nullable = false, length = 20)
     private String displayName;
