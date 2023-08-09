@@ -1,30 +1,33 @@
 package com.gujo.stackoverflow.entity;
 
-import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Builder
-public class User {
+@Getter
+@Setter
+public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long UserId;
+    private Long userId;
 
     @Column(nullable = false, length = 20)
-    private String DisplayName;
+    private String displayName;
 
     @Column(nullable = false, length = 50)
-    private String Email;
+    private String email;
 
     @Column(nullable = false, length = 20)
-    private String Password;
+    private String password;
 
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private LocalDateTime modifiedAt;
+
 }
