@@ -1,5 +1,6 @@
 package com.gujo.stackoverflow.question.entity;
 
+import com.gujo.stackoverflow.member.entity.Member;
 import lombok.Getter;
 import lombok.Setter;
 
