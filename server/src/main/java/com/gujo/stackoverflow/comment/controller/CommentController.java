@@ -56,4 +56,20 @@ public class CommentController {
         service.deleteComment(commentId);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @PatchMapping("/{comment-id}/up")
+    public ResponseEntity voteUp(@PathVariable("comment-id") Long commentId) {
+        Comment voted = service.getPoint(commentId);
+
+        CommentDto.ResponseDto responseDto = mapper.commentToResponseDto(voted);
+        return new ResponseEntity(responseDto, HttpStatus.OK);
+    }
+
+    @PatchMapping("/{comment-id}/down")
+    public ResponseEntity voteDown(@PathVariable("comment-id") Long commentId) {
+        Comment voted = service.losePoint(commentId);
+
+        CommentDto.ResponseDto responseDto = mapper.commentToResponseDto(voted);
+        return new ResponseEntity(responseDto, HttpStatus.OK);
+    }
 }

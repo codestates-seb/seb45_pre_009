@@ -42,4 +42,19 @@ public class CommentService {
     public void deleteComment(Long commentId) {
         repository.deleteById(commentId);
     }
+
+    @Transactional
+    public Comment getPoint(Long commentId) {
+        Comment comment = repository.findById(commentId).orElseThrow();
+        comment.setPoint(comment.getPoint() + 1);
+
+        return comment;
+    }
+    @Transactional
+    public Comment losePoint(Long commentId) {
+        Comment comment = repository.findById(commentId).orElseThrow();
+        comment.setPoint(comment.getPoint() - 1);
+
+        return comment;
+    }
 }
