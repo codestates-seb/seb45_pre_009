@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class QuestionService {
@@ -34,12 +35,15 @@ public class QuestionService {
         Question findQuestion = repository.findById(questionId).orElseThrow();
 
 //        patchDto에 title, content 각각 항목에 값이 null이 아닐경우 수정사항 반영
-        if(question.getTitle() != null) {
-            findQuestion.setTitle(question.getTitle());
-        }
-        if (question.getContent() != null) {
-            findQuestion.setContent(question.getContent());
-        }
+//        if(question.getTitle() != null) {
+//            findQuestion.setTitle(question.getTitle());
+//        }
+//        if (question.getContent() != null) {
+//            findQuestion.setContent(question.getContent());
+//        }
+        Optional.ofNullable(question.getTitle()).ifPresent(findQuestion::setTitle);
+        Optional.ofNullable(question.getContent()).ifPresent(findQuestion::setContent);
+
 //        수정시간 반영
         findQuestion.setModifiedAt(LocalDateTime.now());
 
