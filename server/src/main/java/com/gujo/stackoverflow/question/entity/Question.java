@@ -38,6 +38,9 @@ public class Question {
     @Column(nullable = true)
     private LocalDateTime modifiedAt;
 
+    @Column(nullable = false)
+    private Long view = 0L;
+
 //    1:N Answer와 양방향 매핑용
 //    mappedBy 값은 매핑하는 테이블에서 FK에 해당하는 필드
 //    @OneToMany(mappedBy = "question")

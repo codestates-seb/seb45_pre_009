@@ -26,8 +26,11 @@ public class QuestionService {
         return repository.findAll(pageable).getContent();
     }
 
+    @Transactional
     public Question getQuestion(Long questionId) {
-        return repository.findById(questionId).orElseThrow();
+        Question question = repository.findById(questionId).orElseThrow();
+        question.setView(question.getView() + 1);
+        return question;
     }
 
     @Transactional // repository.save 하지 않아도 DB 반영됨
