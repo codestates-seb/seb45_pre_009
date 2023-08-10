@@ -40,6 +40,6 @@ public class Question {
 
 //    1:N Answer와 양방향 매핑용
 //    mappedBy 값은 매핑하는 테이블에서 FK에 해당하는 필드
-    @OneToMany(mappedBy = "question")
-    private List<Answer> answers = new ArrayList<>();
+//    @OneToMany(mappedBy = "question")
+//    private List<Answer> answers = new ArrayList<>();
 }
