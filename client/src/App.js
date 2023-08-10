@@ -6,7 +6,9 @@ import Main from "./pages/main";
 
 function App() {
   return (
-    <Main></Main>
+    <div id='container' className='w-screen h-screen'>
+      <Main></Main>
+    </div>
   );
 }
 
