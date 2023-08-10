@@ -6,11 +6,11 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface QuestionMapper {
-    Question questionPostDtoToQuestion(QuestionDto.PostDto postDto);
+    Question postDtoToQuestion(QuestionDto.PostDto postDto);
 
-    QuestionDto.ResponseDto questionToQuestionResponseDto(Question question);
+    QuestionDto.ResponseDto questionToResponseDto(Question question);
 
-    QuestionDto.getQuestionsResponseDto questionToGetQuestionsResponseDto(Question question);
+    QuestionDto.getAllResponseDto questionToGetAllResponseDto(Question question);
 
-    Question questionPatchDtoToQuestion(QuestionDto.PatchDto patchDto);
+    Question patchDtoToQuestion(QuestionDto.PatchDto patchDto);
 }

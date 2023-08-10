@@ -35,7 +35,7 @@ public class QuestionDto {
 
     @Getter
     @Setter
-    public static class getQuestionsResponseDto {
+    public static class getAllResponseDto {
         private Long questionId;
 
         private Member member;

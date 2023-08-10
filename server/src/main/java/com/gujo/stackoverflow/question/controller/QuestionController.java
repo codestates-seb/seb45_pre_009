@@ -27,10 +27,10 @@ public class QuestionController {
 
     @PostMapping
     public ResponseEntity postQuestion(@RequestBody QuestionDto.PostDto postDto) {
-        Question question = mapper.questionPostDtoToQuestion(postDto);
+        Question question = mapper.postDtoToQuestion(postDto);
         Question created = service.createQuestion(question);
 
-        QuestionDto.ResponseDto responseDto = mapper.questionToQuestionResponseDto(created);
+        QuestionDto.ResponseDto responseDto = mapper.questionToResponseDto(created);
         return new ResponseEntity(responseDto, HttpStatus.CREATED);
     }
 
@@ -40,9 +40,9 @@ public class QuestionController {
 
 //        전체 질문 조회 시 게시물의 제목 이름 등 표시 -> 내용 미포함
 //        List<Question>으로 질문들을 받아오고 반복자를 활용해 전체질문 조회 요청용 응답 DTO로 변환
-        List<QuestionDto.getQuestionsResponseDto> result = new ArrayList<>();
+        List<QuestionDto.getAllResponseDto> result = new ArrayList<>();
         for (Question question : questions) {
-            result.add(mapper.questionToGetQuestionsResponseDto(question));
+            result.add(mapper.questionToGetAllResponseDto(question));
         }
 
         return new ResponseEntity(result, HttpStatus.OK);
@@ -52,17 +52,17 @@ public class QuestionController {
     public ResponseEntity getQuestion(@PathVariable("question-id") Long questionId) {
         Question question = service.getQuestion(questionId);
 
-        QuestionDto.ResponseDto responseDto = mapper.questionToQuestionResponseDto(question);
+        QuestionDto.ResponseDto responseDto = mapper.questionToResponseDto(question);
         return new ResponseEntity(responseDto, HttpStatus.OK);
     }
 
     @PatchMapping("/{question-id}")
     public ResponseEntity patchQuestion(@PathVariable("question-id") Long questionId,
                                         @RequestBody QuestionDto.PatchDto patchDto) {
-        Question question = mapper.questionPatchDtoToQuestion(patchDto);
+        Question question = mapper.patchDtoToQuestion(patchDto);
         Question updated = service.updateQuestion(questionId, question);
 
-        QuestionDto.ResponseDto responseDto = mapper.questionToQuestionResponseDto(updated);
+        QuestionDto.ResponseDto responseDto = mapper.questionToResponseDto(updated);
         return new ResponseEntity(responseDto, HttpStatus.OK);
     }
 
