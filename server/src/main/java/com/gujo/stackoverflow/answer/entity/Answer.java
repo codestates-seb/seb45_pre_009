@@ -18,7 +18,7 @@ public class Answer {
     private String content;
 
     @Column(nullable = false)
-    private Long point;
+    private Long point = 0L;
 
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
