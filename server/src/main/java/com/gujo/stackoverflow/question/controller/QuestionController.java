@@ -72,4 +72,19 @@ public class QuestionController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PatchMapping("/{question-id}/up")
+    public ResponseEntity voteUp(@PathVariable("question-id") Long questionId) {
+        Question voted = service.getPoint(questionId);
+
+        QuestionDto.ResponseDto responseDto = mapper.questionToResponseDto(voted);
+        return new ResponseEntity(responseDto, HttpStatus.OK);
+    }
+    @PatchMapping("/{question-id}/down")
+    public ResponseEntity voteDown(@PathVariable("question-id") Long questionId) {
+        Question voted = service.losePoint(questionId);
+
+        QuestionDto.ResponseDto responseDto = mapper.questionToResponseDto(voted);
+        return new ResponseEntity(responseDto, HttpStatus.OK);
+    }
 }

@@ -53,4 +53,18 @@ public class QuestionService {
     public void deleteQuestion(Long questionId) {
         repository.deleteById(questionId);
     }
+
+    @Transactional
+    public Question getPoint(Long questionId) {
+        Question question = repository.findById(questionId).orElseThrow();
+        question.setPoint(question.getPoint() + 1);
+        return question;
+    }
+
+    @Transactional
+    public Question losePoint(Long questionId) {
+        Question question = repository.findById(questionId).orElseThrow();
+        question.setPoint(question.getPoint() - 1);
+        return question;
+    }
 }
