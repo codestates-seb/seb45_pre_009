@@ -28,8 +28,7 @@ public class Member {
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(nullable = true)
-    private LocalDateTime modifiedAt;
+    private LocalDateTime modifiedAt = LocalDateTime.now();
 
-    123123123
 
 }
