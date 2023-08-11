@@ -1,5 +1,6 @@
 package com.gujo.stackoverflow.question.entity;
 
+import com.gujo.stackoverflow.member.entity.Member;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +17,7 @@ public class Question {
     private Long questionId;
 
     @ManyToOne // 유저 한명이 여러 질문 작성 가능 -> N:1
-    @JoinColumn(name = "USER_ID") // 현재 테이블에서 외래키에 해당하는 컬럼의 이름
+    @JoinColumn(name = "MEMBER_ID") // 현재 테이블에서 외래키에 해당하는 컬럼의 이름
     private Member member;
 
     @Column(nullable = false, length = 50)
