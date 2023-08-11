@@ -5,6 +5,7 @@ import com.gujo.stackoverflow.answer.repository.AnswerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.PublicKey;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -51,5 +52,19 @@ public class AnswerService {
         Answer answer = optionalAnswer.orElseThrow();       // 예외처리 아직 ....
 
         return answer;
+    }
+
+    @Transactional
+    public Answer getPoint(Long answerId) {
+        Answer findAnswer = findVerifiedAnswer(answerId);
+        findAnswer.setPoint(findAnswer.getPoint() + 1);
+        return findAnswer;
+    }
+
+    @Transactional
+    public Answer losePoint(Long answerId) {
+        Answer findAnswer = findVerifiedAnswer(answerId);
+        findAnswer.setPoint(findAnswer.getPoint() - 1);
+        return findAnswer;
     }
 }

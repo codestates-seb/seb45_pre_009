@@ -36,6 +36,20 @@ public class AnswerController {
         return new ResponseEntity(mapper.answerToAnswerResponseDto(answer), HttpStatus.OK);
     }
 
+    @PatchMapping("/{answerId}/up")
+    private ResponseEntity voteUp(@PathVariable("answerId") Long answerId) {
+        Answer answer = answerService.getPoint(answerId);
+
+        return new ResponseEntity(mapper.answerToAnswerResponseDto(answer), HttpStatus.OK);
+    }
+
+    @PatchMapping("/{answerId}/down")
+    private ResponseEntity voteDown(@PathVariable("answerId") Long answerId) {
+        Answer answer = answerService.losePoint(answerId);
+
+        return new ResponseEntity(mapper.answerToAnswerResponseDto(answer), HttpStatus.OK);
+    }
+
     @GetMapping("/{answerId}")
     public ResponseEntity getAnswer(@PathVariable("answerId") Long answerId) {
         Answer answer = answerService.findAnswer(answerId);

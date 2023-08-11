@@ -17,6 +17,7 @@ public class Answer {
     @Column(nullable = false)
     private String content;
 
+    // 추천수
     @Column(nullable = false)
     private Long point = 0L;
 
