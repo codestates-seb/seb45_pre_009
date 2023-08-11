@@ -56,7 +56,7 @@ public class MemberService {
     }
 
     public List<Member> findMembers() {
-        return (List<Member>) memberRepository.findAll();
+        return memberRepository.findAll();
     }
 
     public void deleteMember(Long memberId) {
@@ -75,11 +75,11 @@ public class MemberService {
     }
 
     // 중복 id 확인
-    private void checkMemberExistence(Long memberId) {
-        if (memberRepository.existsById(memberId)) {
-            throw new IllegalStateException("이미 존재하는 회원 입니다.");
-        }
-    }
+//    private void checkMemberExistence(Long memberId) {
+//        if (memberRepository.existsById(memberId)) {
+//            throw new IllegalStateException("이미 존재하는 회원 입니다.");
+//        }
+//    }
 
     private Member findMemberById(Long memberId) {
         return memberRepository.findById(memberId)
