@@ -38,7 +38,7 @@ public class AnswerService {
     }
 
     public List<Answer> findAnswers() {
-        return (List<Answer>) answerRepository.findAll();   // List가 Iterable 을 상속해서 다운캐스팅
+        return answerRepository.findAll();
     }
 
     public void deleteAnswer(Long answerId) {
