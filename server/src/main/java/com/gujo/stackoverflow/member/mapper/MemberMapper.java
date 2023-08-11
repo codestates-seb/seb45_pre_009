@@ -15,7 +15,6 @@ public interface MemberMapper {
 
     Member patchDtoToMember(MemberDto.patchDto patchDto);
 
-    @Mapping(target = "displayName", source = "displayName")
     MemberDto.responseDto memberToResponseDto(Member member);
 
     List<MemberDto.responseDto> membersToResponseDtos(List<Member> members);

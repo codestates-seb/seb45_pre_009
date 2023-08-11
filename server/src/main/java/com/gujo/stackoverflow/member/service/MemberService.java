@@ -2,7 +2,6 @@ package com.gujo.stackoverflow.member.service;
 
 import com.gujo.stackoverflow.member.entity.Member;
 import com.gujo.stackoverflow.member.repository.MemberRepository;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -67,6 +66,7 @@ public class MemberService {
         }
     }
 
+    // 중복 diplayName 확인
     private void checkDisplayName(String displayName) {
         Optional<Member> member = memberRepository.findByDisplayName(displayName);
         if (member.isPresent()) {
@@ -74,6 +74,7 @@ public class MemberService {
         }
     }
 
+    // 중복 id 확인
     private void checkMemberExistence(Long memberId) {
         if (memberRepository.existsById(memberId)) {
             throw new IllegalStateException("이미 존재하는 회원 입니다.");
@@ -86,42 +87,6 @@ public class MemberService {
     }
 }
 
-//    private Member findMember(Long memberId){
-//        return checkMember(memberId);
-//    }
-//
-//    public List<Member> findMembers{
-//       return (List<Member>) memberRepository.findAll();
-//    }
-//
-//    private void deleteMember(Long memberId) {
-//
-//        Member findMember = createMember(memberId);
-//
-//        memberRepository.delete(findMember);
-//
-//
-//    }
-
-
-
-// 같은 이름 확인 메서드
-//    private void checkDisplayName(String displayName) {
-//        Optional<Member> member = memberRepository.findDisplayName(displayName);
-//        if (member.isPresent()) {
-//            System.out.println("이미 존재하는 이름 입니다.");
-//        } else {
-//            System.out.println("사용 가능한 이름 입니다.");
-//        }
-//
-//    }
-//
-//    private void checkMember(Member member) {
-//        memberRepository.findById(member.getMemberId())
-//                .ifPresent(m -> {
-//                    throw new IllegalStateException("이미 존재하는 회원 입니다.");
-//                });
-//    }
 
 
 

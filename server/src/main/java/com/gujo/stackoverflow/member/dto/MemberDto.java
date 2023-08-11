@@ -8,20 +8,25 @@ public class MemberDto {
 
     @Setter
     @Getter
-    public class postDto {
+    public static class postDto {
 
         private String displayName;
+
         private String email;
+
         private String password;
     }
 
     @Setter
     @Getter
-    public class patchDto {
+    public static class patchDto {
 
         private Long memberId;
+
         private String displayName;
+
         private String email;
+
         private String password;
 
     }
@@ -31,8 +36,11 @@ public class MemberDto {
     public static class responseDto{
 
         private Long memberId;
+
         private String email;
+
         private String displayName;
+
         private String password;
 
     }
