@@ -3,9 +3,7 @@ import axios from 'axios'
 
 const apiUrl = `http://localhost:5002`;
 
-// import { getApi } from '../api/api.js';
-
-// getApi("user"); 복사해서 사용
+// import { getApi } from '../api/api.js'; 복사해서 사용
 
 export function getApi(url) {
 
