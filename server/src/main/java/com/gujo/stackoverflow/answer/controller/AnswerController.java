@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/answer")
+@CrossOrigin
 public class AnswerController {
     private final AnswerService answerService;
     private final AnswerMapper mapper;
