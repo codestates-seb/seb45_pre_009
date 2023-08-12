@@ -27,12 +27,14 @@ public class Answer {
     @Column(nullable = true)
     private LocalDateTime modifiedAt;
 
+
+
     @ManyToOne  // N : 1
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
 
-//    public void addQuestion(Question question) {
-//        this.question = question;
-//    }
+    public void addQuestion(Question question) {
+        this.question = question;
+    }
 
 }
