@@ -9,6 +9,6 @@ spring:
     hibernate:
       ddl-auto: create
     show-sql: true
-
-#server:
-#  port: 8888
+    properties:
+      hibernate:
+        format_sql: true
