@@ -57,7 +57,6 @@ public class AnswerController {
         return new ResponseEntity(mapper.answerToAnswerResponseDto(answer), HttpStatus.OK);
     }
 
-    // 이거 먼가 단단히 잘못한 거 같아요....
     @GetMapping
     public ResponseEntity getAnswers() {
         List<Answer> answers = answerService.findAnswers();
