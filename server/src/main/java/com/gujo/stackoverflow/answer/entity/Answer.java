@@ -27,7 +27,22 @@ public class Answer {
     @Column(nullable = true)
     private LocalDateTime modifiedAt;
 
+    @Enumerated(value = EnumType.STRING)
+    @Column(nullable = false)
+    private AnswerStatus answerStatus = AnswerStatus.ANSWER_POST;
 
+    public enum AnswerStatus {
+        ANSWER_POST(1, "게시 중"),
+        ANSWER_DELETED_POST(2, "삭제 처리");
+
+        private int stepNumber;
+        private String stepDescription;
+
+        AnswerStatus(int stepNumber, String stepDescription) {
+            this.stepNumber = stepNumber;
+            this.stepDescription = stepDescription;
+        }
+    }
 
     @ManyToOne  // N : 1
     @JoinColumn(name = "QUESTION_ID")
