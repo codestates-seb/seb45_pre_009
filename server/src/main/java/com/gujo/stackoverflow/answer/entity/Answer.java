@@ -1,5 +1,6 @@
 package com.gujo.stackoverflow.answer.entity;
 
+import com.gujo.stackoverflow.member.entity.Member;
 import com.gujo.stackoverflow.question.entity.Question;
 import lombok.Getter;
 import lombok.Setter;
@@ -45,11 +46,20 @@ public class Answer {
     }
 
     @ManyToOne  // N : 1
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
+
+    @ManyToOne  // N : 1
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
+
+
+    // 양방향 매핑 ( 객체 탐색)
+    public void addMember(Member member) {
+        this.member = member;
+    }
 
     public void addQuestion(Question question) {
         this.question = question;
     }
-
 }
