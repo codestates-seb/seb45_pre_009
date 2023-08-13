@@ -49,6 +49,10 @@ public class AnswerService {
 //        삭제 대신 상태 변경...... 이렇게 하면 될까요.....
 //        Optional.ofNullable(answer.getAnswerStatus())
 //                .ifPresent(answerStatus -> answer.setAnswerStatus(Answer.AnswerStatus.ANSWER_DELETED_POST));
+//        혹은 이렇게
+//        answer.setAnswerStatus(Answer.AnswerStatus.ANSWER_DELETED_POST);
+//
+//        answerRepository.save(answer);
     }
 
     public Answer findVerifiedAnswer(Long answerId) {
