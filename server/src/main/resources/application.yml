@@ -10,5 +10,10 @@ spring:
       ddl-auto: create
     show-sql: true
 
+  mail:
+    address:
+      admin: ${adminEmail}
+
+
 #server:
 #  port: 8888
