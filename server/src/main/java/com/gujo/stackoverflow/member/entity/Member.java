@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -25,6 +27,9 @@ public class Member {
 
     @Column(nullable = false, length = 20)
     private String password;
+
+    @ElementCollection(fetch = FetchType.EAGER)     // 사용자 등록 시, 사용자 권한 등록하는 권한 테이블 생성
+    private List<String> roles = new ArrayList<>();
 
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
