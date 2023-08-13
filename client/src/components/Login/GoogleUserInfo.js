@@ -42,7 +42,7 @@ const GoogleUserInfo = ({isLogin,setIsLogin}) => {
             .catch((Error) => {
                 console.log(Error);
             });
-    }, [setIsLogin]);
+    }, []);
 
     return <></>;
 };
