@@ -64,7 +64,7 @@ public class AnswerController {
         return new ResponseEntity(mapper.answersToAnswerResponseDtos(answers), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{answerId}")   // 만약 서비스에서 로직 바꾸면~ @PatchMapping 으로 바꿔적기~ ( 메서드 이름도 바꿔야 할까요?)
+    @DeleteMapping("/{answerId}")
     public ResponseEntity deleteAnswer(@PathVariable("answerId") Long answerId) {
         answerService.deleteAnswer(answerId);
 
