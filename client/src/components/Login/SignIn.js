@@ -1,11 +1,15 @@
 import axios from "axios";
 import { useState } from "react";
 
+// import { useNavigate } from "react-router-dom";
+
 const SignIn = () => {
     //입력받은 이메일, 비번, 유저이름 저장용
     const [userName , setUserName] = useState('');
     const [email , setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    // const navigate = useNavigate();
 
     //입력받은 정보를 서버에 post
     const handleSubmit = async (e) => {
@@ -19,6 +23,8 @@ const SignIn = () => {
             })
 
             console.log('user registered successfully',response.data)
+
+            // navigate("./main");
 
         } catch (error) {
             console.error('Error registering user',error)
@@ -66,7 +72,7 @@ const SignIn = () => {
                     onChange={(e)=>setPassword(e.target.value)}
                 />
             </div>
-            <div className="flex justify-center item-center bg-[#58ACFA] mt-2 md-4 text-[white] border rounded-md h-[45px]">
+            <div className="flex justify-center item-center bg-[#58ACFA] mt-10 md-4 text-[white] border rounded-md h-[45px]">
             <button type="submit">Sing Up</button>
             </div>
         </form>
