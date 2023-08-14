@@ -10,9 +10,9 @@ spring:
       ddl-auto: create
     show-sql: true
 
-  mail:
-    address:
-      admin: ${adminEmail}
+mail:
+  address:
+    admin: ${adminEmail}
 
 jwt:
   key: ${JWT_SECRET_KEY}  #환경 변수에서 로드
