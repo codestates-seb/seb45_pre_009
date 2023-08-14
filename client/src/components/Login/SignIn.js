@@ -66,7 +66,7 @@ const SignIn = () => {
                     onChange={(e)=>setPassword(e.target.value)}
                 />
             </div>
-            <div className="flex justify-center item-center">
+            <div className="flex justify-center item-center bg-[#58ACFA] mt-2 md-4 text-[white] border rounded-md h-[45px]">
             <button type="submit">Sing Up</button>
             </div>
         </form>
