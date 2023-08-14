@@ -8,14 +8,23 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/*
+@NotNull 같은 어노테이션으로 DTO에서 검증에 실패할 경우 FieldError 발생
+@검증 어노테이션 사용시 핸들러 메서드에 @Valid 사용해야 함
+@검증 어노테이션에서 검증 실패 시 @Valid 검증도 실패하지만 우선적으로 FieldError를 catch
+그래서 ConstraintViolationError는 @PathVariable 같은 DTO에서 어노테이션으로 처리 하지 못한 부분들 처리    */
+
 @Getter
 public class ErrorResponse {
-//    MethodArgumentNotValidException 에서 발생하는 에러 정보를 담는 변수
-//    -> DTO 유효성 검증 실패한 에러 정보
+
+/*    MethodArgumentNotValidException 에서 발생하는 에러 정보를 담는 변수
+    필드에 접근할 때 생기는 오류
+    -> DTO 유효성 검증 실패한 에러 정보 */
     private List<FieldError> fieldErrors;
 
-//    ConstraintViolationException 에서 발생하는 에러 정보를 담는 변수
-//    -> URI 변수 값의 유효성 검증에 실패한 에러 정보
+/*    ConstraintViolationException 에서 발생하는 에러 정보를 담는 변수
+      DB 제약 조건을 위반한 에러
+      -> URI 변수 값의 유효성 검증에 실패한 에러 정보    */
     private List<ConstraintViolationError> violationErrors;
 
 //    BusinessLogic Exception 응답을 위한 필드
@@ -59,7 +68,7 @@ public class ErrorResponse {
             this.reason = reason;
         }
 
-        public static List<FieldError> of(BindingResult bindingResult) {
+        public static List<FieldError> of(BindingResult bindingResult) { // BindingResult : 어노테이션 기반 검증 실패 에러 정보
             List<org.springframework.validation.FieldError> fieldErrors = bindingResult.getFieldErrors();
 
             return fieldErrors.stream()
@@ -85,7 +94,7 @@ public class ErrorResponse {
             this.rejectedValue = rejectedValue;
             this.reason = reason;
         }
-
+//        ConstraintViolation : @Valid 검증 실패 에러 정보
         public static List<ConstraintViolationError> of(Set<ConstraintViolation<?>> constraintViolations) {
 
             return constraintViolations.stream()
