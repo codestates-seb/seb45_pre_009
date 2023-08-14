@@ -72,7 +72,7 @@ public class JwtTokenizer {
         return claims;
     }
 
-    // 단순 검증
+    // 단순 검증 ( 필요한가...../?)
     public void verifySignature(String jws, String base64EncodedSecretKey) {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 
