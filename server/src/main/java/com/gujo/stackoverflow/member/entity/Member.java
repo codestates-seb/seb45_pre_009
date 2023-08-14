@@ -23,7 +23,7 @@ public class Member {
     @Column(nullable = false, length = 50)
     private String email;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = true, length = 20)
     private String password;
 
     @Column(nullable = false)
@@ -31,6 +31,9 @@ public class Member {
 
     @Column(nullable = true)
     private LocalDateTime modifiedAt = LocalDateTime.now();
+
+    @Column(nullable = false)
+    private boolean oauth;
 
 //    @ManyToOne
 //    @JoinColumn(name = "QUESTION_ID")
