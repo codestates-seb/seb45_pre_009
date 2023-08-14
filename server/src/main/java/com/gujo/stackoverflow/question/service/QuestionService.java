@@ -1,5 +1,7 @@
 package com.gujo.stackoverflow.question.service;
 
+import com.gujo.stackoverflow.exception.BusinessLogicException;
+import com.gujo.stackoverflow.exception.ExceptionCode;
 import com.gujo.stackoverflow.question.entity.Question;
 import com.gujo.stackoverflow.question.repository.QuestionRepository;
 import org.springframework.data.domain.Pageable;
@@ -7,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,13 +43,13 @@ public class QuestionService {
     }
 
     public Question getQuestion(Long questionId) {
-        Question question = repository.findById(questionId).orElseThrow();
+        Question question = findVerifiedQuestion(questionId);
         question.setViews(question.getViews() + 1);
         return question;
     }
 
     public Question updateQuestion(Long questionId, Question question) {
-        Question findQuestion = repository.findById(questionId).orElseThrow();
+        Question findQuestion = findVerifiedQuestion(questionId);
 
         Optional.ofNullable(question.getTitle()).ifPresent(findQuestion::setTitle);
         Optional.ofNullable(question.getContent()).ifPresent(findQuestion::setContent);
@@ -60,18 +61,28 @@ public class QuestionService {
     }
 
     public void deleteQuestion(Long questionId) {
+        findVerifiedQuestion(questionId);
+
         repository.deleteById(questionId);
     }
 
     public Question getPoint(Long questionId) {
-        Question question = repository.findById(questionId).orElseThrow();
+        Question question = findVerifiedQuestion(questionId);
         question.setPoint(question.getPoint() + 1);
         return question;
     }
 
     public Question losePoint(Long questionId) {
-        Question question = repository.findById(questionId).orElseThrow();
+        Question question = findVerifiedQuestion(questionId);
         question.setPoint(question.getPoint() - 1);
         return question;
+    }
+
+    public Question findVerifiedQuestion(Long questionId) {
+        Optional<Question> findQuestion = repository.findById(questionId);
+
+        if (findQuestion.isPresent())
+            return findQuestion.get();
+        else throw new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND);
     }
 }
