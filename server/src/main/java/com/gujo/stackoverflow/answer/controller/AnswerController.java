@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
@@ -31,7 +32,7 @@ public class AnswerController {
     }
 
     @PatchMapping("/{answerId}")
-    public ResponseEntity patchAnswer(@PathVariable("answerId") Long answerId,
+    public ResponseEntity patchAnswer(@PathVariable("answerId") @Positive Long answerId,
                                       @RequestBody AnswerDto.PatchDto patchDto) {
         Answer answer = answerService.updateAnswer(mapper.answerPatchDtoToAnswer(patchDto));
 
@@ -39,21 +40,21 @@ public class AnswerController {
     }
 
     @PatchMapping("/{answerId}/up")
-    private ResponseEntity voteUp(@PathVariable("answerId") Long answerId) {
+    private ResponseEntity voteUp(@PathVariable("answerId") @Positive Long answerId) {
         Answer answer = answerService.getPoint(answerId);
 
         return new ResponseEntity(mapper.answerToAnswerResponseDto(answer), HttpStatus.OK);
     }
 
     @PatchMapping("/{answerId}/down")
-    private ResponseEntity voteDown(@Valid @PathVariable("answerId") Long answerId) {
+    private ResponseEntity voteDown(@Valid @PathVariable("answerId") @Positive Long answerId) {
         Answer answer = answerService.losePoint(answerId);
 
         return new ResponseEntity(mapper.answerToAnswerResponseDto(answer), HttpStatus.OK);
     }
 
     @GetMapping("/{answerId}")
-    public ResponseEntity getAnswer(@PathVariable("answerId") Long answerId) {
+    public ResponseEntity getAnswer(@PathVariable("answerId") @Positive Long answerId) {
         Answer answer = answerService.findAnswer(answerId);
 
         return new ResponseEntity(mapper.answerToAnswerResponseDto(answer), HttpStatus.OK);
@@ -68,7 +69,7 @@ public class AnswerController {
     }
 
     @DeleteMapping("/{answerId}")
-    public ResponseEntity deleteAnswer(@PathVariable("answerId") Long answerId) {
+    public ResponseEntity deleteAnswer(@PathVariable("answerId") @Positive Long answerId) {
         answerService.deleteAnswer(answerId);
 
         return  new ResponseEntity(HttpStatus.NO_CONTENT);

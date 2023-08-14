@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class QuestionController {
     }
 
     @GetMapping("/{question-id}")
-    public ResponseEntity getQuestion(@PathVariable("question-id") Long questionId) {
+    public ResponseEntity getQuestion(@PathVariable("question-id") @Positive Long questionId) {
         Question question = service.getQuestion(questionId);
 
         QuestionDto.ResponseDto responseDto = mapper.questionToResponseDto(question);
@@ -59,7 +60,7 @@ public class QuestionController {
     }
 
     @PatchMapping("/{question-id}")
-    public ResponseEntity patchQuestion(@PathVariable("question-id") Long questionId,
+    public ResponseEntity patchQuestion(@PathVariable("question-id") @Positive Long questionId,
                                         @Valid @RequestBody QuestionDto.PatchDto patchDto) {
         Question question = mapper.patchDtoToQuestion(patchDto);
         Question updated = service.updateQuestion(questionId, question);
@@ -69,7 +70,7 @@ public class QuestionController {
     }
 
     @DeleteMapping("/{question-id}")
-    public ResponseEntity deleteQuestion(@PathVariable("question-id") Long questionId) {
+    public ResponseEntity deleteQuestion(@PathVariable("question-id") @Positive Long questionId) {
         service.deleteQuestion(questionId);
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -77,7 +78,7 @@ public class QuestionController {
 
 //    추천
     @PatchMapping("/{question-id}/up")
-    public ResponseEntity voteUp(@PathVariable("question-id") Long questionId) {
+    public ResponseEntity voteUp(@PathVariable("question-id") @Positive Long questionId) {
         Question voted = service.getPoint(questionId);
 
         QuestionDto.ResponseDto responseDto = mapper.questionToResponseDto(voted);
@@ -86,7 +87,7 @@ public class QuestionController {
 
 //    비추천
     @PatchMapping("/{question-id}/down")
-    public ResponseEntity voteDown(@PathVariable("question-id") Long questionId) {
+    public ResponseEntity voteDown(@PathVariable("question-id") @Positive Long questionId) {
         Question voted = service.losePoint(questionId);
 
         QuestionDto.ResponseDto responseDto = mapper.questionToResponseDto(voted);

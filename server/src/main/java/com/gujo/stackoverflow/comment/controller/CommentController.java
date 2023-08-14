@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
@@ -35,7 +36,7 @@ public class CommentController {
 
 //    구현 어떻게..???
     @GetMapping("/{answer-id}")
-    public ResponseEntity getComments(@PathVariable("answer-id") Long anwserId) {
+    public ResponseEntity getComments(@PathVariable("answer-id") @Positive Long anwserId) {
         List<Comment> comments = service.getComments(anwserId);
 
         List<CommentDto.ResponseDto> responseDtos = mapper.commentsToResponseDtos(comments);
@@ -43,7 +44,7 @@ public class CommentController {
     }
 
     @PatchMapping("/{comment-id}")
-    public ResponseEntity patchComment(@PathVariable("comment-id") Long commentId,
+    public ResponseEntity patchComment(@PathVariable("comment-id") @Positive Long commentId,
                                        @RequestBody CommentDto.PatchDto patchDto) {
         Comment comment = mapper.patchDtoToComment(patchDto);
         Comment patched = service.updateComment(comment, commentId);
@@ -53,13 +54,13 @@ public class CommentController {
     }
 
     @DeleteMapping("/{comment-id}")
-    public ResponseEntity deleteComment(@PathVariable("comment-id") Long commentId) {
+    public ResponseEntity deleteComment(@PathVariable("comment-id") @Positive Long commentId) {
         service.deleteComment(commentId);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @PatchMapping("/{comment-id}/up")
-    public ResponseEntity voteUp(@PathVariable("comment-id") Long commentId) {
+    public ResponseEntity voteUp(@PathVariable("comment-id") @Positive Long commentId) {
         Comment voted = service.getPoint(commentId);
 
         CommentDto.ResponseDto responseDto = mapper.commentToResponseDto(voted);
@@ -67,7 +68,7 @@ public class CommentController {
     }
 
     @PatchMapping("/{comment-id}/down")
-    public ResponseEntity voteDown(@PathVariable("comment-id") Long commentId) {
+    public ResponseEntity voteDown(@PathVariable("comment-id") @Positive Long commentId) {
         Comment voted = service.losePoint(commentId);
 
         CommentDto.ResponseDto responseDto = mapper.commentToResponseDto(voted);
