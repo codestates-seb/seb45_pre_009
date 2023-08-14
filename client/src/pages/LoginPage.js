@@ -27,7 +27,7 @@ const LoginPage = () => {
           <GoogleLogin />
         </div>
       </button>
-        <button className="w-[300px] h-15 bg-[#FCEC4F] rounded-xl  left-2.5  border-2 border-[#E6E6E6] flex items-center">
+        <button className="w-[200px] h-15 bg-[#FCEC4F] rounded-xl  left-2.5  border-2 border-[#E6E6E6] flex items-center">
             <img className="w-10 h-10 mx-5" src={kakaoIcon} alt=" 카카오 로그인" />
             <KakaoLogin />
         </button>
