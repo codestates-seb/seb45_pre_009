@@ -39,5 +39,6 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     private List<Answer> answers = new ArrayList<>();
-
+    @Column(nullable = false)
+    private boolean oauth;
 }

@@ -14,10 +14,12 @@ const SocialGoogle = () => {
 
     return (
         <>
+        <div>
             <button
                 onClick={GoogleLogin}
                 
-            >구글 로그인</button>
+            >Sign up with GOOGLE</button>
+        </div>
         </>
     )
 }

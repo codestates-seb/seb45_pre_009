@@ -32,7 +32,7 @@ public class QuestionDto {
 
         private LocalDateTime modifiedAt;
 
-        private Long view;
+        private Long views;
     }
 
     @Getter
@@ -48,7 +48,7 @@ public class QuestionDto {
 
         private LocalDateTime modifiedAt;
 
-        private Long view;
+        private Long views;
     }
 
     @Getter

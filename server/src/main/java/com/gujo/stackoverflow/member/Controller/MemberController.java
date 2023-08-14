@@ -25,6 +25,7 @@ import java.util.List;
 @RestController
 @Validated
 @Api(tags = "회원 API")
+@CrossOrigin
 public class MemberController {
 
     private final MemberService memberService;
@@ -41,12 +42,24 @@ public class MemberController {
     public ResponseEntity postMember(@Valid @RequestBody MemberDto.postDto postDto) {
 
         Member member = mapper.postDtoToMember(postDto);
+        member.setOauth(false);
         Member created = memberService.createMember(member);
 
-        MemberDto.responseDto responseDto = mapper.memberToResponseDto(created);
+        MemberDto.ResponseDto responseDto = mapper.memberToResponseDto(created);
 
         return new ResponseEntity(responseDto, HttpStatus.CREATED);
+    }
 
+    @PostMapping("/oauth")
+    public ResponseEntity postOauthMember(@RequestBody MemberDto.OauthPostDto postDto) {
+
+        Member member = mapper.oauthPostDtoToMember(postDto);
+        member.setOauth(true);
+        Member created = memberService.createMember(member);
+
+        MemberDto.ResponseDto responseDto = mapper.memberToResponseDto(created);
+
+        return new ResponseEntity(responseDto, HttpStatus.OK);
     }
 
     @PatchMapping("/{member-id}")
@@ -76,7 +89,7 @@ public class MemberController {
     public ResponseEntity<List<MemberDto.responseDto>> getMembers(Pageable pageable) {
 
         List<Member> members = memberService.findMembers();
-        List<MemberDto.responseDto> response = mapper.membersToResponseDtos(members);
+        List<MemberDto.ResponseDto> response = mapper.membersToResponseDtos(members);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
 
@@ -90,6 +103,4 @@ public class MemberController {
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-
 }
