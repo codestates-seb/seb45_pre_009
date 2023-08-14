@@ -1,9 +1,7 @@
 package com.gujo.stackoverflow.exception;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 
 import javax.validation.ConstraintViolation;
 import java.util.List;
@@ -20,6 +18,15 @@ public class ErrorResponse {
 //    -> URI 변수 값의 유효성 검증에 실패한 에러 정보
     private List<ConstraintViolationError> violationErrors;
 
+//    BusinessLogic Exception 응답을 위한 필드
+    private int status;
+    private String message;
+
+    private ErrorResponse(int status, String message) {
+        this.status = status;
+        this.message = message;
+    }
+
     private ErrorResponse(List<FieldError> fieldErrors, List<ConstraintViolationError> violationErrors) {
         this.fieldErrors = fieldErrors;
         this.violationErrors = violationErrors;
@@ -33,6 +40,10 @@ public class ErrorResponse {
 //    Set<ConstraintViolation<?>> 객체에 대한 ErrorResponse 객체 생성
     public static ErrorResponse of(Set<ConstraintViolation<?>> violations) {
         return new ErrorResponse(null, ConstraintViolationError.of(violations));
+    }
+
+    public static ErrorResponse of(ExceptionCode exceptionCode) {
+        return new ErrorResponse(exceptionCode.getStatus(), exceptionCode.getMessage());
     }
 
     @Getter
