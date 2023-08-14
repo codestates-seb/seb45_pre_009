@@ -1,4 +1,7 @@
 import './App.css';
+import "../src/css/input.css";
+import Main from "./pages/main";
+
 
 import { useState } from 'react';
 
@@ -17,7 +20,9 @@ function App() {
 
   return (
     <>
-    <SignUpPage/>
+      <div id='container' className='w-screen h-screen'>
+      <Main></Main>
+    </div>
     </>
   );
 }
