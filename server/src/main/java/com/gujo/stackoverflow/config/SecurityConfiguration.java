@@ -1,6 +1,8 @@
 package com.gujo.stackoverflow.config;
 
 import com.gujo.stackoverflow.auth.filter.JwtAuthenticationFilter;
+import com.gujo.stackoverflow.auth.handler.MemberAuthenticationFailureHandler;
+import com.gujo.stackoverflow.auth.handler.MemberAuthenticationSuccessHandler;
 import com.gujo.stackoverflow.auth.jwt.JwtTokenizer;
 import io.jsonwebtoken.Jwt;
 import org.springframework.context.annotation.Bean;
@@ -68,6 +70,9 @@ public class SecurityConfiguration {
 
             JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
             jwtAuthenticationFilter.setFilterProcessesUrl("/login");
+
+            jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
+            jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
 
             builder.addFilter(jwtAuthenticationFilter);     // filter chain 추가
         }
