@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,7 +25,7 @@ public class Member {
     @Column(nullable = false, length = 50)
     private String email;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = true, length = 20)
     private String password;
 
     @Column(nullable = false)
@@ -32,12 +34,10 @@ public class Member {
     @Column(nullable = true)
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
-//    @ManyToOne
-//    @JoinColumn(name = "QUESTION_ID")
-//    private Question question;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "ANSWER_ID")
-//    private Answer answer;
+    @OneToMany(mappedBy = "member")
+    private List<Question> questions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<Answer> answers = new ArrayList<>();
 
 }
