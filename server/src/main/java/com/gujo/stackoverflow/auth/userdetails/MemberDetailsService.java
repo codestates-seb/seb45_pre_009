@@ -13,6 +13,8 @@ import java.util.Collection;
 import java.util.Optional;
 
 // DB에서 사용자 크레덴셜 조회 -> AuthenticationManager에게 전달
+// LoginDto -> JwtAuthenticationFilter의 Authentication attemptAuthentication() 메서드
+//                                  -> MemberDetailService의 loadUserByUsername(String username)
 @Component
 public class MemberDetailsService implements UserDetailsService {
     private final MemberRepository memberRepository;    // DB에서 유저 조회
