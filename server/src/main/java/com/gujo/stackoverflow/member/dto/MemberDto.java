@@ -22,7 +22,7 @@ public class MemberDto {
 
         @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\\d~!@#$%^&*()+|=]{8,16}$",
                  message = "최소 8글자, 최대 16글자, 숫자, 특수문자가 최소 1개 포함되어야 합니다")
-        @NotNull(message = "외않되")
+        @NotNull(message = "비밀번호를 입력해 주세요")
         private String password;
     }
 
