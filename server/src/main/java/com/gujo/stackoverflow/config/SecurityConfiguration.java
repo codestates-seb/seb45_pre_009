@@ -1,9 +1,13 @@
 package com.gujo.stackoverflow.config;
 
+import com.gujo.stackoverflow.auth.filter.JwtAuthenticationFilter;
+import com.gujo.stackoverflow.auth.jwt.JwtTokenizer;
+import io.jsonwebtoken.Jwt;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -17,6 +21,11 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 public class SecurityConfiguration {
+    private final JwtTokenizer jwtTokenizer;
+
+    public SecurityConfiguration(JwtTokenizer jwtTokenizer) {
+        this.jwtTokenizer = jwtTokenizer;
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -27,6 +36,8 @@ public class SecurityConfiguration {
                 .cors(withDefaults())
                 .formLogin().disable()  // 우린 CSR 방식이라 비활성화
                 .httpBasic().disable()
+                .apply(new CustomFilterConfigurer())    // 추가~
+                .and()
                 .authorizeHttpRequests(authorize -> authorize   // 이건 JWT 적용 전이라... 이따가 지우기~
                         .anyRequest().permitAll());
 
@@ -48,4 +59,18 @@ public class SecurityConfiguration {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
+    public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
+        @Override
+        public void configure(HttpSecurity builder) throws Exception {
+            AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
+                                                                    // ^ Manager 객체 얻을 수 있음
+
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
+            jwtAuthenticationFilter.setFilterProcessesUrl("/login");
+
+            builder.addFilter(jwtAuthenticationFilter);     // filter chain 추가
+        }
+    }
+
 }
