@@ -25,7 +25,7 @@ public class Member {
     @Column(nullable = false, length = 50)
     private String email;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 100)  // 암호화 하면 길이가 길어져서 수정했어요!
     private String password;
 
     @ElementCollection(fetch = FetchType.EAGER)     // 사용자 등록 시, 사용자 권한 등록하는 권한 테이블 생성
