@@ -41,7 +41,7 @@ const KakaoUserInfo = ({ isLogin, setIsLogin }) => {
 
           .then((res) => {
             console.log("2번째", res);
-            setIsLogin(true);
+            // setIsLogin(true);
             console.log(res.data.properties.nickname);
             sessionStorage.setItem("username", res.data.properties.nickname);
             
@@ -50,7 +50,7 @@ const KakaoUserInfo = ({ isLogin, setIsLogin }) => {
       .catch((Error) => {
         console.log(Error);
       });
-  }, [setIsLogin]);
+  }, []);
 
   return <></>;
 };
