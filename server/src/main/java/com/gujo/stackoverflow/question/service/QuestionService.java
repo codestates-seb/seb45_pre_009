@@ -7,10 +7,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class QuestionService {
     private final QuestionRepository repository;
 
@@ -22,28 +24,32 @@ public class QuestionService {
         return repository.save(question);
     }
 
+    @Transactional(readOnly = true)
     public List<Question> getQuestions(Pageable pageable) {
+
+//        검색 시 내용 글자수 200자 제한..
+//        List<Question> questions = repository.findAll();
+//        List<Question> result = new ArrayList<>();
+//        for(Question question : questions) {
+//            if (question.getContent().length() >= 200) {
+//                question.setContent(question.getContent().substring(0, 200));
+//            }
+//            result.add(question);
+//        }
+//        return result;
+
         return repository.findAll(pageable).getContent();
     }
 
-    @Transactional
     public Question getQuestion(Long questionId) {
         Question question = repository.findById(questionId).orElseThrow();
-        question.setView(question.getView() + 1);
+        question.setViews(question.getViews() + 1);
         return question;
     }
 
-    @Transactional // repository.save 하지 않아도 DB 반영됨
     public Question updateQuestion(Long questionId, Question question) {
         Question findQuestion = repository.findById(questionId).orElseThrow();
 
-//        patchDto에 title, content 각각 항목에 값이 null이 아닐경우 수정사항 반영
-//        if(question.getTitle() != null) {
-//            findQuestion.setTitle(question.getTitle());
-//        }
-//        if (question.getContent() != null) {
-//            findQuestion.setContent(question.getContent());
-//        }
         Optional.ofNullable(question.getTitle()).ifPresent(findQuestion::setTitle);
         Optional.ofNullable(question.getContent()).ifPresent(findQuestion::setContent);
 
@@ -57,14 +63,12 @@ public class QuestionService {
         repository.deleteById(questionId);
     }
 
-    @Transactional
     public Question getPoint(Long questionId) {
         Question question = repository.findById(questionId).orElseThrow();
         question.setPoint(question.getPoint() + 1);
         return question;
     }
 
-    @Transactional
     public Question losePoint(Long questionId) {
         Question question = repository.findById(questionId).orElseThrow();
         question.setPoint(question.getPoint() - 1);
