@@ -47,6 +47,8 @@ public class QuestionDto {
 
         private String title;
 
+        private Long point;
+
         private LocalDateTime createdAt;
 
         private LocalDateTime modifiedAt;

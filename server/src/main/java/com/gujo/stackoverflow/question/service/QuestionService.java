@@ -4,6 +4,7 @@ import com.gujo.stackoverflow.exception.BusinessLogicException;
 import com.gujo.stackoverflow.exception.ExceptionCode;
 import com.gujo.stackoverflow.question.entity.Question;
 import com.gujo.stackoverflow.question.repository.QuestionRepository;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,19 +27,19 @@ public class QuestionService {
     }
 
     @Transactional(readOnly = true)
-    public List<Question> getQuestions(Pageable pageable) {
+    public Page<Question> getQuestionsWithPreview(Pageable pageable) {
 
-//        검색 시 내용 글자수 200자 제한..
-//        List<Question> questions = repository.findAll();
-//        List<Question> result = new ArrayList<>();
-//        for(Question question : questions) {
-//            if (question.getContent().length() >= 200) {
-//                question.setContent(question.getContent().substring(0, 200));
-//            }
-//            result.add(question);
-//        }
-//        return result;
+        Page<Question> questionPage = repository.findAll(pageable);
+        for (Question question : questionPage) {
+            if (question.getContent().length() >= 100) {
+                question.setContent(question.getContent().substring(0, 100));
+            }
+        }
+        return questionPage;
+    }
 
+    @Transactional(readOnly = true)
+    public List<Question> getQuestionsWithoutContent(Pageable pageable) {
         return repository.findAll(pageable).getContent();
     }
 

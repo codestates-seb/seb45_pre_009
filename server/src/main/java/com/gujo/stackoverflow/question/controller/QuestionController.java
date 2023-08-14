@@ -4,6 +4,7 @@ import com.gujo.stackoverflow.question.dto.QuestionDto;
 import com.gujo.stackoverflow.question.entity.Question;
 import com.gujo.stackoverflow.question.mapper.QuestionMapper;
 import com.gujo.stackoverflow.question.service.QuestionService;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -37,17 +37,21 @@ public class QuestionController {
         return new ResponseEntity(responseDto, HttpStatus.CREATED);
     }
 
+//    메인 화면 표시용 질문글 제목 이름 등 표시 -> 내용 미포함
+    @GetMapping("/main")
+    public ResponseEntity getQuestionsWithoutContent(Pageable pageable) {
+        List<Question> questions = service.getQuestionsWithoutContent(pageable);
+
+        List<QuestionDto.getAllResponseDto> result = mapper.questionToGetAllResponseDto(questions);
+        return new ResponseEntity(result, HttpStatus.OK);
+    }
+
+//    검색 시 내용 글자 100만 표시
     @GetMapping
-    public ResponseEntity getQuestions(Pageable pageable) {
-        List<Question> questions = service.getQuestions(pageable);
+    public ResponseEntity getQuestionsWithPreview(Pageable pageable) {
+        Page<Question> questions = service.getQuestionsWithPreview(pageable);
 
-//        전체 질문 조회 시 게시물의 제목 이름 등 표시 -> 내용 미포함
-//        List<Question>으로 질문들을 받아오고 반복자를 활용해 전체질문 조회 요청용 응답 DTO로 변환
-        List<QuestionDto.getAllResponseDto> result = new ArrayList<>();
-        for (Question question : questions) {
-            result.add(mapper.questionToGetAllResponseDto(question));
-        }
-
+        List<QuestionDto.ResponseDto> result = mapper.questionsToResponseDtos(questions);
         return new ResponseEntity(result, HttpStatus.OK);
     }
 
