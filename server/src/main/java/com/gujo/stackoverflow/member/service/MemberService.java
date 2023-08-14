@@ -18,8 +18,11 @@ public class MemberService {
 
     public Member createMember(Member member) {
 
-        //같은이름 확인 ( 맨 아래 메서드추가 )
+        //중복 displayName 확인 ( 맨 아래 메서드추가 )
         checkDisplayName(member.getDisplayName());
+
+        //중복 email 확인
+        checkEmail(member.getEmail());
 
 
         return memberRepository.save(member);
@@ -47,6 +50,9 @@ public class MemberService {
             return memberRepository.save(existingMember);
 
         }
+
+        // 예외처리전 임시 메세지출력.
+        System.out.println("회원이 존재하지 않습니다.");
         return null;
     }
 
@@ -66,7 +72,7 @@ public class MemberService {
         }
     }
 
-    // 중복 diplayName 확인
+    // 중복 displayName 확인
     private void checkDisplayName(String displayName) {
         Optional<Member> member = memberRepository.findByDisplayName(displayName);
         if (member.isPresent()) {
@@ -74,12 +80,13 @@ public class MemberService {
         }
     }
 
-    // 중복 id 확인
-//    private void checkMemberExistence(Long memberId) {
-//        if (memberRepository.existsById(memberId)) {
-//            throw new IllegalStateException("이미 존재하는 회원 입니다.");
-//        }
-//    }
+//     중복 email 확인
+    private void checkEmail(String email) {
+        Optional<Member> member = memberRepository.findByEmail(email);
+        if (member.isPresent()) {
+            throw new IllegalStateException("이미 존재하는 Email 입니다.");
+        }
+    }
 
     private Member findMemberById(Long memberId) {
         return memberRepository.findById(memberId)
