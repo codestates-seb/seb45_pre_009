@@ -22,12 +22,12 @@ export default function Main() {
     }, [data, dispatch]);
 
     return (
-        <div id='container' className='flex justify-between '>
+        <div id='container' className='flex justify-between z-0'>
             <div id='content' className='p-6 h-full max-w-6xl w-full '>
                 <div id='mainbar' className='float-left w-full max-w-xl relative '>
                     <div className='flex'>
                         <h1 className='flex-1 text-3xl mb-4 '>Top Questions</h1>
-                        <div className='ml-3 '><a className=' p-3 rounded-lg border text-xs leading-normal bg-blue-500 text-white whitespace-nowrap text-center relative' href="/main">Ask Question</a></div>
+                        <div className='ml-3'><a className=' p-3 rounded-lg border text-xs leading-normal bg-blue-500 text-white whitespace-nowrap text-center relative' href="/main">Ask Question</a></div>
                     </div>
                     <div>
                         <div className=''>
