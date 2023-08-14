@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,7 +24,7 @@ public class AnswerController {
     }
 
     @PostMapping
-    public ResponseEntity postAnswer(@RequestBody AnswerDto.PostDto postDto) {
+    public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.PostDto postDto) {
         Answer answer = answerService.createAnswer(mapper.answerPostDtoToAnswer(postDto));
 
         return new ResponseEntity<>(mapper.answerToAnswerResponseDto(answer), HttpStatus.CREATED);
@@ -45,7 +46,7 @@ public class AnswerController {
     }
 
     @PatchMapping("/{answerId}/down")
-    private ResponseEntity voteDown(@PathVariable("answerId") Long answerId) {
+    private ResponseEntity voteDown(@Valid @PathVariable("answerId") Long answerId) {
         Answer answer = answerService.losePoint(answerId);
 
         return new ResponseEntity(mapper.answerToAnswerResponseDto(answer), HttpStatus.OK);

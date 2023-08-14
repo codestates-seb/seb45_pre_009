@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class QuestionController {
     }
 
     @PostMapping
-    public ResponseEntity postQuestion(@RequestBody QuestionDto.PostDto postDto) {
+    public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.PostDto postDto) {
         Question question = mapper.postDtoToQuestion(postDto);
         Question created = service.createQuestion(question);
 
@@ -59,7 +60,7 @@ public class QuestionController {
 
     @PatchMapping("/{question-id}")
     public ResponseEntity patchQuestion(@PathVariable("question-id") Long questionId,
-                                        @RequestBody QuestionDto.PatchDto patchDto) {
+                                        @Valid @RequestBody QuestionDto.PatchDto patchDto) {
         Question question = mapper.patchDtoToQuestion(patchDto);
         Question updated = service.updateQuestion(questionId, question);
 

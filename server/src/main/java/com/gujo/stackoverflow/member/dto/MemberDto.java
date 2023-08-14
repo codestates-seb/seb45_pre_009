@@ -3,6 +3,7 @@ package com.gujo.stackoverflow.member.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.NotNull;
 
@@ -12,13 +13,16 @@ public class MemberDto {
     @Getter
     public static class PostDto {
 
+        @NotNull(message = "이름을 입력해 주세요")
         private String displayName;
 
+        @Email
+        @NotNull(message = "email을 입력해 주세요")
         private String email;
 
         @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\\d~!@#$%^&*()+|=]{8,16}$",
-                 message = "최소 8글자, 최대 16글자, 글자 1개, 숫자 1개, 특수문자 1개")
-        @NotNull
+                 message = "최소 8글자, 최대 16글자, 숫자, 특수문자가 최소 1개 포함되어야 합니다")
+        @NotNull(message = "외않되")
         private String password;
     }
 
@@ -39,8 +43,8 @@ public class MemberDto {
 
         private String displayName;
 
-        private String email;
-
+        @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\\d~!@#$%^&*()+|=]{8,16}$",
+                message = "최소 8글자, 최대 16글자, 숫자, 특수문자가 최소 1개 포함되어야 합니다")
         private String password;
 
     }
