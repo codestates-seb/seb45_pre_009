@@ -1,15 +1,18 @@
 package com.gujo.stackoverflow.config;
 
 import com.gujo.stackoverflow.auth.filter.JwtAuthenticationFilter;
+import com.gujo.stackoverflow.auth.filter.JwtVerificationFilter;
 import com.gujo.stackoverflow.auth.handler.MemberAuthenticationFailureHandler;
 import com.gujo.stackoverflow.auth.handler.MemberAuthenticationSuccessHandler;
 import com.gujo.stackoverflow.auth.jwt.JwtTokenizer;
-import io.jsonwebtoken.Jwt;
+import com.gujo.stackoverflow.auth.utils.CustomAuthorityUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -24,9 +27,11 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
+    private final CustomAuthorityUtils authorityUtils;
 
-    public SecurityConfiguration(JwtTokenizer jwtTokenizer) {
+    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils) {
         this.jwtTokenizer = jwtTokenizer;
+        this.authorityUtils = authorityUtils;
     }
 
     @Bean
@@ -36,12 +41,25 @@ public class SecurityConfiguration {
                 .and()
                 .csrf().disable()   // 안 하면 403 에러 뜸 -> 접속 불가능
                 .cors(withDefaults())
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 세션 생성하지 않도록 설정
+                .and()
                 .formLogin().disable()  // 우린 CSR 방식이라 비활성화
                 .httpBasic().disable()
                 .apply(new CustomFilterConfigurer())    // 추가~
                 .and()
-                .authorizeHttpRequests(authorize -> authorize   // 이건 JWT 적용 전이라... 이따가 지우기~
-                        .anyRequest().permitAll());
+                .authorizeHttpRequests(authorize -> authorize
+                        // 수정 해야 할 수도~~~
+                        // 질문 등록의 경우, 회원만 작성 가능
+                        .antMatchers(HttpMethod.POST, "/questions").hasRole("USER")
+                        // 질문 수정의 경우, 회원만 수정 가능
+                        .antMatchers(HttpMethod.PATCH, "/questions/**").hasRole("USER")
+                        // 답변 수정의 경우, 회원만 수정 가능             아래 url 대충 넣어뒀어요..! 고쳐야 댐!
+                        .antMatchers(HttpMethod.PATCH,"/questions/**/answers/**").hasRole("USER")
+                        // 회원 정보 조회의 경우, 회원만 조회 가능  ( + 회원 정보 목록 관리자만 볼 수 있는 거 해야 할까요? 저희 관리자 페이지도 하나요)
+                        .antMatchers(HttpMethod.GET, "/users/**").hasRole("USER")
+                        // 나머지는 비회원도 가능
+                        .anyRequest().permitAll()
+                );
 
         return http.build();
     }
@@ -74,7 +92,11 @@ public class SecurityConfiguration {
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
 
-            builder.addFilter(jwtAuthenticationFilter);     // filter chain 추가
+            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
+
+            builder
+                    .addFilter(jwtAuthenticationFilter)     // filter chain 추가
+                    .addFilterAfter(jwtVerificationFilter, JwtVerificationFilter.class);
         }
     }
 
