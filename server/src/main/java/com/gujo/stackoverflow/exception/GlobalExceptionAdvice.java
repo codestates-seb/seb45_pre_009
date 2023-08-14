@@ -19,12 +19,14 @@ public class GlobalExceptionAdvice {
     }
 
     @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
 
         return ErrorResponse.of(e.getBindingResult());
     }
 
     @ExceptionHandler
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse handleConstraintViolationException(ConstraintViolationException e) {
 
         return ErrorResponse.of(e.getConstraintViolations());
