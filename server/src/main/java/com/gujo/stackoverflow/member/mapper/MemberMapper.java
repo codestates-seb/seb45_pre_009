@@ -3,7 +3,6 @@ package com.gujo.stackoverflow.member.mapper;
 import com.gujo.stackoverflow.member.dto.MemberDto;
 import com.gujo.stackoverflow.member.entity.Member;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 
 import java.util.List;
@@ -11,13 +10,15 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface MemberMapper {
 
-    Member postDtoToMember(MemberDto.postDto postDto);
+    Member postDtoToMember(MemberDto.PostDto postDto);
 
-    Member patchDtoToMember(MemberDto.patchDto patchDto);
+    Member oauthPostDtoToMember(MemberDto.OauthPostDto postDto);
 
-    MemberDto.responseDto memberToResponseDto(Member member);
+    Member patchDtoToMember(MemberDto.PatchDto patchDto);
 
-    List<MemberDto.responseDto> membersToResponseDtos(List<Member> members);
+    MemberDto.ResponseDto memberToResponseDto(Member member);
+
+    List<MemberDto.ResponseDto> membersToResponseDtos(List<Member> members);
 
 }
 

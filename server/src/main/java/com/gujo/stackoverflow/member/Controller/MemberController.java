@@ -17,6 +17,7 @@ import java.util.List;
 @RequestMapping("/members")
 @RestController
 @Validated
+@CrossOrigin
 public class MemberController {
 
     private final MemberService memberService;
@@ -29,19 +30,31 @@ public class MemberController {
     }
 
     @PostMapping()
-    public ResponseEntity postMember(@RequestBody MemberDto.postDto postDto) {
+    public ResponseEntity postMember(@RequestBody MemberDto.PostDto postDto) {
 
         Member member = mapper.postDtoToMember(postDto);
+        member.setOauth(false);
         Member created = memberService.createMember(member);
 
-        MemberDto.responseDto responseDto = mapper.memberToResponseDto(created);
+        MemberDto.ResponseDto responseDto = mapper.memberToResponseDto(created);
 
         return new ResponseEntity(responseDto, HttpStatus.CREATED);
+    }
 
+    @PostMapping("/oauth")
+    public ResponseEntity postOauthMember(@RequestBody MemberDto.OauthPostDto postDto) {
+
+        Member member = mapper.oauthPostDtoToMember(postDto);
+        member.setOauth(true);
+        Member created = memberService.createMember(member);
+
+        MemberDto.ResponseDto responseDto = mapper.memberToResponseDto(created);
+
+        return new ResponseEntity(responseDto, HttpStatus.OK);
     }
 
     @PatchMapping("/{member-id}")
-    public ResponseEntity patchMember(@PathVariable("member-id") @Positive Long memberId, @Valid @RequestBody MemberDto.patchDto patchDto) {
+    public ResponseEntity patchMember(@PathVariable("member-id") @Positive Long memberId, @Valid @RequestBody MemberDto.PatchDto patchDto) {
 
         patchDto.setMemberId(memberId);
 
@@ -62,7 +75,7 @@ public class MemberController {
     public ResponseEntity getMembers() {
 
         List<Member> members = memberService.findMembers();
-        List<MemberDto.responseDto> response = mapper.membersToResponseDtos(members);
+        List<MemberDto.ResponseDto> response = mapper.membersToResponseDtos(members);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
