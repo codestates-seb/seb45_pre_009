@@ -18,7 +18,7 @@ const SocialGoogle = () => {
             <button
                 onClick={GoogleLogin}
                 
-            >Sign in with GOOGLE</button>
+            >Sign up with GOOGLE</button>
         </div>
         </>
     )
