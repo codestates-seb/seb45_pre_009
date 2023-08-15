@@ -1,4 +1,16 @@
+
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+
 import './App.css';
+
+import Header from "./components/Header/Header";
+import Footer from './components/Footer/Footer';
+
+import "../src/css/input.css";
+import Main from "./pages/main";
+
+
 
 import { useState } from 'react';
 
@@ -16,9 +28,17 @@ function App() {
   const [isLogin,setIsLogin] = useState(false);
 
   return (
-    <>
-    <SignUpPage/>
-    </>
+
+    <div className="App">
+      <Header />
+      <div id='container' className='w-screen h-screen'>
+      <Main></Main>
+      </div>
+      <SignUpPage/>
+      <Footer />
+    </div>
+
+
   );
 }
 
