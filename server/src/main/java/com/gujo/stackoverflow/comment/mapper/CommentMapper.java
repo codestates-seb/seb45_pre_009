@@ -10,7 +10,19 @@ import java.util.List;
 public interface CommentMapper {
     Comment postDtoToComment(CommentDto.PostDto postDto);
 
-    CommentDto.ResponseDto commentToResponseDto(Comment created);
+    default CommentDto.ResponseDto commentToResponseDto(Comment comment) {
+        CommentDto.ResponseDto responseDto = new CommentDto.ResponseDto();
+
+        responseDto.setCommentId(comment.getCommentId());
+        responseDto.setAnswerId(comment.getAnswer().getAnswerId());
+        responseDto.setContent(comment.getContent());
+        responseDto.setPoint(comment.getPoint());
+        responseDto.setCreatedAt(comment.getCreatedAt());
+        responseDto.setModifiedAt(comment.getModifiedAt());
+
+        return responseDto;
+    }
+
 
     List<CommentDto.ResponseDto> commentsToResponseDtos(List<Comment> comments);
 
