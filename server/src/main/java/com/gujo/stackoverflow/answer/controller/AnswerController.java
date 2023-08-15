@@ -4,6 +4,7 @@ import com.gujo.stackoverflow.answer.dto.AnswerDto;
 import com.gujo.stackoverflow.answer.entity.Answer;
 import com.gujo.stackoverflow.answer.mapper.AnswerMapper;
 import com.gujo.stackoverflow.answer.service.AnswerService;
+import com.gujo.stackoverflow.question.service.QuestionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,22 +14,28 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
-@RequestMapping("/answer")
+@RequestMapping("/questions/{question-id}/answers")
 @CrossOrigin
 public class AnswerController {
     private final AnswerService answerService;
+    private final QuestionService questionService;
     private final AnswerMapper mapper;
 
-    public AnswerController(AnswerService answerService, AnswerMapper mapper) {
+    public AnswerController(AnswerService answerService, QuestionService questionService, AnswerMapper mapper) {
         this.answerService = answerService;
+        this.questionService = questionService;
         this.mapper = mapper;
     }
 
     @PostMapping
-    public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.PostDto postDto) {
-        Answer answer = answerService.createAnswer(mapper.answerPostDtoToAnswer(postDto));
+    public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.PostDto postDto,
+                                     @PathVariable("question-id") Long questionId) {
 
-        return new ResponseEntity<>(mapper.answerToAnswerResponseDto(answer), HttpStatus.CREATED);
+        Answer answer = mapper.answerPostDtoToAnswer(postDto);
+        answer.setQuestion(questionService.findVerifiedQuestion(questionId));
+        Answer response = answerService.createAnswer(answer);
+
+        return new ResponseEntity<>(mapper.answerToAnswerResponseDto(response), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{answerId}")
@@ -60,7 +67,6 @@ public class AnswerController {
         return new ResponseEntity(mapper.answerToAnswerResponseDto(answer), HttpStatus.OK);
     }
 
-    // 이거 먼가 단단히 잘못한 거 같아요....
     @GetMapping
     public ResponseEntity getAnswers() {
         List<Answer> answers = answerService.findAnswers();
