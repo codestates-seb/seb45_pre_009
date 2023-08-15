@@ -1,6 +1,7 @@
 package com.gujo.stackoverflow.member.entity;
 
 import com.gujo.stackoverflow.answer.entity.Answer;
+import com.gujo.stackoverflow.comment.entity.Comment;
 import com.gujo.stackoverflow.question.entity.Question;
 import lombok.Getter;
 import lombok.Setter;
@@ -39,6 +40,10 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     private List<Answer> answers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<Comment> comments = new ArrayList<>();
+
     @Column(nullable = false)
     private boolean oauth;
 }
