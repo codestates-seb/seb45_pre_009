@@ -4,6 +4,7 @@ import com.gujo.stackoverflow.member.entity.Member;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
@@ -11,10 +12,10 @@ public class QuestionDto {
 
     @Getter
     public static class PostDto {
-        @NotNull(message = "제목을 입력해 주세요")
+        @NotBlank(message = "제목을 입력해 주세요")
         private String title;
 
-        @NotNull(message = "내용을 입력해 주세요")
+        @NotBlank(message = "내용을 입력해 주세요")
         private String content;
     }
 
