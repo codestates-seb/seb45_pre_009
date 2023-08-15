@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-// JWT 검증
+// request header 에 포함된 JWT 검증작업
 public class JwtVerificationFilter extends OncePerRequestFilter {
                                             // ^ request 당 한 번만 실행되는 필터
     private final JwtTokenizer jwtTokenizer;
@@ -63,7 +63,7 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         // JWT 에서 파싱한 Claims 에서 username 얻기
         String username = (String) claims.get("username");
 
-        // Claims 에서 얻은 권한 정보를 기반으로 authorities todtjd
+        // Claims 에서 얻은 권한 정보를 기반으로 authorities 생성
         List<GrantedAuthority> authorities = authorityUtils.createAuthorities((List)claims.get("roles"));
 
         // 위 정보( username, List<GrantedAuthority) 포함한 Authentication 객체 생성

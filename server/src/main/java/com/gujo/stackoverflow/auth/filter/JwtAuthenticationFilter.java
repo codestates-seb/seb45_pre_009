@@ -45,17 +45,22 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         return authenticationManager.authenticate(authenticationToken);
     }
 
+    // 여기까지( 위 메서드) 오면 나머지는 내부에서 알아서 함~
+
+
     // 인증 성공시 호출
     @Override
     protected void successfulAuthentication(HttpServletRequest request,
                                             HttpServletResponse response,
                                             FilterChain chain,
                                             Authentication authResult) throws ServletException, IOException {    // < 얜 인증 됐음
+                                                // ^ 아까 미인증 상태였던 UsernamePasswordAuthenticationToken 의 업캐스팅
         Member member = (Member) authResult.getPrincipal();     // 인증된 정보를 통해서 객체를 얻을 수 있음
 
         String accessToken = delegateAccessToken(member);
         String refreshToken = delegateRefreshToken(member);
 
+                                                        // 우리는 JWT 토큰 사용한다고
         response.setHeader("Authorization", "Bearer " + accessToken);
         response.setHeader("Refresh", refreshToken);
 
