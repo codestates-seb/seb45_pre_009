@@ -12,6 +12,7 @@
     bottom : 0; 
     width: 100%;
     justify-content: flex-start;
+    color: white;
 }
 
 .footer_logo {
@@ -29,5 +30,6 @@
 
 .footer_col {
     align-items: center;
+    color: white;
     
 }

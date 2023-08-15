@@ -10,6 +10,7 @@
     border-top-color: rgb(255, 153, 0);
     border-top-style: solid;
     border-bottom-style: solid;
+    border-top-width: 3px;
     border-bottom-color: rgb(211, 211, 212);
     border-bottom-width: 1px;
     position: sticky;

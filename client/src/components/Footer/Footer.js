@@ -6,7 +6,7 @@ function Footer() {
         <div className="footer_container">
             <img className="footer_logo" src="Stack_Overflow_icon.png" />
             <ul className="footer_nav">
-                <li className="footer_col">STACK OVERFLOW</li>
+                <li className="footer_col" >STACK OVERFLOW</li>
                    <span>Question</span>
                    <span>Help</span>
                 <li className="footer_col2">PRODUCTS</li>
