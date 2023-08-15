@@ -2,6 +2,8 @@ package com.gujo.stackoverflow.auth.filter;
 
 import com.gujo.stackoverflow.auth.jwt.JwtTokenizer;
 import com.gujo.stackoverflow.auth.utils.CustomAuthorityUtils;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.security.SignatureException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -29,8 +31,19 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        Map<String, Object> claims = verifyJws(request); // JWT 검증
-        setAuthenticationToContext(claims); // Authentication 객체를 SecurityContext 에 저장
+
+        try {
+
+            Map<String, Object> claims = verifyJws(request); // JWT 검증
+            setAuthenticationToContext(claims); // Authentication 객체를 SecurityContext 에 저장
+
+        } catch (SignatureException se) {
+            request.setAttribute("exception", se);
+        } catch (ExpiredJwtException ee) {
+            request.setAttribute("exception", ee);
+        } catch (Exception e) {
+            request.setAttribute("exception", e);
+        }       // 클라이언트의 인증 정보( Authentication 객체)가 SecurityContext에 저장되지 않음
 
         filterChain.doFilter(request, response);    // 다음 Security Filter 호출
     }
