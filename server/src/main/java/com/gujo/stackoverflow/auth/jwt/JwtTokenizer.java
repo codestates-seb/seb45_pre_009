@@ -31,6 +31,7 @@ public class JwtTokenizer {
     @Value("${jwt.refresh-token-expiration-minutes}")
     private int refreshTokenExpirationMinutes;
 
+    // SecretKey 를 Base64 형식 문자열로 인코딩 ( Plain text를 시크릿 키로 사용하는 걸 권장하지 않는대요)
     public String encodeBase64SecretKey(String secretKey) {
         return Encoders.BASE64.encode(secretKey.getBytes(StandardCharsets.UTF_8));
     }

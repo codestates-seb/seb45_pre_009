@@ -18,5 +18,8 @@ public class MemberAuthenticationSuccessHandler implements AuthenticationSuccess
                                         Authentication authentication) throws IOException {
         // 인증 성공 후, 로그 기록
         log.info("🌟🌟🌟 Authenticated Successfully 🌟🌟🌟");
+
+
+        // 로그인 인증 성공하면 홈화면으로 가는 등 머가 더 있어야 할 거 같아요 ...
     }
 }
