@@ -30,18 +30,16 @@ public class Answer {
 
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
-    private AnswerStatus answerStatus = AnswerStatus.ANSWER_POST;
+    private AnswerStatus answerStatus = AnswerStatus.ANSWER_EXIST;
 
     public enum AnswerStatus {
-        ANSWER_POST(1, "게시 중"),
-        ANSWER_DELETED_POST(2, "삭제 처리");
+        ANSWER_EXIST("존재하는 답변"),
+        ANSWER_NOT_EXIST("존재하지 않는 답변");
 
-        private int stepNumber;
-        private String stepDescription;
+        private String status;
 
-        AnswerStatus(int stepNumber, String stepDescription) {
-            this.stepNumber = stepNumber;
-            this.stepDescription = stepDescription;
+        AnswerStatus(String status) {
+            this.status = status;
         }
     }
 
