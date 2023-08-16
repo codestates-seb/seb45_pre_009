@@ -51,11 +51,6 @@ public class Answer {
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
 
-    // N:1 추가 member
-    @ManyToOne
-    @JoinColumn(name = "MEMBER_ID")
-    private Member member;
-
     // 양방향 매핑 ( 객체 탐색)
     public void addMember(Member member) {
         this.member = member;
