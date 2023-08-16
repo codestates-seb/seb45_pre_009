@@ -34,17 +34,17 @@ export default function Main() {
                     {/* <div id='mainbar' className='float-left w-full max-w-xl relative w-[calc(100%-300px-24px)]'> 맥스 사이즈 설정한 메인 바 */}
                         <div className='flex'>
                             <h1 className='flex-1 text-3xl mb-4 '>Top Questions</h1>
-                            <div className='ml-3'><a className=' p-3 rounded-lg border text-xs leading-normal bg-[hsl(206,100%,52%);] text-white whitespace-nowrap text-center relative ' href="/main">Ask Question</a></div>
+                            <div className='ml-3'><a className=' p-3 rounded-lg border text-xs leading-normal bg-[hsl(206,100%,52%);] text-white whitespace-nowrap text-center relative ' href="/">Ask Question</a></div>
                         </div>
                         <div>
                             <div className=''>
                                 <div className='w-full flex'>
                                     <div className='flex flex-1 flex-reverse-row justify-end mb-4 text-[13px] '>
-                                        <a href='/main' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400 rounded-l-md'>Interesting</a>
-                                        <a href='/main' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Bountied</a>
-                                        <a href='/main' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Hot</a>
-                                        <a href='/main' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Week</a>
-                                        <a href='/main' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400 rounded-r-md'>Month</a>
+                                        <a href='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400 rounded-l-md'>Interesting</a>
+                                        <a href='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Bountied</a>
+                                        <a href='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Hot</a>
+                                        <a href='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Week</a>
+                                        <a href='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400 rounded-r-md'>Month</a>
                                     </div>
                                 </div>
                             </div>
@@ -73,8 +73,57 @@ export default function Main() {
                             </div>
                         </div>
                     </div>
-                    <div id='right-sidebar' className='float-right block w-72 ml-6 '>
-                            <div>오른쪽에 두는 것들</div>
+                    <div id='right-sidebar' className='relative float-right block vx:w-full vv:w-72 vv:ml-6 vx:float-none vx:clear-both vx:m-[0,auto] '>
+                            <div className='mb-4 relative  border rounded border-[hsl(210,8%,85%);] vx:w-full '>
+                                <ul className='block p-0 m-0 '>
+                                    <li className='text-[#525960] px-[15px] py-[12px] text-[12px] '>
+                                        The Overflow Blog
+                                    </li>
+                                    <li className=''>
+                                        
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className='mb-4 relative bg-white border rounded border-[hsl(210,8%,85%);] vx:w-full '>
+                                <h2 className='py-[12px] px-[15px] bg-[hsl(210,8%,97.5%);] text-[hsl(210,8%,35%)] text-[15px]   '>
+                                    Custom Filters
+                                </h2>
+                                <ul className='py-[4px] px-[15px] border-t border-[hsl(210,8%,85%);]  '>
+                                    <li className='text-[hsl(210,8%,65%)] my-3 text-[13px]  '>
+                                        Create a custom filter
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className='mb-4 relative bg-white border rounded border-[hsl(210,8%,85%);] vx:w-full '>
+                                <h2 className='py-[12px] px-[15px] bg-[hsl(210,8%,97.5%);] text-[hsl(210,8%,35%)] text-[15px]   '>
+                                    Watched Tags
+                                </h2>
+                                <div className='py-[16px] px-[15px] border-t border-[hsl(210,8%,85%);]  '>
+                                    <div className='mx-auto items-center flex flex-col text-center m-[calc(16px/2*-1);] '>
+                                        <div className='my-[calc(16px/2);] block'>
+                                            돋보기 그림
+                                        </div>
+                                        <p className='my-[calc(16px/2);] block text-[hsl(210,8%,35%)] text-[13px]'>
+                                            Watch tags to curate your list of questions.
+                                        </p>
+                                        <a href='/' className='my-[calc(16px/2);] block text-[12px] text-[hsl(205,47%,42%)] bg-[hsl(205,46%,92%)] border border-transparent rounded-md p-2 '>
+                                            Watch a tag
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='mb-4 relative bg-white border rounded border-[hsl(210,8%,85%);] vx:w-full '>
+                                <h2 className='py-[12px] px-[15px] bg-[hsl(210,8%,97.5%);] text-[hsl(210,8%,35%)] text-[15px]   '>
+                                    Ignored Tags
+                                </h2>
+                                <div className='py-[16px] px-[15px] border-t border-[hsl(210,8%,85%);]'>
+                                    <div className='mx-auto items-center flex flex-col text-center m-[calc(16px/2*-1);] '>
+                                            <button className='my-[calc(16px/2);] block text-[12px] text-[hsl(205,47%,42%)] bg-[hsl(205,46%,92%)] border border-transparent rounded-md p-2 '>
+                                                Add an Ignored Tags
+                                            </button>
+                                    </div>
+                                </div>
+                            </div>
                     </div>
                 </div>
             </div>
