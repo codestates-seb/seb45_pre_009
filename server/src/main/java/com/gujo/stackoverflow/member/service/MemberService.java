@@ -51,6 +51,8 @@ public class MemberService {
     public Member updateMember (Member member) {
         Member findMember = findVerifiedMember(member.getMemberId());
 
+        checkLoginMemberWrote(findMember.getMemberId());
+
         if (member.getDisplayName() != null) {
             findMember.setDisplayName(member.getDisplayName());
         }
@@ -75,6 +77,8 @@ public class MemberService {
 
     public void deleteMember(Long memberId) {
         Member findMember = findVerifiedMember(memberId);
+        checkLoginMemberWrote(findMember.getMemberId());
+
         memberRepository.deleteById(findMember.getMemberId());
     }
 
@@ -113,6 +117,15 @@ public class MemberService {
             }
         }
         throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_AUTHENTICATED);
+    }
+
+//    현재 로그인한 회원 ID와 입력된 ID값 비교 후 같으면 로그인 회원 리턴
+    public Member checkLoginMemberWrote(Long memberId) {
+        Member loginMember = findLoginMember();
+        if (!memberId.equals(loginMember.getMemberId())) {
+            throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_AUTHENTICATED);
+        }
+        return loginMember;
     }
 }
 
