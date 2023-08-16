@@ -1,5 +1,7 @@
 package com.gujo.stackoverflow.question.controller;
 
+import com.gujo.stackoverflow.member.entity.Member;
+import com.gujo.stackoverflow.member.service.MemberService;
 import com.gujo.stackoverflow.question.dto.QuestionDto;
 import com.gujo.stackoverflow.question.entity.Question;
 import com.gujo.stackoverflow.question.mapper.QuestionMapper;
@@ -19,11 +21,12 @@ import java.util.List;
 @CrossOrigin
 public class QuestionController {
 
+    private final MemberService memberService;
     private final QuestionService service;
-
     private final QuestionMapper mapper;
 
-    public QuestionController(QuestionService questionService, QuestionMapper mapper) {
+    public QuestionController(MemberService memberService, QuestionService questionService, QuestionMapper mapper) {
+        this.memberService = memberService;
         this.service = questionService;
         this.mapper = mapper;
     }
@@ -31,6 +34,10 @@ public class QuestionController {
     @PostMapping
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.PostDto postDto) {
         Question question = mapper.postDtoToQuestion(postDto);
+
+        Member loginMember = memberService.findLoginMember();
+        question.setMember(loginMember);
+
         Question created = service.createQuestion(question);
 
         QuestionDto.ResponseDto responseDto = mapper.questionToResponseDto(created);
