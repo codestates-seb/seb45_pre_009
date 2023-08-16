@@ -1,5 +1,5 @@
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 
 import './App.css';
@@ -10,8 +10,6 @@ import Footer from './components/Footer/Footer';
 import "../src/css/input.css";
 import Main from "./pages/main";
 
-
-
 import { useState } from 'react';
 
 import SignUpPage from "./pages/SignUpPage";
@@ -19,31 +17,20 @@ import SignUpPage from "./pages/SignUpPage";
 
 function App() {
 
-  
-
-  
-
-  
 
   const [isLogin,setIsLogin] = useState(false);
 
   return (
-
-    <div className="App">
-      <Header />
-      <SignUpPage/>
-      <Footer />
-      {/* <Header />
-      <div id='container' className='w-screen h-screen'>
-      <Main></Main>
+    <Router>
+      <div className="App">
+        <Routes>
+            <Route path="/" element={<Main></Main>}>
+            </Route>
+            <Route path="/signup" element={<SignUpPage/>}>
+            </Route>
+        </Routes>
       </div>
-      <Routes>
-      <Route path="/signup" element={<SignUpPage/>}></Route>
-      </Routes>
-      <Footer /> */}
-    </div>
-
-
+    </Router>
   );
 }
 

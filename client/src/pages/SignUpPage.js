@@ -9,6 +9,7 @@ import badgesicon from "../images/badgesicon.png";
 import questionicon from "../images/questionicon.png";
 import tagicon from "../images/tagicon.png";
 import votingicon from "../images/votingicon.png";
+import Header from "../components/Header/Header"
 
 import {useState} from "react";
 
@@ -18,6 +19,7 @@ const SignUpPage = () => {
 
     return (
         <>
+        <Header/>
         <div className="flex justify-center items-center min-h-screen bg-[#F2F2F2]">
         <div className="flex flex-col mr-4">
             <h1 className="fs-headline1 mb-10 lh-xs text-2xl text-bold">Join the Stack Overflow community</h1>
