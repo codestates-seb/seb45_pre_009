@@ -6,8 +6,18 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        highlight_sql: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${MYSQL_URL}
     username: ${MYSQL_ID}
     password: ${MYSQL_PASSWORD}
+
+mail:
+  address:
+    admin: ${adminEmail}
+
+jwt:
+  key: ${JWT_SECRET_KEY}  #환경 변수에서 로드
+  access-token-expiration-minutes: 300
+  refresh-token-expiration-minutes: 4200
