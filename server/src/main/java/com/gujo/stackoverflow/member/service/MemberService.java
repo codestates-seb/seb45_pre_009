@@ -1,9 +1,13 @@
 package com.gujo.stackoverflow.member.service;
 
+
+import com.gujo.stackoverflow.auth.utils.CustomAuthorityUtils;
 import com.gujo.stackoverflow.exception.ExceptionCode;
 import com.gujo.stackoverflow.exception.BusinessLogicException;
+
 import com.gujo.stackoverflow.member.entity.Member;
 import com.gujo.stackoverflow.member.repository.MemberRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,18 +20,28 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    public MemberService(MemberRepository memberRepository) {
+    private final PasswordEncoder passwordEncoder;
+    private final CustomAuthorityUtils authorityUtils;
+
+    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, CustomAuthorityUtils authorityUtils) {
         this.memberRepository = memberRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.authorityUtils = authorityUtils;
     }
 
     public Member createMember(Member member) {
 
         //중복 displayName 확인 ( 맨 아래 메서드추가 )
         checkDisplayName(member.getDisplayName());
-
         //중복 email 확인
         checkEmail(member.getEmail());
 
+        // password 암호화
+        String encryptedPassword = passwordEncoder.encode(member.getPassword());
+        member.setPassword(encryptedPassword);
+
+        List<String> roles = authorityUtils.createRoles(member.getEmail());
+        member.setRoles(roles);
 
         return memberRepository.save(member);
     }
