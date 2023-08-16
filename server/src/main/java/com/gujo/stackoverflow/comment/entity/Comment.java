@@ -1,6 +1,7 @@
 package com.gujo.stackoverflow.comment.entity;
 
 import com.gujo.stackoverflow.answer.entity.Answer;
+import com.gujo.stackoverflow.member.entity.Member;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +15,10 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
+
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
 
 //    Answer와 N:1 연관관계 매핑
     @ManyToOne

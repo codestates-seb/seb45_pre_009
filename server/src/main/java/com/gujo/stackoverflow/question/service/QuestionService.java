@@ -1,13 +1,15 @@
 package com.gujo.stackoverflow.question.service;
 
+import com.gujo.stackoverflow.exception.BusinessLogicException;
+import com.gujo.stackoverflow.exception.ExceptionCode;
 import com.gujo.stackoverflow.question.entity.Question;
 import com.gujo.stackoverflow.question.repository.QuestionRepository;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,30 +27,30 @@ public class QuestionService {
     }
 
     @Transactional(readOnly = true)
-    public List<Question> getQuestions(Pageable pageable) {
+    public Page<Question> getQuestionsWithPreview(Pageable pageable) {
 
-//        검색 시 내용 글자수 200자 제한..
-//        List<Question> questions = repository.findAll();
-//        List<Question> result = new ArrayList<>();
-//        for(Question question : questions) {
-//            if (question.getContent().length() >= 200) {
-//                question.setContent(question.getContent().substring(0, 200));
-//            }
-//            result.add(question);
-//        }
-//        return result;
+        Page<Question> questionPage = repository.findAll(pageable);
+        for (Question question : questionPage) {
+            if (question.getContent().length() >= 100) {
+                question.setContent(question.getContent().substring(0, 100));
+            }
+        }
+        return questionPage;
+    }
 
+    @Transactional(readOnly = true)
+    public List<Question> getQuestionsWithoutContent(Pageable pageable) {
         return repository.findAll(pageable).getContent();
     }
 
     public Question getQuestion(Long questionId) {
-        Question question = repository.findById(questionId).orElseThrow();
+        Question question = findVerifiedQuestion(questionId);
         question.setViews(question.getViews() + 1);
         return question;
     }
 
     public Question updateQuestion(Long questionId, Question question) {
-        Question findQuestion = repository.findById(questionId).orElseThrow();
+        Question findQuestion = findVerifiedQuestion(questionId);
 
         Optional.ofNullable(question.getTitle()).ifPresent(findQuestion::setTitle);
         Optional.ofNullable(question.getContent()).ifPresent(findQuestion::setContent);
@@ -60,18 +62,28 @@ public class QuestionService {
     }
 
     public void deleteQuestion(Long questionId) {
+        findVerifiedQuestion(questionId);
+
         repository.deleteById(questionId);
     }
 
     public Question getPoint(Long questionId) {
-        Question question = repository.findById(questionId).orElseThrow();
+        Question question = findVerifiedQuestion(questionId);
         question.setPoint(question.getPoint() + 1);
         return question;
     }
 
     public Question losePoint(Long questionId) {
-        Question question = repository.findById(questionId).orElseThrow();
+        Question question = findVerifiedQuestion(questionId);
         question.setPoint(question.getPoint() - 1);
         return question;
+    }
+
+    public Question findVerifiedQuestion(Long questionId) {
+        Optional<Question> findQuestion = repository.findById(questionId);
+
+        if (findQuestion.isPresent())
+            return findQuestion.get();
+        else throw new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND);
     }
 }
