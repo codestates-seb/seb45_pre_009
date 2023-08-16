@@ -5,6 +5,10 @@ spring:
       path: /h2
   datasource:
     url: jdbc:h2:mem:test
+#  sql:
+#    init:
+#      data-locations: classpath*:db/data.sql # 초기 데이터 파일 경로
+#      mode: always
   jpa:
     hibernate:
       ddl-auto: create
@@ -12,6 +16,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        highlight_sql: true
+    defer-datasource-initialization: true # 모든 테이블 생성 후 초기 데이터 생성
+
 mail:
   address:
     admin: ${adminEmail}
