@@ -5,64 +5,57 @@
 .footer_container {
     height: 322px;
     background-color: hsl(210,8%,15%);
-    padding: 32px 12px;
+    padding: 40px;
     display: flex;
-    flex-grow: 1;
-    position : absolute;
     bottom : 0; 
     width: 100%;
+    z-index: 9999;
+    position: relative;
 
 }
 
 .footer_logo {
-    width: 38px;   
-    heighㅋt: 39px;
-    flex-basis: 2%;
- 
+    width: 85px;   
+    height: 35px;
 }
 
 .footer_logobox {
-    width: 64px;   
+    width: 100px;   
     height: 258px;
-    flex-basis: 5%;
-  
 }
 
-.footer_nav {
-    height: 278px;
-    display: flex;
-    padding: 10px;
-    align-items: flex-start;
-    justify-content: space-between;
-    color: rgb(217, 214, 214);
-    font-size: 13px;
-    flex-basis: auto;
-    flex-grow: 2;
-    
-}
 
 .footer_box1 {
     display: flex;
     flex-direction: column;
     flex-basis: 40%;
+    padding-left: 35px;
+    width: 174px;
+    height: 278px;
 }
 
 .footer_box2 {
     display: flex;
     flex-direction: column;
     flex-basis: 35%;
+    width: 127px;
+    height: 278px;
 }
 
 .footer_box3 {
     display: flex;
     flex-direction: column;
     flex-basis: 40%;
+    width: 155px;
+    height: 278px;
 }
 
 .footer_box4 {
     display: flex;
     flex-direction: column;
     flex-basis: 60%;
+    width: 245px;
+    height: 278px;
 }
 
 .footer_title {
@@ -77,15 +70,23 @@
 }
 
 .footer_box5 {
-    color: rgb(163, 163, 163);
+    color: rgb(184, 181, 181);
     font-size: 11px;
     flex-basis: 60%;
-    
-    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 250px;
 
 }
-.footer_social {
 
+.footer_bar {
+    display: flex;
+    flex-direction: column;
+    top : 40; 
+}
+
+.footer_social {
     list-style: none;
  }
 
@@ -93,21 +94,16 @@
     display: inline-block;
     margin-right: 13px;
 }
-.footer_copyright {
-    display: flex;
-    
-    position : absolute;
-    bottom : 0; 
-    padding-bottom: 50px;
-}
 
 .footer_link {
     text-decoration: underline;
-    
 }
 
-.footer_ver {
-    position : absolute;
-    bottom : 0; 
-    padding-bottom: 35px;
+
+.footer_title {
+    font-size: 13px;
+}
+
+.footer_primary {
+    font-size: 13px;
 }

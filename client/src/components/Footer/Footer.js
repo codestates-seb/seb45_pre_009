@@ -7,21 +7,21 @@ function Footer() {
             <div className="footer_logobox">
             <img className="footer_logo" src="Stack_Overflow_icon.png" />
             </div>
-            <ul className="footer_nav">
+
                 <div className="footer_box1">
-                <li className="footer_title">STACK OVERFLOW</li>
+                <span className="footer_title">STACK OVERFLOW</span>
                    <span className="footer_primary">Question</span>
                    <span className="footer_primary">Help</span>
                 </div>
                 <div className="footer_box2">
-                <li className="footer_title">PRODUCTS</li>
+                <span className="footer_title">PRODUCTS</span>
                    <span className="footer_primary">Teams</span>
                    <span className="footer_primary">Advertising</span>
                    <span className="footer_primary">Collectives</span>
                    <sapn className="footer_primary">Talent</sapn>
                 </div>
                 <div className="footer_box3">
-                <li className="footer_title">COMPANY</li>
+                <sapn className="footer_title">COMPANY</sapn> 
                    <span className="footer_primary">About</span>
                    <span className="footer_primary">Press</span>
                    <sapn className="footer_primary">Work Here</sapn>
@@ -33,7 +33,7 @@ function Footer() {
                    <span className="footer_primary">Cookie Policy</span>
                 </div>
                 <div className="footer_box4">
-                <li className="footer_title">STACK EXCHANGE NETWORK</li>
+                <sapn className="footer_title">STACK EXCHANGE NETWORK</sapn>
                    <sapn className="footer_primary">Techonology</sapn>
                    <span className="footer_primary">Culture & recreation</span>
                    <span className="footer_primary">Life & arts</span>
@@ -52,10 +52,12 @@ function Footer() {
                         <li className="footer_track">Linkedln</li>
                         <li className="footer_track">Instagram</li>
                     </ul>
+                    <div className="footer_bar">
                     <p className="footer_copyright">Site design / logo © 2023 Stack Exchange Inc; user contributions licensed under <span className="footer_link"> CC BY-SA. </span> </p> 
                     <span className="footer_ver">rev 2023.8.10.43574</span>
+                    </div>
                 </div>
-            </ul>
+            
         </div>
     );
 }
