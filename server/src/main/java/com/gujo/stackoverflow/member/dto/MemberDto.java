@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 public class MemberDto {
 
@@ -62,6 +63,8 @@ public class MemberDto {
         private String password;
 
         private boolean oauth;
+
+        private List<String> roles;
 
     }
 
