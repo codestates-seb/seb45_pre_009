@@ -39,7 +39,7 @@ public class MemberController {
 
     @PostMapping()
     @ApiOperation(value = "회원 가입", notes = "회원 가입 기능입니다.")
-    public ResponseEntity postMember(@Valid @RequestBody MemberDto.postDto postDto) {
+    public ResponseEntity postMember(@Valid @RequestBody MemberDto.PostDto postDto) {
 
         Member member = mapper.postDtoToMember(postDto);
         member.setOauth(false);
@@ -64,7 +64,7 @@ public class MemberController {
 
     @PatchMapping("/{member-id}")
     @ApiOperation(value = "회원 정보 수정", notes = "회원 회원 정보를 수정할 수 있습니다.")
-    public ResponseEntity patchMember(@PathVariable("member-id") @Positive Long memberId, @Valid @RequestBody MemberDto.patchDto patchDto) {
+    public ResponseEntity patchMember(@PathVariable("member-id") @Positive Long memberId, @Valid @RequestBody MemberDto.PatchDto patchDto) {
 
         patchDto.setMemberId(memberId);
 
@@ -86,7 +86,7 @@ public class MemberController {
     // pagenation 구현
     @GetMapping()
     @ApiOperation(value = "회원 목록 조회", notes = "여러 회원 목록을 조회할 수 있습니다.")
-    public ResponseEntity<List<MemberDto.responseDto>> getMembers(Pageable pageable) {
+    public ResponseEntity<List<MemberDto.ResponseDto>> getMembers(Pageable pageable) {
 
         List<Member> members = memberService.findMembers();
         List<MemberDto.ResponseDto> response = mapper.membersToResponseDtos(members);

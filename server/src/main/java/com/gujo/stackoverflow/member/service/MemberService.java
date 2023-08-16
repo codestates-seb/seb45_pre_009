@@ -80,7 +80,7 @@ public class MemberService {
         }
     }
 
-//     중복 email 확인
+    // 중복 email 확인
     private void checkEmail(String email) {
         Optional<Member> member = memberRepository.findByEmail(email);
         if (member.isPresent()) {
