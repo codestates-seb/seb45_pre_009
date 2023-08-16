@@ -1,7 +1,9 @@
 package com.gujo.stackoverflow.answer.dto;
 
+import com.gujo.stackoverflow.answer.entity.Answer;
 import lombok.Getter;
 import lombok.Setter;
+
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -21,6 +23,7 @@ public class AnswerDto {
 
         @NotNull(message = "내용을 입력해 주세요")
         private String content;
+        private Answer.AnswerStatus answerStatus;
     }
 
     @Getter @Setter
@@ -31,6 +34,8 @@ public class AnswerDto {
         private Long point;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
+        private Answer.AnswerStatus answerStatus;
+
     }
 
 }

@@ -7,7 +7,6 @@ import com.gujo.stackoverflow.exception.ExceptionCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.PublicKey;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -50,7 +49,9 @@ public class AnswerService {
 
     public void deleteAnswer(Long answerId) {
         Answer answer = findVerifiedAnswer(answerId);
-        answerRepository.delete(answer);
+        answer.setAnswerStatus(Answer.AnswerStatus.ANSWER_NOT_EXIST);
+
+        answerRepository.save(answer);
     }
 
     public Answer findVerifiedAnswer(Long answerId) {
