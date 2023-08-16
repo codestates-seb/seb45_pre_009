@@ -1,15 +1,21 @@
 package com.gujo.stackoverflow.member.service;
 
+
 import com.gujo.stackoverflow.auth.utils.CustomAuthorityUtils;
+import com.gujo.stackoverflow.exception.ExceptionCode;
+import com.gujo.stackoverflow.exception.BusinessLogicException;
+
 import com.gujo.stackoverflow.member.entity.Member;
 import com.gujo.stackoverflow.member.repository.MemberRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class MemberService {
 
     private final MemberRepository memberRepository;
@@ -25,8 +31,10 @@ public class MemberService {
 
     public Member createMember(Member member) {
 
-        //같은이름 확인 ( 맨 아래 메서드추가 )
+        //중복 displayName 확인 ( 맨 아래 메서드추가 )
         checkDisplayName(member.getDisplayName());
+        //중복 email 확인
+        checkEmail(member.getEmail());
 
         // password 암호화
         String encryptedPassword = passwordEncoder.encode(member.getPassword());
@@ -39,33 +47,24 @@ public class MemberService {
     }
 
     public Member updateMember (Member member) {
-        Optional<Member> findMember = memberRepository.findById(member.getMemberId());
+        Member findMember = findVerifiedMember(member.getMemberId());
 
-        if (findMember.isPresent()) {
-
-            Member existingMember = findMember.get();
-
-            if (member.getDisplayName() != null) {
-                existingMember.setDisplayName(member.getDisplayName());
-            }
-
-            if (member.getEmail() != null) {
-                existingMember.setEmail(member.getEmail());
-            }
-
-            if (member.getPassword() != null) {
-                existingMember.setPassword(member.getPassword());
-            }
-
-            return memberRepository.save(existingMember);
-
+        if (member.getDisplayName() != null) {
+            findMember.setDisplayName(member.getDisplayName());
         }
-        return null;
+        if (member.getEmail() != null) {
+            findMember.setEmail(member.getEmail());
+        }
+        if (member.getPassword() != null) {
+            findMember.setPassword(member.getPassword());
+        }
+
+        return memberRepository.save(findMember);
     }
 
+    @Transactional(readOnly = true)
     public Member findMember(Long memberId) {
-        return memberRepository.findById(memberId)
-                .orElse(null);
+        return findVerifiedMember(memberId);
     }
 
     public List<Member> findMembers() {
@@ -73,30 +72,33 @@ public class MemberService {
     }
 
     public void deleteMember(Long memberId) {
-        Member findMember = findMemberById(memberId);
-        if (findMember != null) {
-            memberRepository.delete(findMember);
-        }
+        Member findMember = findVerifiedMember(memberId);
+        memberRepository.deleteById(findMember.getMemberId());
     }
 
-    // 중복 diplayName 확인
+    // 중복 displayName 확인
     private void checkDisplayName(String displayName) {
         Optional<Member> member = memberRepository.findByDisplayName(displayName);
         if (member.isPresent()) {
-            throw new IllegalStateException("이미 존재하는 이름 입니다.");
+            throw new BusinessLogicException(ExceptionCode.MEMBER_NAME_EXISTS);
         }
     }
 
-    // 중복 id 확인
-//    private void checkMemberExistence(Long memberId) {
-//        if (memberRepository.existsById(memberId)) {
-//            throw new IllegalStateException("이미 존재하는 회원 입니다.");
-//        }
-//    }
+//     중복 email 확인
+    private void checkEmail(String email) {
+        Optional<Member> member = memberRepository.findByEmail(email);
+        if (member.isPresent()) {
+            throw new BusinessLogicException(ExceptionCode.MEMBER_EMAIL_EXISTS);
+        }
+    }
 
-    private Member findMemberById(Long memberId) {
-        return memberRepository.findById(memberId)
-                .orElse(null);
+    private Member findVerifiedMember(Long memberId) {
+        Optional<Member> findMember = memberRepository.findById(memberId);
+
+        if (findMember.isPresent())
+            return findMember.get();
+
+        else throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
     }
 }
 

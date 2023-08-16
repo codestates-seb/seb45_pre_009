@@ -1,0 +1,33 @@
+* {
+    box-sizing: border-box;
+}
+
+.footer_container {
+    height: 322px;
+    background-color: rgb(32, 32, 32);
+    padding: 25px;
+    display: flex;
+    align-items: flex-start;
+    position : absolute;
+    bottom : 0; 
+    width: 100%;
+    justify-content: flex-start;
+}
+
+.footer_logo {
+    width: 38px;   
+}
+
+.footer_nav {
+    height: 278px;
+    width: 862px;
+    display: flex;
+    list-style: none;
+    padding: 10px;
+    display:inline-block;
+}
+
+.footer_col {
+    align-items: center;
+    
+}
