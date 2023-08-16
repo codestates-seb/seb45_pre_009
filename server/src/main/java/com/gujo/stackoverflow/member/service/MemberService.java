@@ -7,6 +7,8 @@ import com.gujo.stackoverflow.exception.BusinessLogicException;
 
 import com.gujo.stackoverflow.member.entity.Member;
 import com.gujo.stackoverflow.member.repository.MemberRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -99,6 +101,18 @@ public class MemberService {
             return findMember.get();
 
         else throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
+    }
+
+    public Member findLoginMember() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.isAuthenticated()) {
+            Optional<Member> member = memberRepository.findByEmail(authentication.getName());
+
+            if (member.isPresent()) {
+                return member.get();
+            }
+        }
+        throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_AUTHENTICATED);
     }
 }
 
