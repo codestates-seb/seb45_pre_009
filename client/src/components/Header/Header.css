@@ -8,6 +8,7 @@
     align-items: center;
     background-color: white;
     border-top-color: rgb(255, 153, 0);
+    border-top-width: 3px;
     border-top-style: solid;
     border-bottom-style: solid;
     border-bottom-color: rgb(211, 211, 212);

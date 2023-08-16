@@ -4,30 +4,110 @@
 
 .footer_container {
     height: 322px;
-    background-color: rgb(32, 32, 32);
-    padding: 25px;
+    background-color: hsl(210,8%,15%);
+    padding: 32px 12px;
     display: flex;
-    align-items: flex-start;
+    flex-grow: 1;
     position : absolute;
     bottom : 0; 
     width: 100%;
-    justify-content: flex-start;
+
 }
 
 .footer_logo {
     width: 38px;   
+    heighㅋt: 39px;
+    flex-basis: 2%;
+ 
+}
+
+.footer_logobox {
+    width: 64px;   
+    height: 258px;
+    flex-basis: 5%;
+  
 }
 
 .footer_nav {
     height: 278px;
-    width: 862px;
     display: flex;
-    list-style: none;
     padding: 10px;
-    display:inline-block;
+    align-items: flex-start;
+    justify-content: space-between;
+    color: rgb(217, 214, 214);
+    font-size: 13px;
+    flex-basis: auto;
+    flex-grow: 2;
+    
 }
 
-.footer_col {
-    align-items: center;
+.footer_box1 {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 40%;
+}
+
+.footer_box2 {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 35%;
+}
+
+.footer_box3 {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 40%;
+}
+
+.footer_box4 {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 60%;
+}
+
+.footer_title {
+    padding-bottom: 13px;
+    color: rgb(200, 202, 202);
+    font-weight: bold;
+}
+
+.footer_primary {
+    padding-bottom: 5px;
+    color: rgb(163, 163, 163);
+}
+
+.footer_box5 {
+    color: rgb(163, 163, 163);
+    font-size: 11px;
+    flex-basis: 60%;
     
+    
+
+}
+.footer_social {
+
+    list-style: none;
+ }
+
+.footer_track {
+    display: inline-block;
+    margin-right: 13px;
+}
+.footer_copyright {
+    display: flex;
+    
+    position : absolute;
+    bottom : 0; 
+    padding-bottom: 50px;
+}
+
+.footer_link {
+    text-decoration: underline;
+    
+}
+
+.footer_ver {
+    position : absolute;
+    bottom : 0; 
+    padding-bottom: 35px;
 }

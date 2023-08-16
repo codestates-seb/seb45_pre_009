@@ -34,9 +34,8 @@ function App() {
       <div id='container' className='w-screen h-screen'>
       <Main></Main>
       </div>
-      <Routes>
-      <Route path="/signup" element={<SignUpPage/>}></Route>
-      </Routes>
+      <SignUpPage/>
+    
       <Footer />
     </div>
 
