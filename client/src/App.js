@@ -15,6 +15,7 @@ import Main from "./pages/main";
 import { useState } from 'react';
 
 import SignUpPage from "./pages/SignUpPage";
+import LoginPage from './pages/LoginPage';
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
       <Main></Main>
       </div>
       <SignUpPage/>
+      <LoginPage/>
       <Footer />
     </div>
 
