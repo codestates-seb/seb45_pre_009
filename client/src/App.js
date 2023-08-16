@@ -13,6 +13,8 @@ import Main from "./pages/main";
 import { useState } from 'react';
 
 import SignUpPage from "./pages/SignUpPage";
+import Questions from "./pages/questions";
+import Ask from "./pages/ask";
 
 
 function App() {
@@ -27,6 +29,10 @@ function App() {
             <Route path="/" element={<Main></Main>}>
             </Route>
             <Route path="/signup" element={<SignUpPage/>}>
+            </Route>
+            <Route path="/questions" element={<Questions/>}>
+            </Route>
+            <Route path="/questions/ask" element={<Ask/>}>
             </Route>
         </Routes>
       </div>

@@ -21,3 +21,16 @@ export function getApi(url) {
 
 }
 
+export function postApi(url, data) {
+    
+    return axios.post(`${apiUrl}/${url}`, data)
+    .then((response) => {
+        console.log(response.data);
+        return response.data;
+    })
+        .catch((error) => {
+        console.log(error);
+        throw error;
+    });
+
+}
