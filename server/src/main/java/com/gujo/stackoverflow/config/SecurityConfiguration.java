@@ -41,6 +41,8 @@ public class SecurityConfiguration {
                 .and()
                 .csrf().disable()   // 안 하면 403 에러 뜸 -> 접속 불가능
                 .cors(withDefaults())
+                .cors(configuration -> configuration // cors error 설정 추가
+                        .configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues()))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 세션 생성하지 않도록 설정
                 .and()
                 .formLogin().disable()  // 우린 CSR 방식이라 비활성화
