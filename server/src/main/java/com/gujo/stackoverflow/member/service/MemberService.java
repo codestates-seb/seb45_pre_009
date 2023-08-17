@@ -7,6 +7,8 @@ import com.gujo.stackoverflow.exception.BusinessLogicException;
 
 import com.gujo.stackoverflow.member.entity.Member;
 import com.gujo.stackoverflow.member.repository.MemberRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -99,6 +101,11 @@ public class MemberService {
             return findMember.get();
 
         else throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
+    }
+
+   // 검색 추가
+    public Page<Member> displayNameSearchList(String displayName, Pageable pageable){
+        return memberRepository.findByDisplayNameContaining(displayName, pageable);
     }
 }
 

@@ -6,6 +6,7 @@ import com.gujo.stackoverflow.question.mapper.QuestionMapper;
 import com.gujo.stackoverflow.question.service.QuestionService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -96,5 +97,17 @@ public class QuestionController {
 
         QuestionDto.ResponseDto responseDto = mapper.questionToResponseDto(voted);
         return new ResponseEntity(responseDto, HttpStatus.OK);
+    }
+
+    // 검색
+    @GetMapping("/search/questions")
+    public ResponseEntity<Page<QuestionDto.ResponseDto>> searchQuestions(@PageableDefault Pageable pageable,
+                                          @RequestParam(required = false, defaultValue = "") String keyword) {
+
+        Page<Question> searchResult = service.questionSearchList(keyword, keyword, pageable);
+        Page<QuestionDto.ResponseDto> responsePage = searchResult.map(question -> mapper.questionToResponseDto(question));
+
+        return ResponseEntity.ok(responsePage);
+
     }
 }
