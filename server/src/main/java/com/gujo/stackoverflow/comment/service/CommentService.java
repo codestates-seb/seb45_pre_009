@@ -4,7 +4,7 @@ import com.gujo.stackoverflow.comment.entity.Comment;
 import com.gujo.stackoverflow.comment.repository.CommentRepository;
 import com.gujo.stackoverflow.exception.BusinessLogicException;
 import com.gujo.stackoverflow.exception.ExceptionCode;
-import com.gujo.stackoverflow.member.service.MemberService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,26 +16,25 @@ import java.util.Optional;
 @Transactional
 public class CommentService {
 
-    private final CommentRepository repository;
-    private final MemberService memberService;
+    private CommentRepository repository;
 
-    public CommentService(CommentRepository repository, MemberService memberService) {
+    public CommentService(CommentRepository repository) {
         this.repository = repository;
-        this.memberService = memberService;
     }
 
     public Comment createComment(Comment comment) {
         return repository.save(comment);
     }
 
+//    Answer 기능 구현 후 리팩토링 필요
+//    AnswerService 의존성 주입 필요??
     @Transactional(readOnly = true)
-    public List<Comment> getComments(Long answerId) {
-        return repository.findByAnswer(answerId);
+    public List<Comment> getComments(Long anwserId) {
+        return repository.findByAnswer(anwserId);
     }
 
     public Comment updateComment(Comment comment, Long commentId) {
         Comment findComment = findVeridiedComment(commentId);
-        memberService.checkLoginMemberWrote(findComment.getMember().getMemberId());
 
         findComment.setContent(comment.getContent());
 
@@ -44,8 +43,7 @@ public class CommentService {
     }
 
     public void deleteComment(Long commentId) {
-        Comment findComment = findVeridiedComment(commentId);
-        memberService.checkLoginMemberWrote(findComment.getMember().getMemberId());
+        findVeridiedComment(commentId);
 
         repository.deleteById(commentId);
     }

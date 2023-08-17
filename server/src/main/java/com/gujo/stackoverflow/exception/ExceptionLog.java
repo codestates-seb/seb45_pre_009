@@ -16,7 +16,7 @@ public class ExceptionLog {
     @Column(nullable = false)
     private String exception;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(nullable = false)
     private String message;
 
     public ExceptionLog(String exception, String message) {

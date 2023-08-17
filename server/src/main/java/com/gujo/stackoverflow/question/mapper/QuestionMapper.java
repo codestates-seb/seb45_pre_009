@@ -12,20 +12,7 @@ import java.util.List;
 public interface QuestionMapper {
     Question postDtoToQuestion(QuestionDto.PostDto postDto);
 
-    default QuestionDto.ResponseDto questionToResponseDto(Question question) {
-        QuestionDto.ResponseDto responseDto = new QuestionDto.ResponseDto();
-
-        responseDto.setQuestionId(question.getQuestionId());
-        responseDto.setMemberId(question.getMember().getMemberId());
-        responseDto.setTitle(question.getTitle());
-        responseDto.setContent(question.getContent());
-        responseDto.setPoint(question.getPoint());
-        responseDto.setViews(question.getViews());
-        responseDto.setCreatedAt(question.getCreatedAt());
-        responseDto.setModifiedAt(question.getModifiedAt());
-
-        return responseDto;
-    }
+    QuestionDto.ResponseDto questionToResponseDto(Question question);
 
     List<QuestionDto.getAllResponseDto> questionToGetAllResponseDto(List<Question> questions);
 

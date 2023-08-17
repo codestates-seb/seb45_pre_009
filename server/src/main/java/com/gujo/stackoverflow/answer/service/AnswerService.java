@@ -4,7 +4,6 @@ import com.gujo.stackoverflow.answer.entity.Answer;
 import com.gujo.stackoverflow.answer.repository.AnswerRepository;
 import com.gujo.stackoverflow.exception.BusinessLogicException;
 import com.gujo.stackoverflow.exception.ExceptionCode;
-import com.gujo.stackoverflow.member.service.MemberService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,11 +16,9 @@ import java.util.Optional;
 public class AnswerService {
 
     private final AnswerRepository answerRepository;
-    private final MemberService memberService;
 
-    public AnswerService(AnswerRepository answerRepository, MemberService memberService) {
+    public AnswerService(AnswerRepository answerRepository) {
         this.answerRepository = answerRepository;
-        this.memberService = memberService;
     }
 
     public Answer createAnswer(Answer answer) {
@@ -30,7 +27,6 @@ public class AnswerService {
 
     public Answer updateAnswer(Answer answer) {
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
-        memberService.checkLoginMemberWrote(findAnswer.getMember().getMemberId());
 
         Optional.ofNullable(answer.getContent())
                 .ifPresent(content -> findAnswer.setContent(content));
@@ -53,8 +49,6 @@ public class AnswerService {
 
     public void deleteAnswer(Long answerId) {
         Answer answer = findVerifiedAnswer(answerId);
-        memberService.checkLoginMemberWrote(answer.getMember().getMemberId());
-
         answer.setAnswerStatus(Answer.AnswerStatus.ANSWER_NOT_EXIST);
 
         answerRepository.save(answer);

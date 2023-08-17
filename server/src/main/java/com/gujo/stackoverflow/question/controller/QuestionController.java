@@ -1,13 +1,12 @@
 package com.gujo.stackoverflow.question.controller;
 
-import com.gujo.stackoverflow.member.entity.Member;
-import com.gujo.stackoverflow.member.service.MemberService;
 import com.gujo.stackoverflow.question.dto.QuestionDto;
 import com.gujo.stackoverflow.question.entity.Question;
 import com.gujo.stackoverflow.question.mapper.QuestionMapper;
 import com.gujo.stackoverflow.question.service.QuestionService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,12 +20,11 @@ import java.util.List;
 @CrossOrigin
 public class QuestionController {
 
-    private final MemberService memberService;
     private final QuestionService service;
+
     private final QuestionMapper mapper;
 
-    public QuestionController(MemberService memberService, QuestionService questionService, QuestionMapper mapper) {
-        this.memberService = memberService;
+    public QuestionController(QuestionService questionService, QuestionMapper mapper) {
         this.service = questionService;
         this.mapper = mapper;
     }
@@ -34,10 +32,6 @@ public class QuestionController {
     @PostMapping
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.PostDto postDto) {
         Question question = mapper.postDtoToQuestion(postDto);
-
-        Member loginMember = memberService.findLoginMember();
-        question.setMember(loginMember);
-
         Question created = service.createQuestion(question);
 
         QuestionDto.ResponseDto responseDto = mapper.questionToResponseDto(created);
@@ -103,5 +97,17 @@ public class QuestionController {
 
         QuestionDto.ResponseDto responseDto = mapper.questionToResponseDto(voted);
         return new ResponseEntity(responseDto, HttpStatus.OK);
+    }
+
+    // 검색
+    @GetMapping("/search/questions")
+    public ResponseEntity<Page<QuestionDto.ResponseDto>> searchQuestions(@PageableDefault Pageable pageable,
+                                          @RequestParam(required = false, defaultValue = "") String keyword) {
+
+        Page<Question> searchResult = service.questionSearchList(keyword, keyword, pageable);
+        Page<QuestionDto.ResponseDto> responsePage = searchResult.map(question -> mapper.questionToResponseDto(question));
+
+        return ResponseEntity.ok(responsePage);
+
     }
 }

@@ -24,7 +24,7 @@ public class QuestionDto {
     public static class ResponseDto {
         private Long questionId;
 
-        private Long memberId;
+        private Member member;
 
         private String title;
 

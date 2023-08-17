@@ -37,7 +37,6 @@ const GoogleUserInfo = ({isLogin,setIsLogin}) => {
                     .then((res) => {
                         console.log(res);
                         sessionStorage.setItem("username", res.data.name);
-                        setIsLogin(true);
                     });
             })
             .catch((Error) => {

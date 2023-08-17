@@ -2,7 +2,6 @@ package com.gujo.stackoverflow.question.service;
 
 import com.gujo.stackoverflow.exception.BusinessLogicException;
 import com.gujo.stackoverflow.exception.ExceptionCode;
-import com.gujo.stackoverflow.member.service.MemberService;
 import com.gujo.stackoverflow.question.entity.Question;
 import com.gujo.stackoverflow.question.repository.QuestionRepository;
 import org.springframework.data.domain.Page;
@@ -18,11 +17,9 @@ import java.util.Optional;
 @Transactional
 public class QuestionService {
     private final QuestionRepository repository;
-    private final MemberService memberService;
 
-    public QuestionService(QuestionRepository repository, MemberService memberService) {
+    public QuestionService(QuestionRepository repository) {
         this.repository = repository;
-        this.memberService = memberService;
     }
 
     public Question createQuestion(Question question) {
@@ -54,7 +51,6 @@ public class QuestionService {
 
     public Question updateQuestion(Long questionId, Question question) {
         Question findQuestion = findVerifiedQuestion(questionId);
-        memberService.checkLoginMemberWrote(findQuestion.getMember().getMemberId());
 
         Optional.ofNullable(question.getTitle()).ifPresent(findQuestion::setTitle);
         Optional.ofNullable(question.getContent()).ifPresent(findQuestion::setContent);
@@ -66,8 +62,7 @@ public class QuestionService {
     }
 
     public void deleteQuestion(Long questionId) {
-        Question findQuestion = findVerifiedQuestion(questionId);
-        memberService.checkLoginMemberWrote(findQuestion.getMember().getMemberId());
+        findVerifiedQuestion(questionId);
 
         repository.deleteById(questionId);
     }
@@ -91,4 +86,13 @@ public class QuestionService {
             return findQuestion.get();
         else throw new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND);
     }
+
+
+    // 검색 추가
+    public Page<Question> questionSearchList(String title, String content, Pageable pageable) {
+        return repository.findByTitleContainingOrContentContaining(title, content, pageable);
+    }
+
+
 }
+//testtest
