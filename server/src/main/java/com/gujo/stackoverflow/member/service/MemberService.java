@@ -54,7 +54,7 @@ public class MemberService {
         return createdMember;
     }
 
-    public Member updateMember (Member member) {
+    public Member updateMember(Member member) {
         Member findMember = findVerifiedMember(member.getMemberId());
 
         checkLoginMemberWrote(findMember.getMemberId());
