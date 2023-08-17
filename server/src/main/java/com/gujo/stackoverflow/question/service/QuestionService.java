@@ -97,7 +97,7 @@ public class QuestionService {
             return findQuestion.get();
         else throw new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND);
     }
-
+  
     //    검색 추가
     public Page<Question> questionSearchList(String title, String content, Pageable pageable) {
         return repository.findByTitleContainingOrContentContaining(title, content, pageable);
