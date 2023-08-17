@@ -7,6 +7,8 @@ import com.gujo.stackoverflow.exception.BusinessLogicException;
 
 import com.gujo.stackoverflow.member.entity.Member;
 import com.gujo.stackoverflow.member.repository.MemberRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -45,7 +47,11 @@ public class MemberService {
         List<String> roles = authorityUtils.createRoles(member.getEmail());
         member.setRoles(roles);
 
-        return memberRepository.save(member);
+        Member createdMember = memberRepository.save(member);
+        if (createdMember.getMemberId() < 2) {
+            createdMember.setReputation(15L);
+        }
+        return createdMember;
     }
 
     public Member updateMember (Member member) {
@@ -90,12 +96,17 @@ public class MemberService {
         }
     }
 
-    // 중복 email 확인
+//     중복 email 확인
     private void checkEmail(String email) {
         Optional<Member> member = memberRepository.findByEmail(email);
         if (member.isPresent()) {
             throw new BusinessLogicException(ExceptionCode.MEMBER_EMAIL_EXISTS);
         }
+    }
+
+    //    검색 추가
+    public Page<Member> displayNameSearchList(String displayName, Pageable pageable) {
+        return memberRepository.findByDisplayNameContaining(displayName, pageable);
     }
 
     private Member findVerifiedMember(Long memberId) {
@@ -126,6 +137,23 @@ public class MemberService {
             throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_AUTHENTICATED);
         }
         return loginMember;
+    }
+
+//    추천 혹은 비추천 시 로직
+    public Member vote(Member postMember, Long score) {
+        Member loginMember = findLoginMember();
+
+        if (loginMember.getReputation() < 15) {
+            throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_AUTHORIZED);
+        }
+
+        postMember.setReputation(postMember.getReputation() + score);
+
+        if (postMember.getReputation() < 1) {
+            postMember.setReputation(1L);
+        }
+
+        return postMember;
     }
 }
 

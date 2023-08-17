@@ -96,6 +96,16 @@ public class MemberController {
 
     }
 
+    //    회원 displayName 검색
+    @GetMapping("/search/members")
+    public ResponseEntity<Page<MemberDto.ResponseDto>> searchMembers(@PageableDefault Pageable pageable,
+                                                                     @RequestParam(required = false, defaultValue = "") String keyword) {
+        Page<Member> searchResult = memberService.displayNameSearchList(keyword, pageable);
+        Page<MemberDto.ResponseDto> responsePage = searchResult.map(
+                member -> mapper.memberToResponseDto(member));
+        return ResponseEntity.ok(responsePage);
+    }
+
     @DeleteMapping("/{member-id}")
     @ApiOperation(value = "회원 삭제", notes = "회원 번호로 상세 정보를 삭제할 수 있습니다.")
     public ResponseEntity deleteMember(@PathVariable("member-id") @Positive Long memberId) {
