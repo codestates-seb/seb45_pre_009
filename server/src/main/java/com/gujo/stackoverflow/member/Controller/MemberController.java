@@ -27,7 +27,6 @@ import java.util.List;
 @RestController
 @Validated
 @Api(tags = "회원 API")
-@CrossOrigin
 public class MemberController {
 
     private final MemberService memberService;
