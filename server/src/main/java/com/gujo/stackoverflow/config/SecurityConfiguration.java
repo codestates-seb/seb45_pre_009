@@ -22,6 +22,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -44,8 +45,8 @@ public class SecurityConfiguration {
                 .and()
                 .csrf().disable()   // 안 하면 403 에러 뜸 -> 접속 불가능
                 .cors(withDefaults())
-                .cors(configuration -> configuration // cors error 설정 추가
-                        .configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues()))
+//                .cors(configuration -> configuration // cors error 설정 추가 // 이 설정 때문에 jwt 헤더 제대로 못받는 듯 싶은데.. 일단 해결
+//                        .configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues()))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 세션 생성하지 않도록 설정
                 .and()
                 .formLogin().disable()  // 우린 CSR 방식이라 비활성화
@@ -79,6 +80,7 @@ public class SecurityConfiguration {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE"));
+        configuration.setExposedHeaders(Arrays.asList("Authorization", "Refresh"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

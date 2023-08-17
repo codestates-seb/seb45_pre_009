@@ -14,7 +14,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/questions/{question-id}/answers/{answer-id}/comments")
-@CrossOrigin
 public class CommentController {
 
     private CommentService service;
