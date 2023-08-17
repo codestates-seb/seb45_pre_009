@@ -9,7 +9,9 @@
     display: flex;
     bottom : 0; 
     width: 100%;
- 
+
+    justify-content: flex-start;
+    color: white;
 }
 
 .footer_logo {
@@ -93,8 +95,13 @@
     margin-right: 13px;
 }
 
+
+.footer_col {
+    align-items: center;
+    color: white;
 .footer_link {
     text-decoration: underline;
+
 }
 
 

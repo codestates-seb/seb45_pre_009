@@ -6,6 +6,7 @@ function Footer() {
         <div className="footer_container">
             <div className="footer_logobox">
             <img className="footer_logo" src="Stack_Overflow_icon.png" />
+
             </div>
 
                 <div className="footer_box1">
@@ -58,6 +59,7 @@ function Footer() {
                     </div>
                 </div>
             
+
         </div>
     );
 }
