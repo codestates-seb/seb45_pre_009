@@ -2,6 +2,7 @@ package com.gujo.stackoverflow.question.service;
 
 import com.gujo.stackoverflow.exception.BusinessLogicException;
 import com.gujo.stackoverflow.exception.ExceptionCode;
+import com.gujo.stackoverflow.member.service.MemberService;
 import com.gujo.stackoverflow.question.entity.Question;
 import com.gujo.stackoverflow.question.repository.QuestionRepository;
 import org.springframework.data.domain.Page;
@@ -17,9 +18,11 @@ import java.util.Optional;
 @Transactional
 public class QuestionService {
     private final QuestionRepository repository;
+    private final MemberService memberService;
 
-    public QuestionService(QuestionRepository repository) {
+    public QuestionService(QuestionRepository repository, MemberService memberService) {
         this.repository = repository;
+        this.memberService = memberService;
     }
 
     public Question createQuestion(Question question) {
@@ -51,6 +54,7 @@ public class QuestionService {
 
     public Question updateQuestion(Long questionId, Question question) {
         Question findQuestion = findVerifiedQuestion(questionId);
+        memberService.checkLoginMemberWrote(findQuestion.getMember().getMemberId());
 
         Optional.ofNullable(question.getTitle()).ifPresent(findQuestion::setTitle);
         Optional.ofNullable(question.getContent()).ifPresent(findQuestion::setContent);
@@ -62,7 +66,8 @@ public class QuestionService {
     }
 
     public void deleteQuestion(Long questionId) {
-        findVerifiedQuestion(questionId);
+        Question findQuestion = findVerifiedQuestion(questionId);
+        memberService.checkLoginMemberWrote(findQuestion.getMember().getMemberId());
 
         repository.deleteById(questionId);
     }
