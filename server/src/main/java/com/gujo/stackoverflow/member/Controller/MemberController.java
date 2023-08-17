@@ -115,4 +115,16 @@ public class MemberController {
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    //회원 dispayName 검색
+    @GetMapping("/search/members")
+    public ResponseEntity<Page<MemberDto.ResponseDto>> searchMembers(@PageableDefault Pageable pageable,
+                                                                     @RequestParam(required = false, defaultValue = "") String keyword){
+
+        Page<Member> searchResult = memberService.displayNameSearchList(keyword, pageable);
+        Page<MemberDto.ResponseDto> responsePage = searchResult.map(member -> mapper.memberToResponseDto(member));
+
+        return ResponseEntity.ok(responsePage);
+    }
+
 }

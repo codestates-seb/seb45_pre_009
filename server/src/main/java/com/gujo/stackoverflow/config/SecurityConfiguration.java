@@ -4,8 +4,11 @@ import com.gujo.stackoverflow.auth.filter.JwtAuthenticationFilter;
 import com.gujo.stackoverflow.auth.filter.JwtVerificationFilter;
 import com.gujo.stackoverflow.auth.handler.MemberAuthenticationFailureHandler;
 import com.gujo.stackoverflow.auth.handler.MemberAuthenticationSuccessHandler;
+import com.gujo.stackoverflow.auth.handler.OAuth2MemberSuccessHandler;
 import com.gujo.stackoverflow.auth.jwt.JwtTokenizer;
 import com.gujo.stackoverflow.auth.utils.CustomAuthorityUtils;
+import com.gujo.stackoverflow.member.repository.MemberRepository;
+import com.gujo.stackoverflow.member.service.MemberService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,6 +18,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -28,10 +32,12 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
+    private final MemberRepository memberRepository;
 
-    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils) {
+    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils, MemberRepository memberRepository) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
+        this.memberRepository = memberRepository;
     }
 
     @Bean
@@ -41,6 +47,8 @@ public class SecurityConfiguration {
                 .and()
                 .csrf().disable()   // 안 하면 403 에러 뜸 -> 접속 불가능
                 .cors(withDefaults())
+                .cors(configuration -> configuration // cors error 설정 추가
+                        .configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues()))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 세션 생성하지 않도록 설정
                 .and()
                 .formLogin().disable()  // 우린 CSR 방식이라 비활성화
@@ -89,7 +97,7 @@ public class SecurityConfiguration {
             JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
             jwtAuthenticationFilter.setFilterProcessesUrl("/login");
 
-            jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
+            jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler(memberRepository));
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
 
             JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
