@@ -2,7 +2,7 @@
 import axios from 'axios'
 
 
-const apiUrl = `http://localhost:5002`;
+const apiUrl = `http://3.39.55.166:8080`;
 
 // import { getApi } from '../api/api.js'; 복사해서 사용
 

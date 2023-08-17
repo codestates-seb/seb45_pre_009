@@ -27,9 +27,8 @@ export default function Main() {
 
     return (
         <>
-            <Header/>
-            <div id='container' className='flex justify-between z-0 '>
-                <div id='content' className='block p-6 h-full max-w-6xl w-full '>
+            <div id='container' className='flex justify-between z-0 w-full '>
+                <div id='content' className='block p-6 max-w-6xl w-full '>
                     <div id='mainbar' className='float-left block relative vv:w-[calc(100%-300px-24px)] w-full '>
                     <div className='flex mb-[12px] flex-wrap'>
                             <h1 className='flex-auto leading-[1.3] text-[27px] mb-[12px] mr-[12px]'>Top Questions</h1>
