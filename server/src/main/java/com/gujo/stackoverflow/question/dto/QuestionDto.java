@@ -4,14 +4,18 @@ import com.gujo.stackoverflow.member.entity.Member;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public class QuestionDto {
 
     @Getter
     public static class PostDto {
+        @NotBlank(message = "제목을 입력해 주세요")
         private String title;
 
+        @NotBlank(message = "내용을 입력해 주세요")
         private String content;
     }
 
@@ -20,7 +24,7 @@ public class QuestionDto {
     public static class ResponseDto {
         private Long questionId;
 
-        private Member member;
+        private Long memberId;
 
         private String title;
 
@@ -32,7 +36,7 @@ public class QuestionDto {
 
         private LocalDateTime modifiedAt;
 
-        private Long view;
+        private Long views;
     }
 
     @Getter
@@ -44,11 +48,13 @@ public class QuestionDto {
 
         private String title;
 
+        private Long point;
+
         private LocalDateTime createdAt;
 
         private LocalDateTime modifiedAt;
 
-        private Long view;
+        private Long views;
     }
 
     @Getter
