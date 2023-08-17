@@ -44,6 +44,7 @@ const KakaoUserInfo = ({ isLogin, setIsLogin }) => {
             // setIsLogin(true);
             console.log(res.data.properties.nickname);
             sessionStorage.setItem("username", res.data.properties.nickname);
+            setIsLogin(true)
             
           });
       })
