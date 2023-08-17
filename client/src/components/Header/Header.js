@@ -20,8 +20,8 @@ function Header({isLogin,setIsLogin}) {
             <button className="header_navigation" type="button">Products</button>
             <Search />
             <div className="header_nav">
-                {isLogin?null:<button className='mr-4'>log in</button>}
-                {isLogin?null:<button>Sign up</button>}
+                {isLogin?null:<button className='mr-4'><a href='/login'>log in</a></button>}
+                {isLogin?null:<button><a href='/signup'>Sign up</a></button>}
                 {isLogin?<FontAwesomeIcon icon={faInbox} className="fainbox"/>:null}
                  {isLogin?<FontAwesomeIcon icon={faTrophy} className="fatrophy"/>:null}
                  {isLogin?<FontAwesomeIcon icon={faCircleQuestion} className="question"/>:null}

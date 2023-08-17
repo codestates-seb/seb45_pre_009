@@ -26,38 +26,46 @@ function App() {
   const location = useLocation();
   const showHeaderFooterPaths = [
     "/",
-    "/main",
+    "/questions",
     "/mypage",
-
-  ]
+  ];
+  const showSidebarPaths = [
+    "/",
+    "/questions",
+  ];
   const showHeaderFooter = () =>
     showHeaderFooterPaths.includes(location.pathname);
 
-  const [isLogin,setIsLogin] = useState(false);
+  const showSidebar = () =>
+    showSidebarPaths.includes(location.pathname);
+
+  const [isLogin,setIsLogin] = useState(sessionStorage.getItem("isLogin"));
 
   return (
 
     <div className="App">
 
       <Header isLogin={isLogin} setIsLogin={setIsLogin}/>
-
-       <Sidebar />
-       <Routes>
-              <Route path="/" element={<Main></Main>}>
-            </Route>
-              <Route path="/signup" element={<SignUpPage isLogin={isLogin} setIsLogin={setIsLogin}/>}>
-            </Route>
-              <Route path="/login" element={<LoginPage isLogin={isLogin} setIsLogin={setIsLogin}/>}>
-            </Route>
-              <Route path="/questions" element={<Questions/>}>
-            </Route>
-              <Route path="/questions/ask" element={<Ask/>}>
-            </Route>
-       </Routes>
+      <div className='flex'>
+        {showSidebar() && <Sidebar />}
+        <Routes>
+                <Route path="/" element={<Main></Main>}>
+              </Route>
+                <Route path="/signup" element={<SignUpPage isLogin={isLogin} setIsLogin={setIsLogin}/>}>
+              </Route>
+                <Route path="/login" element={<LoginPage isLogin={isLogin} setIsLogin={setIsLogin}/>}>
+              </Route>
+                <Route path="/questions" element={<Questions/>}>
+              </Route>
+                <Route path="/questions/ask" element={<Ask/>}>
+              </Route>
+        </Routes>
+      </div>
+      {showHeaderFooter() && <Footer />}
 
 
       {/* 조건부로 Footer를 렌더링 */}
-      {showHeaderFooter() && <Footer />}
+      
 
     </div>
 

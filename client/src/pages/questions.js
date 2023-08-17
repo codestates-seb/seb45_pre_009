@@ -14,7 +14,7 @@ export default function Questions() {
 
     useEffect(() => {
         if (status === 'idle') {
-            dispatch(fetchData('question'));
+            dispatch(fetchData('questions?page=0&size=10'));
         }
     }, [status, dispatch]);
 
@@ -35,8 +35,7 @@ export default function Questions() {
 
     return (
         <>
-            <Header/>
-            <div id='container' className='flex justify-between z-0 '>
+            <div id='container' className='flex justify-between z-0 w-full '>
                 <div id='content' className='block p-6 h-full max-w-6xl w-full '>
                     <div id='mainbar' className='float-left block relative vv:w-[calc(100%-300px-24px)] w-full '>
                         <div className='flex mb-[12px] flex-wrap'>
