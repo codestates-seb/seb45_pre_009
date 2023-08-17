@@ -7,7 +7,9 @@ import com.gujo.stackoverflow.member.service.MemberService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -94,6 +96,16 @@ public class MemberController {
         return new ResponseEntity<>(response, HttpStatus.OK);
 
 
+    }
+
+    //    회원 displayName 검색
+    @GetMapping("/search/members")
+    public ResponseEntity<Page<MemberDto.ResponseDto>> searchMembers(@PageableDefault Pageable pageable,
+                                                                     @RequestParam(required = false, defaultValue = "") String keyword) {
+        Page<Member> searchResult = memberService.displayNameSearchList(keyword, pageable);
+        Page<MemberDto.ResponseDto> responsePage = searchResult.map(
+                member -> mapper.memberToResponseDto(member));
+        return ResponseEntity.ok(responsePage);
     }
 
     @DeleteMapping("/{member-id}")
