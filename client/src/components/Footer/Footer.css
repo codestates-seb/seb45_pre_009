@@ -9,9 +9,7 @@
     display: flex;
     bottom : 0; 
     width: 100%;
-    z-index: 9999;
-    position: relative;
-
+ 
 }
 
 .footer_logo {
