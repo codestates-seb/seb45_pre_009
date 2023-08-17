@@ -4,6 +4,7 @@ import com.gujo.stackoverflow.answer.entity.Answer;
 import com.gujo.stackoverflow.answer.repository.AnswerRepository;
 import com.gujo.stackoverflow.exception.BusinessLogicException;
 import com.gujo.stackoverflow.exception.ExceptionCode;
+import com.gujo.stackoverflow.member.entity.Member;
 import com.gujo.stackoverflow.member.service.MemberService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -69,12 +70,23 @@ public class AnswerService {
 
     public Answer getPoint(Long answerId) {
         Answer findAnswer = findVerifiedAnswer(answerId);
+
+        memberService.vote(findAnswer.getMember(), 10L);
+
         findAnswer.setPoint(findAnswer.getPoint() + 1);
         return findAnswer;
     }
 
     public Answer losePoint(Long answerId) {
         Answer findAnswer = findVerifiedAnswer(answerId);
+
+        Member postMember = memberService.vote(findAnswer.getMember(), -2L);
+
+//        답변에 비추천을 할 경우 -1
+        if (postMember.getReputation() > 2) {
+            postMember.setReputation(postMember.getReputation() - 1);
+        }
+
         findAnswer.setPoint(findAnswer.getPoint() - 1);
         return findAnswer;
     }

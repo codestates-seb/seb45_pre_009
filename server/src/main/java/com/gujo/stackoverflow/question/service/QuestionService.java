@@ -74,12 +74,18 @@ public class QuestionService {
 
     public Question getPoint(Long questionId) {
         Question question = findVerifiedQuestion(questionId);
+
+        memberService.vote(question.getMember(), 10L);
+
         question.setPoint(question.getPoint() + 1);
         return question;
     }
 
     public Question losePoint(Long questionId) {
         Question question = findVerifiedQuestion(questionId);
+
+        memberService.vote(question.getMember(), -2L);
+
         question.setPoint(question.getPoint() - 1);
         return question;
     }

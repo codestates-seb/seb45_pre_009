@@ -45,7 +45,11 @@ public class MemberService {
         List<String> roles = authorityUtils.createRoles(member.getEmail());
         member.setRoles(roles);
 
-        return memberRepository.save(member);
+        Member createdMember = memberRepository.save(member);
+        if (createdMember.getMemberId() < 2) {
+            createdMember.setReputation(15L);
+        }
+        return createdMember;
     }
 
     public Member updateMember (Member member) {
@@ -126,6 +130,23 @@ public class MemberService {
             throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_AUTHENTICATED);
         }
         return loginMember;
+    }
+
+//    추천 혹은 비추천 시 로직
+    public Member vote(Member postMember, Long score) {
+        Member loginMember = findLoginMember();
+
+        if (loginMember.getReputation() < 15) {
+            throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_AUTHORIZED);
+        }
+
+        postMember.setReputation(postMember.getReputation() + score);
+
+        if (postMember.getReputation() < 1) {
+            postMember.setReputation(1L);
+        }
+
+        return postMember;
     }
 }
 
