@@ -51,6 +51,9 @@ public class Member {
 
     @Column(nullable = false)
     private boolean oauth;
+  
+    @Column(nullable = false)
+    private Long reputation = 1L;
 
     public Member(String email) {
         this.email = email;
@@ -62,4 +65,5 @@ public class Member {
         this.password = password;
         this.roles = roles;
     }
+
 }
