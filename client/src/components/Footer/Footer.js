@@ -13,12 +13,12 @@ function Footer() {
                    <span>Teams</span>
                    <span>Advertising</span>
                    <span>Collectives</span>
-                   <sapn>Talent</sapn>
+                   <span>Talent</span>
                 <li className="footer_col3">COMPANY</li>
                    <span>About</span>
                    <span>Press</span>
-                   <sapn>Work Here</sapn>
-                   <sapn>Legal</sapn>
+                   <span>Work Here</span>
+                   <span>Legal</span>
                    <span>Privacy Policy</span>
                    <span>Terms of Service</span>
                    <span>Contact Us</span>
