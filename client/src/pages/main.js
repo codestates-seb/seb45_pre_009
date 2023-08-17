@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchData, fetchUserById } from '../slicer/main';
 import Header from "../components/Header/Header"
 
+
 export default function Main() {
 
     const dispatch = useDispatch();

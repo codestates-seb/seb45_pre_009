@@ -1,7 +1,11 @@
 package com.gujo.stackoverflow.question.service;
 
+import com.gujo.stackoverflow.exception.BusinessLogicException;
+import com.gujo.stackoverflow.exception.ExceptionCode;
+import com.gujo.stackoverflow.member.service.MemberService;
 import com.gujo.stackoverflow.question.entity.Question;
 import com.gujo.stackoverflow.question.repository.QuestionRepository;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,39 +15,47 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class QuestionService {
     private final QuestionRepository repository;
+    private final MemberService memberService;
 
-    public QuestionService(QuestionRepository repository) {
+    public QuestionService(QuestionRepository repository, MemberService memberService) {
         this.repository = repository;
+        this.memberService = memberService;
     }
 
     public Question createQuestion(Question question) {
         return repository.save(question);
     }
 
-    public List<Question> getQuestions(Pageable pageable) {
+    @Transactional(readOnly = true)
+    public Page<Question> getQuestionsWithPreview(Pageable pageable) {
+
+        Page<Question> questionPage = repository.findAll(pageable);
+        for (Question question : questionPage) {
+            if (question.getContent().length() >= 100) {
+                question.setContent(question.getContent().substring(0, 100));
+            }
+        }
+        return questionPage;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Question> getQuestionsWithoutContent(Pageable pageable) {
         return repository.findAll(pageable).getContent();
     }
 
-    @Transactional
     public Question getQuestion(Long questionId) {
-        Question question = repository.findById(questionId).orElseThrow();
-        question.setView(question.getView() + 1);
+        Question question = findVerifiedQuestion(questionId);
+        question.setViews(question.getViews() + 1);
         return question;
     }
 
-    @Transactional // repository.save 하지 않아도 DB 반영됨
     public Question updateQuestion(Long questionId, Question question) {
-        Question findQuestion = repository.findById(questionId).orElseThrow();
+        Question findQuestion = findVerifiedQuestion(questionId);
+        memberService.checkLoginMemberWrote(findQuestion.getMember().getMemberId());
 
-//        patchDto에 title, content 각각 항목에 값이 null이 아닐경우 수정사항 반영
-//        if(question.getTitle() != null) {
-//            findQuestion.setTitle(question.getTitle());
-//        }
-//        if (question.getContent() != null) {
-//            findQuestion.setContent(question.getContent());
-//        }
         Optional.ofNullable(question.getTitle()).ifPresent(findQuestion::setTitle);
         Optional.ofNullable(question.getContent()).ifPresent(findQuestion::setContent);
 
@@ -54,20 +66,29 @@ public class QuestionService {
     }
 
     public void deleteQuestion(Long questionId) {
+        Question findQuestion = findVerifiedQuestion(questionId);
+        memberService.checkLoginMemberWrote(findQuestion.getMember().getMemberId());
+
         repository.deleteById(questionId);
     }
 
-    @Transactional
     public Question getPoint(Long questionId) {
-        Question question = repository.findById(questionId).orElseThrow();
+        Question question = findVerifiedQuestion(questionId);
         question.setPoint(question.getPoint() + 1);
         return question;
     }
 
-    @Transactional
     public Question losePoint(Long questionId) {
-        Question question = repository.findById(questionId).orElseThrow();
+        Question question = findVerifiedQuestion(questionId);
         question.setPoint(question.getPoint() - 1);
         return question;
+    }
+
+    public Question findVerifiedQuestion(Long questionId) {
+        Optional<Question> findQuestion = repository.findById(questionId);
+
+        if (findQuestion.isPresent())
+            return findQuestion.get();
+        else throw new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND);
     }
 }

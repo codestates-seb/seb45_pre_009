@@ -5,10 +5,25 @@ spring:
       path: /h2
   datasource:
     url: jdbc:h2:mem:test
+#  sql:
+#    init:
+#      data-locations: classpath*:db/data.sql # 초기 데이터 파일 경로
+#      mode: always
   jpa:
     hibernate:
       ddl-auto: create
     show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        highlight_sql: true
+    defer-datasource-initialization: true # 모든 테이블 생성 후 초기 데이터 생성
 
-#server:
-#  port: 8888
+mail:
+  address:
+    admin: ${adminEmail}
+
+jwt:
+  key: ${JWT_SECRET_KEY}  #환경 변수에서 로드
+  access-token-expiration-minutes: 300
+  refresh-token-expiration-minutes: 4200
