@@ -7,5 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface QuestionRepository extends JpaRepository<Question, Long> {
 
+    // 검색 Containing
     Page<Question> findByTitleContainingOrContentContaining(String title, String content, Pageable pageable);
 }
