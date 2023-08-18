@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
     //입력받은 이메일, 비번, 유저이름 저장용
@@ -9,6 +8,7 @@ const SignIn = () => {
     const [email , setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordError, setPasswordError] = useState('')//비밀번호 오류 메세지를 위한 상태변수
+    const navigate = useNavigate();
 
     // const navigate = useNavigate();
 
@@ -27,15 +27,15 @@ const SignIn = () => {
         }
 
         try {
-            const response = await axios.post("http://3.39.55.166:8080/members",{
+            const response = await axios.post("https://a517-14-52-249-197.ngrok-free.app/members",{
                 "displayName":userName,
                 "email":email,
                 "password":password
             })
 
             console.log('user registered successfully',response.data)
-
-            // navigate("./main");
+            
+            navigate("../login");
 
         } catch (error) {
             console.error('Error registering user',error)

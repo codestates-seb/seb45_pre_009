@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import axios from "axios";
 
-const GoogleUserInfo = ({isLogin,setIsLogin}) => {
+const GoogleUserInfo = ({isLogin,setIsLogin,email,setEmail,displayName,setDisplayName}) => {
     // const [userName, setUserName] = useState();
     useEffect(() => {
         const params = new URL(document.location.toString()).searchParams;
@@ -33,17 +33,25 @@ const GoogleUserInfo = ({isLogin,setIsLogin}) => {
                                     "application/x-www-form-urlencoded;charset=utf-8",
                             },
                         }
+                       
                     )
                     .then((res) => {
                         console.log(res);
-                        sessionStorage.setItem("username", res.data.name);
-                        setIsLogin(true);
+                        // sessionStorage.setItem("username", res.data.name);
+                        // sessionStorage.setItem("email",res.data.email)
+                        console.log(res.data.name);
+                        console.log(res.data.email)
+                        setDisplayName(res.data.name);
+                        setEmail(res.data.email);
+                        // setIsLogin(true);
+                        // sessionStorage.setItem("isLogin",true);
                     });
+                    console.log(res.data.access_token);
             })
             .catch((Error) => {
                 console.log(Error);
             });
-    }, []);
+    }, [setDisplayName, setEmail, setIsLogin,isLogin]);
 
     return <></>;
 };

@@ -3,6 +3,8 @@
 }
 
 .footer_container {
+    position: relative;
+
     height: 322px;
     background-color: hsl(210,8%,15%);
     padding: 40px;
@@ -12,6 +14,8 @@
 
     justify-content: flex-start;
     color: white;
+
+    z-index: 800;
 }
 
 .footer_logo {
@@ -99,6 +103,7 @@
 .footer_col {
     align-items: center;
     color: white;
+}
 .footer_link {
     text-decoration: underline;
 

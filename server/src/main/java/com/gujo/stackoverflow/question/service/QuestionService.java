@@ -74,12 +74,18 @@ public class QuestionService {
 
     public Question getPoint(Long questionId) {
         Question question = findVerifiedQuestion(questionId);
+
+        memberService.vote(question.getMember(), 10L);
+
         question.setPoint(question.getPoint() + 1);
         return question;
     }
 
     public Question losePoint(Long questionId) {
         Question question = findVerifiedQuestion(questionId);
+
+        memberService.vote(question.getMember(), -2L);
+
         question.setPoint(question.getPoint() - 1);
         return question;
     }
@@ -91,12 +97,9 @@ public class QuestionService {
             return findQuestion.get();
         else throw new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND);
     }
-
-
-    // 검색 추가
+  
+    //    검색 추가
     public Page<Question> questionSearchList(String title, String content, Pageable pageable) {
         return repository.findByTitleContainingOrContentContaining(title, content, pageable);
     }
-
-
 }

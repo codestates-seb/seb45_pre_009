@@ -105,16 +105,16 @@ public class QuestionController {
         QuestionDto.ResponseDto responseDto = mapper.questionToResponseDto(voted);
         return new ResponseEntity(responseDto, HttpStatus.OK);
     }
-
-    // 검색
+  
+    //    검색
     @GetMapping("/search/questions")
     public ResponseEntity<Page<QuestionDto.ResponseDto>> searchQuestions(@PageableDefault Pageable pageable,
-                                          @RequestParam(required = false, defaultValue = "") String keyword) {
-
+                                                                         @RequestParam(required = false, defaultValue = "")
+                                                                         String keyword) {
         Page<Question> searchResult = service.questionSearchList(keyword, keyword, pageable);
-        Page<QuestionDto.ResponseDto> responsePage = searchResult.map(question -> mapper.questionToResponseDto(question));
+        Page<QuestionDto.ResponseDto> responsePage = searchResult.map(
+                question -> mapper.questionToResponseDto(question));
 
         return ResponseEntity.ok(responsePage);
-
     }
 }

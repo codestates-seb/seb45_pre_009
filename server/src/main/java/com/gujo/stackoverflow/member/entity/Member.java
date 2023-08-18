@@ -50,4 +50,7 @@ public class Member {
 
     @Column(nullable = false)
     private boolean oauth;
+
+    @Column(nullable = false)
+    private Long reputation = 1L;
 }
