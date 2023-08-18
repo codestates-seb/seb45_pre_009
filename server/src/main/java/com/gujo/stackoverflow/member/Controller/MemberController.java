@@ -60,7 +60,7 @@ public class MemberController {
 
         Member member = mapper.oauthPostDtoToMember(postDto);
         member.setOauth(true);
-        Member created = memberService.createMember(member);
+        Member created = memberService.createMemberOAuth2(member);
 
         MemberDto.ResponseDto responseDto = mapper.memberToResponseDto(created);
 

@@ -67,9 +67,10 @@ public class MemberService {
         Member beSavedMember = new Member(
                 member.getDisplayName(),          // DisplayName null (이후 추가로 변경하는 창을 redirection 할 수 있음)
                 member.getEmail(), // 구글 이메일을 DB에 등록
-                "",                //암호화된 비밀번호 빈 문자열
+                "1111",                //암호화된 비밀번호 빈 문자열
                 roles               //권한 목록
         );
+        beSavedMember.setPassword(passwordEncoder.encode(beSavedMember.getPassword()));
 
         beSavedMember.setOauth(true);
 

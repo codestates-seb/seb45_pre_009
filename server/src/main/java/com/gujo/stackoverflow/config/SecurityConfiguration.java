@@ -106,7 +106,7 @@ public class SecurityConfiguration {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
                                                                     // ^ Manager 객체 얻을 수 있음
 
-            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer, memberRepository );
             jwtAuthenticationFilter.setFilterProcessesUrl("/login");
 
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler(memberRepository));
