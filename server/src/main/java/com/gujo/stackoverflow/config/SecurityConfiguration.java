@@ -4,9 +4,11 @@ import com.gujo.stackoverflow.auth.filter.JwtAuthenticationFilter;
 import com.gujo.stackoverflow.auth.filter.JwtVerificationFilter;
 import com.gujo.stackoverflow.auth.handler.MemberAuthenticationFailureHandler;
 import com.gujo.stackoverflow.auth.handler.MemberAuthenticationSuccessHandler;
+import com.gujo.stackoverflow.auth.handler.OAuth2MemberSuccessHandler;
 import com.gujo.stackoverflow.auth.jwt.JwtTokenizer;
 import com.gujo.stackoverflow.auth.utils.CustomAuthorityUtils;
 import com.gujo.stackoverflow.member.repository.MemberRepository;
+import com.gujo.stackoverflow.member.service.MemberService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -16,6 +18,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -31,11 +34,13 @@ public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
     private final MemberRepository memberRepository;
+    private final MemberService memberService;
 
-    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils, MemberRepository memberRepository) {
+    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils, MemberRepository memberRepository, MemberService memberService) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
         this.memberRepository = memberRepository;
+        this.memberService = memberService;
     }
 
     @Bean
@@ -65,6 +70,9 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.GET, "/users/**").hasRole("USER")
                         // 나머지는 비회원도 가능
                         .anyRequest().permitAll()
+                )
+                .oauth2Login(oauth2 -> oauth2
+                        .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer, authorityUtils, memberService, memberRepository))
                 );
 
         return http.build();
@@ -108,7 +116,7 @@ public class SecurityConfiguration {
 
             builder
                     .addFilter(jwtAuthenticationFilter)   // filter chain 추가
-                    .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
+                    .addFilterAfter(jwtVerificationFilter, OAuth2LoginAuthenticationFilter.class);
         }
     }
 
