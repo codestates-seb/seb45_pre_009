@@ -1,9 +1,9 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchData, fetchUserById } from '../slicer/main';
-import Header from "../components/Header/Header"
-import Footer from "../components/Footer/Footer"
+import moment from 'moment-timezone';
+// import { api } from '../api/api';
 
 export default function Questions() {
 
@@ -20,7 +20,7 @@ export default function Questions() {
 
     useEffect(() => {
         data.forEach((item) => {
-        dispatch(fetchUserById(item.user_id));
+        dispatch(fetchUserById(item.memberId));
         });
     }, [data, dispatch]);
 
@@ -69,7 +69,7 @@ export default function Questions() {
                         <div id='qlist-wrapper' className='border-t'>
                             <div>
                                 {data && data.map((item) => (
-                                    <div className='p-4 relative border-b flex w-full vx:flex-col ' key={item.id}>
+                                    <div className='p-4 relative border-b flex w-full vx:flex-col ' key={item.questionId}>
                                         <div className='flex vv:flex-col vx:w-auto vv:w-[108px] vx:flex-row vv:flex-wrap vv:content-end vv:flex-shrink-0 mr-4 vv:mb-4 vx:mb-1 gap-[6px]'>
                                             <div className='inline-flex gap-[0.3em] justify-end content-end whitespace-nowrap border border-transparent '>
                                                 <span className='text-xs'>0</span><span className='text-xs'>votes</span>
@@ -83,7 +83,7 @@ export default function Questions() {
                                         </div>
                                         <div className='max-w-full flex-grow'>
                                             <h3 className='mb-1 pr-6 text-[#0074cc]'><a href='/'>{item.title}</a></h3>
-                                            <div className='text-[13px] mb-1 text-[#3b4045] break-words overflow-hidden hyphens-auto break-all'><a href='/'>{truncateString(item.content)}</a></div>
+                                            <div className='text-[13px] mb-1 text-[#3d4042] break-words overflow-hidden hyphens-auto break-all'><a href='/'>{truncateString(item.content)}</a></div>
                                             <div className='flex flex-wrap flex-1 items-center justify-between gap-y-2 gap-x-2 relative text-[12px]' >
                                                 <ul className='ml-0 '>
                                                     <li>
@@ -91,11 +91,26 @@ export default function Questions() {
                                                     </li>
                                                 </ul>
                                                 <div className='ml-auto text-right flex-wrap flex justify-end gap-1'>
-                                                    <a href='/' className='text-[#0074cc]'>{users[item.user_id]?.name || 'name...'}</a>
+                                                    <a href='/' className='text-[#0074cc]'>{users[item.memberId]?.displayName || 'name...'}</a>
                                                     <div className='text-[#525960] font-bold'>
-                                                        {users[item.user_id]?.reputation !== undefined ? users[item.user_id]?.reputation : 'reputation...'}
+                                                        {users[item.memberId]?.reputation !== undefined ? users[item.memberId]?.reputation : '0'}
                                                     </div>
-                                                    <div className='text-[#6a737c]'>modified {item.modified_at}</div>
+                                                    <div className='text-[#6a737c]'>
+                                                            createdAt &nbsp;
+                                                            {item.createdAt
+                                                                ? moment
+                                                                    .utc([
+                                                                    item.createdAt[0],
+                                                                    item.createdAt[1] - 1,
+                                                                    item.createdAt[2],
+                                                                    item.createdAt[3],
+                                                                    item.createdAt[4],
+                                                                    item.createdAt[5],
+                                                                    ])
+                                                                    .tz("Asia/Seoul")
+                                                                    .fromNow()
+                                                                : "Loading..."}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

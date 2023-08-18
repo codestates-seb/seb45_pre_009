@@ -17,6 +17,7 @@ import Ask from "./pages/ask";
 import LoginPage from './pages/LoginPage';
 
 import Sidebar from './components/Sidebar/Sidebar';
+import Userspage from './pages/userspage';
 
 
 function App() {
@@ -28,10 +29,12 @@ function App() {
     "/",
     "/questions",
     "/mypage",
+    "/userspage"
   ];
   const showSidebarPaths = [
     "/",
     "/questions",
+    "/userspage"
   ];
   const showHeaderFooter = () =>
     showHeaderFooterPaths.includes(location.pathname);
@@ -57,14 +60,13 @@ function App() {
               </Route>
                 <Route path="/questions" element={<Questions/>}>
               </Route>
+                <Route path="/userspage" element={<Userspage/>}>
+              </Route>
                 <Route path="/questions/ask" element={<Ask/>}>
               </Route>
         </Routes>
       </div>
       {showHeaderFooter() && <Footer />}
-
-
-      {/* 조건부로 Footer를 렌더링 */}
       
 
     </div>
