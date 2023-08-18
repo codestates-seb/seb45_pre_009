@@ -18,6 +18,16 @@ spring:
         format_sql: true
         highlight_sql: true
     defer-datasource-initialization: true # 모든 테이블 생성 후 초기 데이터 생성
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${G_CLIENT_ID}
+            client-secret: ${G_CLIENT_SECRET}
+            scope:
+              - email
+              - profile
 
 mail:
   address:

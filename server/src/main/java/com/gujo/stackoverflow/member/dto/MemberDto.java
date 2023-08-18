@@ -34,6 +34,8 @@ public class MemberDto {
         private String displayName;
 
         private String email;
+
+        private String password;
     }
 
     @Setter

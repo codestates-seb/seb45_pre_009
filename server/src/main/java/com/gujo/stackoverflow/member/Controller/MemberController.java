@@ -1,8 +1,10 @@
 package com.gujo.stackoverflow.member.Controller;
 
+import com.gujo.stackoverflow.auth.utils.CustomAuthorityUtils;
 import com.gujo.stackoverflow.member.dto.MemberDto;
 import com.gujo.stackoverflow.member.entity.Member;
 import com.gujo.stackoverflow.member.mapper.MemberMapper;
+import com.gujo.stackoverflow.member.repository.MemberRepository;
 import com.gujo.stackoverflow.member.service.MemberService;
 
 import io.swagger.annotations.Api;
@@ -19,6 +21,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  *  @ApiOperation 추가 API문서화
@@ -33,7 +36,8 @@ public class MemberController {
 
     private final MemberMapper mapper;
 
-    public MemberController(MemberService memberService, MemberMapper mapper) {
+
+    public MemberController(MemberService memberService, MemberMapper mapper, MemberRepository memberRepository, CustomAuthorityUtils authorityUtils) {
         this.memberService = memberService;
         this.mapper = mapper;
     }
@@ -56,7 +60,7 @@ public class MemberController {
 
         Member member = mapper.oauthPostDtoToMember(postDto);
         member.setOauth(true);
-        Member created = memberService.createMember(member);
+        Member created = memberService.createMemberOAuth2(member);
 
         MemberDto.ResponseDto responseDto = mapper.memberToResponseDto(created);
 
@@ -114,4 +118,5 @@ public class MemberController {
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
 }
