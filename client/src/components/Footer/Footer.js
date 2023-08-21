@@ -5,7 +5,7 @@ function Footer() {
     return (
         <div className="footer_container">
             <div className="footer_logobox">
-            <img className="footer_logo" src="Stack_Overflow_icon.png" />
+            <img className="footer_logo" src="Stack_Overflow_icon.png" alt='' />
 
             </div>
 
@@ -19,14 +19,14 @@ function Footer() {
                    <span className="footer_primary">Teams</span>
                    <span className="footer_primary">Advertising</span>
                    <span className="footer_primary">Collectives</span>
-                   <sapn className="footer_primary">Talent</sapn>
+                   <span className="footer_primary">Talent</span>
                 </div>
                 <div className="footer_box3">
-                <sapn className="footer_title">COMPANY</sapn> 
+                <span className="footer_title">COMPANY</span> 
                    <span className="footer_primary">About</span>
                    <span className="footer_primary">Press</span>
-                   <sapn className="footer_primary">Work Here</sapn>
-                   <sapn className="footer_primary">Legal</sapn>
+                   <span className="footer_primary">Work Here</span>
+                   <span className="footer_primary">Legal</span>
                    <span className="footer_primary">Privacy Policy</span>
                    <span className="footer_primary">Terms of Service</span>
                    <span className="footer_primary">Contact Us</span>
@@ -34,8 +34,8 @@ function Footer() {
                    <span className="footer_primary">Cookie Policy</span>
                 </div>
                 <div className="footer_box4">
-                <sapn className="footer_title">STACK EXCHANGE NETWORK</sapn>
-                   <sapn className="footer_primary">Techonology</sapn>
+                <span className="footer_title">STACK EXCHANGE NETWORK</span>
+                   <span className="footer_primary">Techonology</span>
                    <span className="footer_primary">Culture & recreation</span>
                    <span className="footer_primary">Life & arts</span>
                    <span className="footer_primary">Science</span>
@@ -43,7 +43,7 @@ function Footer() {
                    <span className="footer_primary">Business</span>
                    <span className="footer_primary"> </span>
                    <span className="footer_primary">API</span>
-                   <sapn className="footer_primary">Data</sapn>
+                   <span className="footer_primary">Data</span>
                 </div>
                 <div className="footer_box5">
                     <ul className="footer_social">

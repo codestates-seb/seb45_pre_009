@@ -1,8 +1,8 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchData, fetchUserById } from '../slicer/main';
-import Header from "../components/Header/Header"
+import moment from 'moment-timezone';
 
 
 export default function Main() {
@@ -14,13 +14,13 @@ export default function Main() {
 
     useEffect(() => {
         if (status === 'idle') {
-            dispatch(fetchData('question'));
+            dispatch(fetchData('questions?page=0&size=10'));
         }
     }, [status, dispatch]);
 
     useEffect(() => {
         data.forEach((item) => {
-        dispatch(fetchUserById(item.user_id));
+        dispatch(fetchUserById(item.memberId));
         });
     }, [data, dispatch]);
     
@@ -59,7 +59,7 @@ export default function Main() {
                             <div id='question-mini-list' className='mb-8'>
                                 <div>
                                     {data && data.map((item) => (
-                                        <div className='p-4 relative border-b flex vx:flex-col ' key={item.id}>
+                                        <div className='p-4 relative border-b flex vx:flex-col ' key={item.memberId}>
                                             <div className='flex vv:flex-col vx:w-auto vv:w-[108px] vx:flex-row vv:flex-wrap vv:content-end vv:flex-shrink-0 mr-4 vv:mb-4 vx:mb-1 gap-[6px]'>
                                                 <div className='inline-flex gap-[0.3em] justify-end content-end whitespace-nowrap border border-transparent '>
                                                     <span className='text-xs'>0</span><span className='text-xs'>votes</span>
@@ -94,11 +94,26 @@ export default function Main() {
                                                         </li>
                                                     </ul>
                                                     <div className='ml-auto text-right flex-wrap flex justify-end gap-1'>
-                                                        <a href='/' className='text-[#0074cc]'>{users[item.user_id]?.name || 'name...'}</a>
+                                                        <a href='/' className='text-[#0074cc]'>{users[item.memberId]?.displayName || 'name...'}</a>
                                                         <div className='text-[#525960] font-bold'>
-                                                            {users[item.user_id]?.reputation !== undefined ? users[item.user_id]?.reputation : 'reputation...'}
+                                                            {users[item.memberId]?.reputation !== undefined ? users[item.memberId]?.reputation : '0'}
                                                         </div>
-                                                        <div className='text-[#6a737c]'>modified {item.modified_at}</div>
+                                                        <div className='text-[#6a737c]'>
+                                                            createdAt &nbsp;
+                                                            {item.createdAt
+                                                                ? moment
+                                                                    .utc([
+                                                                    item.createdAt[0],
+                                                                    item.createdAt[1] - 1,
+                                                                    item.createdAt[2],
+                                                                    item.createdAt[3],
+                                                                    item.createdAt[4],
+                                                                    item.createdAt[5],
+                                                                    ])
+                                                                    .tz("Asia/Seoul")
+                                                                    .fromNow()
+                                                                : "Loading..."}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

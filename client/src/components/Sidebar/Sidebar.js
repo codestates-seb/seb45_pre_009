@@ -13,7 +13,7 @@ function Sidebar() {
                     <span className="sidebar_que"><FontAwesomeIcon icon={faEarthAsia} /><a href='/questions'>Questions</a></span>
                <div className="sidebar_nav">
                     <span className="nav_tags">Tags</span>
-                    <span className="nav_users">Users</span>
+                    <span className="nav_users"><a href='/userspage'>Users</a></span>
                     <span className="nav_com">Companies</span>
                </div>
                <div className="sidebar_collectives">
