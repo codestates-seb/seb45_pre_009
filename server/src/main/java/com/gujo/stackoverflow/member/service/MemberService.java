@@ -28,7 +28,7 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
 
-    @Value("${OAUTH_TEMP_PASSWORD}")
+    @Value("${temp.password}")
     private String tempPassword;
 
     @Lazy // 순환참조
@@ -73,11 +73,12 @@ public class MemberService {
         Member beSavedMember = new Member(
                 member.getDisplayName(),          // DisplayName null (이후 추가로 변경하는 창을 redirection 할 수 있음)
                 member.getEmail(), // 구글 이메일을 DB에 등록
-                tempPassword,                //암호화된 비밀번호 빈 문자열
+                "1111",                //암호화된 비밀번호 빈 문자열
                 roles               //권한 목록
         );
         beSavedMember.setPassword(passwordEncoder.encode(beSavedMember.getPassword()));
 
+//        System.out.println("# Service : " + tempPassword);
         beSavedMember.setOauth(true);
 
         return memberRepository.save(beSavedMember);
