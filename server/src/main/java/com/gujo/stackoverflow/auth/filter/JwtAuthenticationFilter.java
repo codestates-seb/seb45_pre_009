@@ -11,7 +11,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +26,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private final MemberRepository memberRepository;
 
-    @Value("${OAUTH_TEMP_PASSWORD}")
+    @Value("${temp.password}")
     private String tempPassword;
 
     private final AuthenticationManager authenticationManager;
@@ -48,7 +47,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         LoginDto loginDto = objectMapper.readValue(request.getInputStream(), LoginDto.class);
         Member member = memberRepository.findByEmail(loginDto.getUsername()).orElseThrow();
         if (member.getOauth()) {
-            loginDto.setPassword(tempPassword);
+            loginDto.setPassword("1111");
+//            System.out.println("#Authentication : " + tempPassword);
         }
 
         // username, pw 정보 포함한 토큰 생성 ( 인증 전임)
