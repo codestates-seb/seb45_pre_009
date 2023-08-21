@@ -66,4 +66,7 @@ public class Member {
         this.roles = roles;
     }
 
+    public boolean getOauth() {
+        return this.oauth;
+    }
 }

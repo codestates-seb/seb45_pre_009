@@ -4,12 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gujo.stackoverflow.auth.dto.LoginDto;
 import com.gujo.stackoverflow.auth.jwt.JwtTokenizer;
 import com.gujo.stackoverflow.member.entity.Member;
+import com.gujo.stackoverflow.member.repository.MemberRepository;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,16 +19,24 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 // 로그인 인증 요청 처리하는 엔트리 포인트
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+
+    private final MemberRepository memberRepository;
+
+    @Value("${temp.password}")
+    private String tempPassword;
+
     private final AuthenticationManager authenticationManager;
     // ^ 얘 DI 해서 Manager ( -> provider) -> MemberDetailsService
     private final JwtTokenizer jwtTokenizer;
 
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenizer jwtTokenizer) {
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenizer jwtTokenizer, MemberRepository memberRepository) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenizer = jwtTokenizer;
+        this.memberRepository = memberRepository;
     }
 
     @SneakyThrows // 명시적 예외 처리 생략 가능, 안 쓰면 귀찮아짐~
@@ -36,6 +45,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
         ObjectMapper objectMapper = new ObjectMapper();     // ObjectMapper : Dto 클래스로 역직렬화 ( json -> dto)
         LoginDto loginDto = objectMapper.readValue(request.getInputStream(), LoginDto.class);
+        Member member = memberRepository.findByEmail(loginDto.getUsername()).orElseThrow();
+        if (member.getOauth()) {
+            loginDto.setPassword("1111");
+//            System.out.println("#Authentication : " + tempPassword);
+        }
 
         // username, pw 정보 포함한 토큰 생성 ( 인증 전임)
         UsernamePasswordAuthenticationToken authenticationToken =

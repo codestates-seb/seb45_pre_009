@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import axios from "axios";
 
 
-const KakaoUserInfo = ({ isLogin, setIsLogin }) => {
+const KakaoUserInfo = ({ isLogin, setIsLogin, email, setEmail, displayName, setDisplayName }) => {
   // const [userName, setUserName] = useState();
   
   useEffect(() => {
@@ -43,15 +43,22 @@ const KakaoUserInfo = ({ isLogin, setIsLogin }) => {
             console.log("2번째", res);
             // setIsLogin(true);
             console.log(res.data.properties.nickname);
-            sessionStorage.setItem("username", res.data.properties.nickname);
-            setIsLogin(true)
+            console.log(res.data.kakao_account.email);
+
+            setDisplayName(res.data.properties.nickname);
+            setEmail(res.data.kakao_account.email);
+
+            // sessionStorage.setItem("username", res.data.properties.nickname);
+            // sessionStorage.setItem("email",res.data.kakao_account.email);
+            // setIsLogin(true);
+            // sessionStorage.setItem("isLogin",true)
             
           });
       })
       .catch((Error) => {
         console.log(Error);
       });
-  }, []);
+  }, [setDisplayName, setEmail, setIsLogin,isLogin]);
 
   return <></>;
 };

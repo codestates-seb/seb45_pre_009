@@ -30,13 +30,16 @@ const NormalLogin = ({isLogin,setIsLogin}) => {
                 "password": password
             })
 
-            console.log('로그인 성공',response.headers)
-            console.log(response.data)
-            console.log(response)
+
+            console.log('로그인 성공',response)
             setIsLogin(true);
             sessionStorage.setItem("isLogin", true);
-            localStorage.setItem("jwt", response.headers.authorization);
-            // navigate("../");
+            console.log(response.headers.authorization)
+            localStorage.setItem("jwt",response.headers.authorization)
+            console.log(response.headers.refresh)
+            localStorage.setItem("refrest_token",response.headers.refresh);
+            navigate("../");
+
 
         } catch (error) {
             console.error('로그인 에러',error)

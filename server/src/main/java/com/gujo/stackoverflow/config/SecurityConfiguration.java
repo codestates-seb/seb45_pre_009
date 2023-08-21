@@ -2,11 +2,11 @@ package com.gujo.stackoverflow.config;
 
 import com.gujo.stackoverflow.auth.filter.JwtAuthenticationFilter;
 import com.gujo.stackoverflow.auth.filter.JwtVerificationFilter;
-import com.gujo.stackoverflow.auth.handler.MemberAuthenticationFailureHandler;
-import com.gujo.stackoverflow.auth.handler.MemberAuthenticationSuccessHandler;
+import com.gujo.stackoverflow.auth.handler.*;
 import com.gujo.stackoverflow.auth.jwt.JwtTokenizer;
 import com.gujo.stackoverflow.auth.utils.CustomAuthorityUtils;
 import com.gujo.stackoverflow.member.repository.MemberRepository;
+import com.gujo.stackoverflow.member.service.MemberService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -31,11 +32,13 @@ public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
     private final MemberRepository memberRepository;
+    private final MemberService memberService;
 
-    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils, MemberRepository memberRepository) {
+    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils, MemberRepository memberRepository, MemberService memberService) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
         this.memberRepository = memberRepository;
+        this.memberService = memberService;
     }
 
     @Bean
@@ -51,6 +54,10 @@ public class SecurityConfiguration {
                 .and()
                 .formLogin().disable()  // 우린 CSR 방식이라 비활성화
                 .httpBasic().disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
+                .accessDeniedHandler(new MemberAccessDeniedHandler())
+                .and()
                 .apply(new CustomFilterConfigurer())    // 추가~
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
@@ -65,6 +72,9 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.GET, "/users/**").hasRole("USER")
                         // 나머지는 비회원도 가능
                         .anyRequest().permitAll()
+                )
+                .oauth2Login(oauth2 -> oauth2
+                        .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer, authorityUtils, memberService, memberRepository))
                 );
 
         return http.build();
@@ -78,9 +88,14 @@ public class SecurityConfiguration {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {     // 구체적인 CORS 정책 설정~
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE"));
+        configuration.setAllowedOrigins(Arrays.asList(
+                "http://localhost:3000",
+                "http://localhost:8080",
+                "3.39.55.166:8080"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE", "OPTIONS", "PUT"));
         configuration.setExposedHeaders(Arrays.asList("Authorization", "Refresh"));
+        configuration.setAllowCredentials(true);
+        configuration.setAllowedHeaders(List.of("*"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
@@ -93,7 +108,7 @@ public class SecurityConfiguration {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
                                                                     // ^ Manager 객체 얻을 수 있음
 
-            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer, memberRepository );
             jwtAuthenticationFilter.setFilterProcessesUrl("/login");
 
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler(memberRepository));
@@ -103,7 +118,7 @@ public class SecurityConfiguration {
 
             builder
                     .addFilter(jwtAuthenticationFilter)   // filter chain 추가
-                    .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
+                    .addFilterAfter(jwtVerificationFilter, OAuth2LoginAuthenticationFilter.class);
         }
     }
 

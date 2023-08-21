@@ -7,6 +7,8 @@ import com.gujo.stackoverflow.exception.BusinessLogicException;
 
 import com.gujo.stackoverflow.member.entity.Member;
 import com.gujo.stackoverflow.member.repository.MemberRepository;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
@@ -23,10 +25,13 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
 
+    @Value("${temp.password}")
+    private String tempPassword;
+
+    @Lazy // 순환참조
     public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, CustomAuthorityUtils authorityUtils) {
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
@@ -48,10 +53,35 @@ public class MemberService {
         member.setRoles(roles);
 
         Member createdMember = memberRepository.save(member);
-        if (createdMember.getMemberId() < 2) {
-            createdMember.setReputation(15L);
-        }
+
+//        테스트용 첫 회원 15평판 부여
+//        if (createdMember.getMemberId() < 2) {
+//            createdMember.setReputation(15L);
+//        }
         return createdMember;
+    }
+
+    //POST(OAuth2.0 회원 등록) : OAuth2.0 를 통해 가입된 회원 정보 저장 (DB에 해당 정보 존재하면 메서드 리턴하고 존재하지 않으면 저장)
+    public Member createMemberOAuth2(Member member) {
+        Optional<Member> findMember = memberRepository.findByEmail(member.getEmail());
+        if(findMember.isPresent()) {
+            return findMember.get(); //이미 DB에 저장된 정보가 있다면 반환
+        }
+
+        // DB에 저장된 정보가 없다면
+        List<String> roles = authorityUtils.createRoles(member.getEmail());
+        Member beSavedMember = new Member(
+                member.getDisplayName(),          // DisplayName null (이후 추가로 변경하는 창을 redirection 할 수 있음)
+                member.getEmail(), // 구글 이메일을 DB에 등록
+                "1111",                //암호화된 비밀번호 빈 문자열
+                roles               //권한 목록
+        );
+        beSavedMember.setPassword(passwordEncoder.encode(beSavedMember.getPassword()));
+
+//        System.out.println("# Service : " + tempPassword);
+        beSavedMember.setOauth(true);
+
+        return memberRepository.save(beSavedMember);
     }
 
     public Member updateMember(Member member) {
@@ -143,9 +173,10 @@ public class MemberService {
     public Member vote(Member postMember, Long score) {
         Member loginMember = findLoginMember();
 
-        if (loginMember.getReputation() < 15) {
-            throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_AUTHORIZED);
-        }
+//        평판 15점 미만 시 추천 기능 사용 불가
+//        if (loginMember.getReputation() < 15) {
+//            throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_AUTHORIZED);
+//        }
 
         postMember.setReputation(postMember.getReputation() + score);
 
