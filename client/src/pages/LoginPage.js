@@ -17,7 +17,7 @@ const LoginPage = ({isLogin,setIsLogin}) => {
 
     return (
         <>
-        <div className="flex justify-center items-center min-h-screen bg-[#F2F2F2]">
+        <div className="flex justify-center items-center min-h-screen bg-[#F2F2F2] w-full">
         
 
 
