@@ -55,7 +55,7 @@ public class SecurityConfiguration {
                 .formLogin().disable()  // 우린 CSR 방식이라 비활성화
                 .httpBasic().disable()
                 .exceptionHandling()
-                .authenticationEntryPoint(new MemberAuthenticationEntryPoint())  // (1) 추가
+                .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
                 .accessDeniedHandler(new MemberAccessDeniedHandler())
                 .and()
                 .apply(new CustomFilterConfigurer())    // 추가~

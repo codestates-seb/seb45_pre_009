@@ -17,7 +17,7 @@ import java.io.IOException;
 // 인증 과정에서 AuthenticationException 이 발생할 경우 호출
 public class MemberAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
-    // 클라이언트로 전송되게
+    // 클라이언트로 전송되게함
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         Exception exception = (Exception) request.getAttribute("exception");
         ErrorResponder.sendErrorResponse(response, HttpStatus.UNAUTHORIZED);
