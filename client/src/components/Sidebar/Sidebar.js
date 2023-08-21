@@ -10,7 +10,7 @@ function Sidebar() {
           <div className='sidebar_container_sticky'>
                <div className="sidebar_title"><a href='/'>Home</a></div>
                <div className="sidebar_title">PUBLC</div>
-                    <span className="sidebar_que"><FontAwesomeIcon icon={faEarthAsia} /><a href='questions'>Questions</a></span>
+                    <span className="sidebar_que"><FontAwesomeIcon icon={faEarthAsia} /><a href='/questions'>Questions</a></span>
                <div className="sidebar_nav">
                     <span className="nav_tags">Tags</span>
                     <span className="nav_users"><a href='/userspage'>Users</a></span>

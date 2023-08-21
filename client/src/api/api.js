@@ -18,7 +18,7 @@ function getToken() {
 
 export function getApi(url) {
 
-    return axios.get(`${jsonUrl}/${url}`)
+    return axios.get(`${apiUrl}/${url}`)
     .then((Response)=>{
         console.log(Response.data)
         return Response.data;

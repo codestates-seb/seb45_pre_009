@@ -14,7 +14,6 @@ export const postData = createAsyncThunk('data/postData', async ({ path, data })
 
 export const fetchUserById = createAsyncThunk('data/fetchUserById', async (memberId) => {
     const response = await getApi(`members/${memberId}`); 
-    console.log('Response:', response);
     return { memberId, user: response };
     });
     
