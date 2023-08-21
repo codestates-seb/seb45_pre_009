@@ -19,7 +19,7 @@ function Footer() {
                    <span className="footer_primary">Teams</span>
                    <span className="footer_primary">Advertising</span>
                    <span className="footer_primary">Collectives</span>
-                   <sapn className="footer_primary">Talent</sapn>
+                   <span className="footer_primary">Talent</span>
                 </div>
                 <div className="footer_box3">
                 <sapn className="footer_title">COMPANY</sapn> 
@@ -43,7 +43,7 @@ function Footer() {
                    <span className="footer_primary">Business</span>
                    <span className="footer_primary"> </span>
                    <span className="footer_primary">API</span>
-                   <sapn className="footer_primary">Data</sapn>
+                   <span className="footer_primary">Data</span>
                 </div>
                 <div className="footer_box5">
                     <ul className="footer_social">
