@@ -1,6 +1,7 @@
 package com.gujo.stackoverflow.exception;
 
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 
 import javax.validation.ConstraintViolation;
@@ -41,6 +42,10 @@ public class ErrorResponse {
         this.violationErrors = violationErrors;
     }
 
+    public static ErrorResponse of(HttpStatus httpStatus) {
+        return new ErrorResponse(httpStatus.value(), httpStatus.getReasonPhrase());
+    }
+
 //    BindingResult에 대한 ErrorResponse 객체 생성
     public static ErrorResponse of(BindingResult bindingResult) {
         return new ErrorResponse(FieldError.of(bindingResult), null);
@@ -54,7 +59,6 @@ public class ErrorResponse {
     public static ErrorResponse of(ExceptionCode exceptionCode) {
         return new ErrorResponse(exceptionCode.getStatus(), exceptionCode.getMessage());
     }
-
     @Getter
     public static class FieldError {
 

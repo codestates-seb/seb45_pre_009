@@ -2,9 +2,7 @@ package com.gujo.stackoverflow.config;
 
 import com.gujo.stackoverflow.auth.filter.JwtAuthenticationFilter;
 import com.gujo.stackoverflow.auth.filter.JwtVerificationFilter;
-import com.gujo.stackoverflow.auth.handler.MemberAuthenticationFailureHandler;
-import com.gujo.stackoverflow.auth.handler.MemberAuthenticationSuccessHandler;
-import com.gujo.stackoverflow.auth.handler.OAuth2MemberSuccessHandler;
+import com.gujo.stackoverflow.auth.handler.*;
 import com.gujo.stackoverflow.auth.jwt.JwtTokenizer;
 import com.gujo.stackoverflow.auth.utils.CustomAuthorityUtils;
 import com.gujo.stackoverflow.member.repository.MemberRepository;
@@ -56,6 +54,10 @@ public class SecurityConfiguration {
                 .and()
                 .formLogin().disable()  // 우린 CSR 방식이라 비활성화
                 .httpBasic().disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
+                .accessDeniedHandler(new MemberAccessDeniedHandler())
+                .and()
                 .apply(new CustomFilterConfigurer())    // 추가~
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
