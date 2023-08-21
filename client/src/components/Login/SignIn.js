@@ -33,6 +33,8 @@ const SignIn = () => {
                 "password":password
             })
 
+            console.log(response)
+
             console.log('user registered successfully',response.data)
             
             navigate("../login");

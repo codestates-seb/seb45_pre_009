@@ -13,14 +13,15 @@ import { useState } from 'react';
 import SignUpPage from "./pages/SignUpPage";
 import Questions from "./pages/questions";
 import Ask from "./pages/ask";
-
 import LoginPage from './pages/LoginPage';
-
 import Sidebar from './components/Sidebar/Sidebar';
+import UsersPage from './pages/userspage';
+import QuestionPage from './pages/questionpage.js';
 import KakaoUserInfo from './components/Login/KakaoUserInfo';
 import GoogleUserInfo from './components/Login/GoogleUserInfo';
 import axios from 'axios';
 import Mypage from './pages/Mypage';
+
 
 
 function App() {
@@ -100,15 +101,19 @@ function App() {
     "/",
     "/questions",
     "/mypage",
+    "/userspage",
     "/oauth",
     "/kakao/callback"
+
   ];
   const showSidebarPaths = [
     "/",
     "/questions",
+    "/userspage",
     "/oauth",
     "/kakao/callback",
     "/mypage"
+
   ];
   const showHeaderFooter = () =>
     showHeaderFooterPaths.includes(location.pathname);
@@ -136,6 +141,10 @@ function App() {
               </Route>
                 <Route path="/questions" element={<Questions/>}>
               </Route>
+                <Route path="/questions/:id" element={<QuestionPage/>}>
+              </Route>
+                <Route path="/userspage" element={<UsersPage/>}>
+              </Route>
                 <Route path="/questions/ask" element={<Ask/>}>
               </Route>
 
@@ -143,11 +152,13 @@ function App() {
         </Routes>
       </div>
       {showHeaderFooter() && <Footer />}
+
       <KakaoUserInfo isLogin={isLogin} setIsLogin={setIsLogin} email={email} setEmail={setEmail} displayName={displayName} setDisplayName={setDisplayName}/>
       <GoogleUserInfo isLogin={isLogin} setIsLogin={setIsLogin} email={email} setEmail={setEmail} displayName={displayName} setDisplayName={setDisplayName}/>
 
 
       {/* 조건부로 Footer를 렌더링 */}
+
       
 
     </div>
