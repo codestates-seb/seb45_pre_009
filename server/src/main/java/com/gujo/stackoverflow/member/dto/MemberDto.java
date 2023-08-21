@@ -73,7 +73,7 @@ public class MemberDto {
 
         private String displayName;
 
-        private String password;
+//        private String password;
 
         private boolean oauth;
 
