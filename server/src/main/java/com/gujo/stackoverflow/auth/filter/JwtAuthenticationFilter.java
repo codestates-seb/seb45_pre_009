@@ -6,6 +6,7 @@ import com.gujo.stackoverflow.auth.jwt.JwtTokenizer;
 import com.gujo.stackoverflow.member.entity.Member;
 import com.gujo.stackoverflow.member.repository.MemberRepository;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,6 +27,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private final MemberRepository memberRepository;
 
+    @Value("${OAUTH_TEMP_PASSWORD}")
+    private String tempPassword;
+
     private final AuthenticationManager authenticationManager;
     // ^ 얘 DI 해서 Manager ( -> provider) -> MemberDetailsService
     private final JwtTokenizer jwtTokenizer;
@@ -44,7 +48,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         LoginDto loginDto = objectMapper.readValue(request.getInputStream(), LoginDto.class);
         Member member = memberRepository.findByEmail(loginDto.getUsername()).orElseThrow();
         if (member.getOauth()) {
-            loginDto.setPassword("1111");
+            loginDto.setPassword(tempPassword);
         }
 
         // username, pw 정보 포함한 토큰 생성 ( 인증 전임)

@@ -7,6 +7,7 @@ import com.gujo.stackoverflow.exception.BusinessLogicException;
 
 import com.gujo.stackoverflow.member.entity.Member;
 import com.gujo.stackoverflow.member.repository.MemberRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +27,9 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
+
+    @Value("${OAUTH_TEMP_PASSWORD}")
+    private String tempPassword;
 
     @Lazy // 순환참조
     public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, CustomAuthorityUtils authorityUtils) {
@@ -49,9 +53,11 @@ public class MemberService {
         member.setRoles(roles);
 
         Member createdMember = memberRepository.save(member);
-        if (createdMember.getMemberId() < 2) {
-            createdMember.setReputation(15L);
-        }
+
+//        테스트용 첫 회원 15평판 부여
+//        if (createdMember.getMemberId() < 2) {
+//            createdMember.setReputation(15L);
+//        }
         return createdMember;
     }
 
@@ -67,7 +73,7 @@ public class MemberService {
         Member beSavedMember = new Member(
                 member.getDisplayName(),          // DisplayName null (이후 추가로 변경하는 창을 redirection 할 수 있음)
                 member.getEmail(), // 구글 이메일을 DB에 등록
-                "1111",                //암호화된 비밀번호 빈 문자열
+                tempPassword,                //암호화된 비밀번호 빈 문자열
                 roles               //권한 목록
         );
         beSavedMember.setPassword(passwordEncoder.encode(beSavedMember.getPassword()));
@@ -166,9 +172,10 @@ public class MemberService {
     public Member vote(Member postMember, Long score) {
         Member loginMember = findLoginMember();
 
-        if (loginMember.getReputation() < 15) {
-            throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_AUTHORIZED);
-        }
+//        평판 15점 미만 시 추천 기능 사용 불가
+//        if (loginMember.getReputation() < 15) {
+//            throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_AUTHORIZED);
+//        }
 
         postMember.setReputation(postMember.getReputation() + score);
 
