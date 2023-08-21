@@ -43,6 +43,7 @@ const NormalLogin = ({isLogin,setIsLogin}) => {
 
         } catch (error) {
             console.error('로그인 에러',error)
+            setIsLogin(false);
         }
     }
     return (

@@ -20,6 +20,7 @@ import QuestionPage from './pages/questionpage.js';
 import KakaoUserInfo from './components/Login/KakaoUserInfo';
 import GoogleUserInfo from './components/Login/GoogleUserInfo';
 import axios from 'axios';
+import Mypage from './pages/Mypage';
 
 
 
@@ -32,6 +33,8 @@ function App() {
   // const email = sessionStorage.getItem("email");
   const [displayName,setDisplayName] = useState("");
   const [email,setEmail] = useState("");
+  const [username,setUserName] = useState("");
+  
 
   useEffect(()=>{
     axios.post("http://3.39.55.166:8080/members/oauth",{
@@ -47,6 +50,8 @@ function App() {
         sessionStorage.setItem("isLogin",true);
 
         localStorage.setItem("jwt",loginRes.headers.authorization);
+        localStorage.setItem("memberId",loginRes.data.memberId)
+       
       }).catch(loginErr=>{
         console.log("로그인 실패",loginErr)
         // setIsLogin(false);
@@ -63,6 +68,8 @@ function App() {
           sessionStorage.setItem("isLogin",true);
 
           localStorage.setItem("jwt",loginRes.headers.authorization);
+          localStorage.setItem("memberId",loginRes.data.memberId)
+          
         }).catch(loginErr=>{
           console.log("로그인 실패",loginErr)
           // setIsLogin(false);
@@ -76,6 +83,8 @@ function App() {
           sessionStorage.setItem("isLogin",true);
 
           localStorage.setItem("jwt",loginRes.headers.authorization);
+          localStorage.setItem("memberId",loginRes.data.memberId)
+          
         }).catch(loginErr=>{
           console.log("로그인 실패",loginErr)
           // setIsLogin(false);
@@ -102,7 +111,8 @@ function App() {
     "/questions",
     "/userspage",
     "/oauth",
-    "/kakao/callback"
+    "/kakao/callback",
+    "/mypage"
 
   ];
   const showHeaderFooter = () =>
@@ -137,6 +147,8 @@ function App() {
               </Route>
                 <Route path="/questions/ask" element={<Ask/>}>
               </Route>
+
+              <Route path="/mypage" element={<Mypage username={username} setUserName={setUserName} email={email} setEmail={setEmail} />}/>
         </Routes>
       </div>
       {showHeaderFooter() && <Footer />}
