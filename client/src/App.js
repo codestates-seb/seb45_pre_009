@@ -17,7 +17,8 @@ import Ask from "./pages/ask";
 import LoginPage from './pages/LoginPage';
 
 import Sidebar from './components/Sidebar/Sidebar';
-import Userspage from './pages/userspage';
+import UsersPage from './pages/userspage';
+import QuestionPage from './pages/questionpage.js';
 
 
 function App() {
@@ -60,7 +61,9 @@ function App() {
               </Route>
                 <Route path="/questions" element={<Questions/>}>
               </Route>
-                <Route path="/userspage" element={<Userspage/>}>
+                <Route path="/questions/:id" element={<QuestionPage/>}>
+              </Route>
+                <Route path="/userspage" element={<UsersPage/>}>
               </Route>
                 <Route path="/questions/ask" element={<Ask/>}>
               </Route>

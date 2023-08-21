@@ -5,7 +5,7 @@ import { fetchData } from '../slicer/main';
 import Sidebar from '../components/Sidebar/Sidebar';
 // import { api } from '../api/api';
 
-export default function Userspage() {
+export default function UsersPage() {
 
     const dispatch = useDispatch();
     const data = useSelector((state) => state.data.items);
@@ -20,7 +20,6 @@ export default function Userspage() {
 
     return (
         <>
-            <Sidebar></Sidebar>
             <div id='container' className='flex justify-between z-0 w-full '>
                 <div id='content' className='block p-6 h-full w-full '>
                     <div id='mainbar' className='float-left block relative w-full '>
@@ -51,7 +50,7 @@ export default function Userspage() {
                             <div className='grid grid-cols-[repeat(1,minmax(0,1fr))] nm640980:grid-cols-[repeat(2,minmax(0,1fr))] nm9801264:grid-cols-[repeat(3,minmax(0,1fr))] min1264:grid-cols-[repeat(4,minmax(0,1fr))] '>
                                 {data && data.map((item) => (
                                     <div className='p-4 relative border-b flex vx:flex-col ' key={item.memberId}>
-                                        <div>User!</div>
+                                        <div>{item.displayName}</div>
                                     </div>
                                 ))}
                             </div>

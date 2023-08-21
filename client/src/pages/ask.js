@@ -35,6 +35,19 @@ export default function Ask() {
 
     // bg-[url(https://cdn.sstatic.net/Img/ask/background.svg?v=2e9a8205b368)]
 
+    // function CreateQuestion() {
+    //     const history = useHistory();
+      
+    //     const handleSubmit = async (question) => {
+    //       const id = await createQuestionInDB(question);
+    //       history.push(`/question/${id}`);
+    //     };
+      
+    //     return (
+    //       // 폼 렌더링
+    //     );
+    //   }
+
     return (
         <>
             <div id='container' className='max-w-full w-full justify-center '>
@@ -46,7 +59,7 @@ export default function Ask() {
                             </div>
                             <div className='w-full mt-[16px] block'>
                                 <div className='w-full flex mb-[16px] items-center  '>
-                                    <div className='w-[70%] p-[24px] bg-[#ebf4fb] border rounded-md border-[rgb(195,229,255)]'>
+                                    <div className='w-full p-[24px] bg-[#ebf4fb] border rounded-md border-[rgb(195,229,255)]'>
                                         <h2 className='font-normal text-[21px] mb-8  '>Writing a good question</h2>
                                         <p className='text-[15px] mb-0 clear-both mt-0 '>You’re ready to <a className='text-blue-600 ' href='/'>ask</a> a <a className='text-blue-600 ' href='/'>programming-related question</a> and this form will help guide you through the process.</p>
                                         <p className='mb-[1em] text-[15px] clear-both '>Looking to ask a non-programming question? See <a className='text-blue-600 ' href='/'>the topics here</a> to find a relevant site.</p>
@@ -63,7 +76,7 @@ export default function Ask() {
                             </div>
                         </div>
                         <form>
-                            <div>
+                            <main>
                                 <div>
                                     title
                                     <input className='border' value={title} onChange={e => setTitle(e.target.value)} />
@@ -77,7 +90,7 @@ export default function Ask() {
                                         send
                                     </button>
                                 </div>
-                            </div>
+                            </main>
                         </form>
                     </div>
                 </div>

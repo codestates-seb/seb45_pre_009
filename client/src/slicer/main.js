@@ -23,6 +23,7 @@ export const dataSlice = createSlice({
         name: 'data',
         initialState: {
         items: [],
+        question: null,
         users: {},
         status: 'idle',
         },
@@ -39,8 +40,12 @@ export const dataSlice = createSlice({
             state.status = 'loading';
             })
             .addCase(fetchData.fulfilled, (state, action) => {
-            state.status = 'succeeded';
-            state.items = action.payload;
+                state.status = 'succeeded';
+                if (Array.isArray(action.payload)) {
+                    state.items = action.payload; // 배열 응답을 items에 저장
+                } else {
+                    state.question = action.payload; // 객체 응답을 question에 저장
+                }
             })
             .addCase(fetchData.rejected, (state) => {
             state.status = 'failed';

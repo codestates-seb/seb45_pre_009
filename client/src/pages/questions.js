@@ -82,8 +82,8 @@ export default function Questions() {
                                             </div>
                                         </div>
                                         <div className='max-w-full flex-grow'>
-                                            <h3 className='mb-1 pr-6 text-[#0074cc]'><a href='/'>{item.title}</a></h3>
-                                            <div className='text-[13px] mb-1 text-[#3d4042] break-words overflow-hidden hyphens-auto break-all'><a href='/'>{truncateString(item.content)}</a></div>
+                                            <h3 className='mb-1 pr-6 text-[#0074cc]'><a href={`/questions/${item.questionId}`}>{item.title}</a></h3>
+                                            <div className='text-[13px] mb-1 text-[#3d4042] break-words overflow-hidden hyphens-auto break-all'><a href={`/questions/${item.questionId}`}>{truncateString(item.content)}</a></div>
                                             <div className='flex flex-wrap flex-1 items-center justify-between gap-y-2 gap-x-2 relative text-[12px]' >
                                                 <ul className='ml-0 '>
                                                     <li>
