@@ -26,6 +26,8 @@ public class CommentDto {
 
         private Long answerId;
 
+        private Long memberId;
+
         private String content;
 
         private Long point;
