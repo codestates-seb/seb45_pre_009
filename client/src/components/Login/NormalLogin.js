@@ -25,7 +25,7 @@ const NormalLogin = ({isLogin,setIsLogin}) => {
         }
 
         try {
-            const response = await axios.post("https://a517-14-52-249-197.ngrok-free.app/login",{
+            const response = await axios.post("http://3.39.55.166:8080/login",{
                 "username": email,
                 "password": password
             })
@@ -34,8 +34,10 @@ const NormalLogin = ({isLogin,setIsLogin}) => {
             setIsLogin(true);
             sessionStorage.setItem("isLogin", true);
             console.log(response.headers.authorization)
+            localStorage.setItem("jwt",response.headers.authorization)
             console.log(response.headers.refresh)
-            // navigate("../");
+            localStorage.setItem("refrest_token",response.headers.refresh);
+            navigate("../");
             
 
         } catch (error) {

@@ -44,6 +44,8 @@ function App() {
         console.log("로그인 성공",loginRes)
         setIsLogin(true)
         sessionStorage.setItem("isLogin",true);
+
+        localStorage.setItem("jwt",loginRes.headers.authorization);
       }).catch(loginErr=>{
         console.log("로그인 실패",loginErr)
         // setIsLogin(false);
@@ -58,6 +60,8 @@ function App() {
           console.log("로그인 성공",loginRes)
           setIsLogin(true);
           sessionStorage.setItem("isLogin",true);
+
+          localStorage.setItem("jwt",loginRes.headers.authorization);
         }).catch(loginErr=>{
           console.log("로그인 실패",loginErr)
           // setIsLogin(false);
@@ -69,6 +73,8 @@ function App() {
           console.log("로그인 성공",loginRes)
           setIsLogin(true);
           sessionStorage.setItem("isLogin",true);
+
+          localStorage.setItem("jwt",loginRes.headers.authorization);
         }).catch(loginErr=>{
           console.log("로그인 실패",loginErr)
           // setIsLogin(false);
