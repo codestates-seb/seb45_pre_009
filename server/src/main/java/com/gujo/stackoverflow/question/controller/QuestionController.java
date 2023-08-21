@@ -6,6 +6,9 @@ import com.gujo.stackoverflow.question.dto.QuestionDto;
 import com.gujo.stackoverflow.question.entity.Question;
 import com.gujo.stackoverflow.question.mapper.QuestionMapper;
 import com.gujo.stackoverflow.question.service.QuestionService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -19,6 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/questions")
+@Api(tags = "질문 API")
 public class QuestionController {
 
     private final MemberService memberService;
@@ -32,6 +36,7 @@ public class QuestionController {
     }
 
     @PostMapping
+    @ApiOperation(value = "질문 등록", notes = "질문글을 작성 할 수 있습니다.")
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.PostDto postDto) {
         Question question = mapper.postDtoToQuestion(postDto);
 
@@ -46,6 +51,7 @@ public class QuestionController {
 
 //    메인 화면 표시용 질문글 제목 이름 등 표시 -> 내용 미포함
     @GetMapping("/main")
+    @ApiOperation(value = "메인 화면 출력 질문", notes = "메인 화면 표시용으로 내용은 포함되지 않습니다.")
     public ResponseEntity getQuestionsWithoutContent(Pageable pageable) {
         List<Question> questions = service.getQuestionsWithoutContent(pageable);
 
@@ -55,6 +61,7 @@ public class QuestionController {
 
 //    검색 시 내용 글자 100만 표시
     @GetMapping
+    @ApiOperation(value = "질문 조회", notes = "등록된 질문글을 조회가 가능합니다. <bn> 작성된 질문 내용의 100글자까지 표시됩니다.")
     public ResponseEntity getQuestionsWithPreview(Pageable pageable) {
         Page<Question> questions = service.getQuestionsWithPreview(pageable);
 
@@ -63,7 +70,8 @@ public class QuestionController {
     }
 
     @GetMapping("/{question-id}")
-    public ResponseEntity getQuestion(@PathVariable("question-id") @Positive Long questionId) {
+    @ApiOperation(value = "질문 상세 조회", notes = "등록된 질문글을 question Id로 상세 조히가 가능합니다.")
+    public ResponseEntity getQuestion(@PathVariable("question-id") @Positive @ApiParam(value = "질문 Id") Long questionId) {
         Question question = service.getQuestion(questionId);
 
         QuestionDto.ResponseDto responseDto = mapper.questionToResponseDto(question);
@@ -71,7 +79,8 @@ public class QuestionController {
     }
 
     @PatchMapping("/{question-id}")
-    public ResponseEntity patchQuestion(@PathVariable("question-id") @Positive Long questionId,
+    @ApiOperation(value = "질문 수정", notes = "질문의 제목과 내용 수정이 가능합니다.")
+    public ResponseEntity patchQuestion(@ApiParam("질문 Id") @PathVariable("question-id") @Positive Long questionId,
                                         @Valid @RequestBody QuestionDto.PatchDto patchDto) {
         Question question = mapper.patchDtoToQuestion(patchDto);
         Question updated = service.updateQuestion(questionId, question);
@@ -81,7 +90,8 @@ public class QuestionController {
     }
 
     @DeleteMapping("/{question-id}")
-    public ResponseEntity deleteQuestion(@PathVariable("question-id") @Positive Long questionId) {
+    @ApiOperation(value = "질문 삭제", notes = "등록된 질문글을 question Id로 질문 삭제가 가능합니다.")
+    public ResponseEntity deleteQuestion(@PathVariable("question-id") @Positive @ApiParam(value = "질문 Id") Long questionId) {
         service.deleteQuestion(questionId);
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -89,6 +99,7 @@ public class QuestionController {
 
 //    추천
     @PatchMapping("/{question-id}/up")
+    @ApiOperation(value = "질문 추천(Up)")
     public ResponseEntity voteUp(@PathVariable("question-id") @Positive Long questionId) {
         Question voted = service.getPoint(questionId);
 
@@ -98,6 +109,7 @@ public class QuestionController {
 
 //    비추천
     @PatchMapping("/{question-id}/down")
+    @ApiOperation(value = "질문 추천(Down")
     public ResponseEntity voteDown(@PathVariable("question-id") @Positive Long questionId) {
         Question voted = service.losePoint(questionId);
 
@@ -107,9 +119,10 @@ public class QuestionController {
   
     //    검색
     @GetMapping("/search/questions")
-    public ResponseEntity<Page<QuestionDto.ResponseDto>> searchQuestions(@PageableDefault Pageable pageable,
+    @ApiOperation(value = "검색 기능", notes = "keyword로 제목이나 작성글의 포함된 내용을 검색을 할 수 있습니다.")
+    public ResponseEntity<Page<QuestionDto.ResponseDto>> searchQuestions(@PageableDefault Pageable pageable, @ApiParam(value = "제목 또는 내용")
                                                                          @RequestParam(required = false, defaultValue = "")
-                                                                         String keyword) {
+                                                                          String keyword) {
         Page<Question> searchResult = service.questionSearchList(keyword, keyword, pageable);
         Page<QuestionDto.ResponseDto> responsePage = searchResult.map(
                 question -> mapper.questionToResponseDto(question));
