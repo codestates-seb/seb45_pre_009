@@ -37,12 +37,12 @@ function App() {
   
 
   useEffect(()=>{
-    axios.post("http://3.39.55.166:8080/members/oauth",{
+    axios.post("https://303c-14-52-249-197.ngrok-free.app/members/oauth",{
       "displayName": displayName,
       "email": email
     }).then(res=>{
       console.log('회원가입 성공',res)
-      axios.post("http://3.39.55.166:8080/login",{
+      axios.post("https://303c-14-52-249-197.ngrok-free.app/login",{
         "username":email
       }).then(loginRes=>{
         console.log("로그인 성공",loginRes)
@@ -60,7 +60,7 @@ function App() {
     }).catch(err=>{
       console.log(err)
       if(err.response && err.response.status === 409) {
-        axios.post("http://3.39.55.166:8080/login",{
+        axios.post("https://303c-14-52-249-197.ngrok-free.app/login",{
           "username": email
         }).then(loginRes=>{
           console.log("로그인 성공",loginRes)
@@ -75,7 +75,7 @@ function App() {
           // setIsLogin(false);
         })
       } else if(err.response && err.response.status === 500){
-        axios.post("http://3.39.55.166:8080/login",{
+        axios.post("https://303c-14-52-249-197.ngrok-free.app/login",{
           "username": email
         }).then(loginRes=>{
           console.log("로그인 성공",loginRes)
@@ -122,6 +122,7 @@ function App() {
     showSidebarPaths.includes(location.pathname);
 
 
+  
   console.log(isLogin);
 
   return (

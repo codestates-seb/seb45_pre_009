@@ -83,12 +83,19 @@ public class AnswerController {
         return new ResponseEntity(mapper.answerToAnswerResponseDto(answer), HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     @ApiOperation(value = "답변 조회", notes = "답변 조회가 가능합니다.")
     public ResponseEntity getAnswers() {
         List<Answer> answers = answerService.findAnswers();
 
         return new ResponseEntity(mapper.answersToAnswerResponseDtos(answers), HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity getAnswersForQuestion(@PathVariable("question-id") Long questionId) {
+        List<Answer> answersForQuestions = answerService.findAnswersForQuestion(questionId);
+
+        return new ResponseEntity(mapper.answersToAnswerResponseDtos(answersForQuestions), HttpStatus.OK);
     }
 
     @DeleteMapping("/{answerId}")

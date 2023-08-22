@@ -1,8 +1,7 @@
-
+import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { postData } from '../slicer/main';
-import { Link } from 'react-router-dom';
 
 
 
@@ -62,8 +61,8 @@ export default function Ask() {
                                 <div className='w-full flex mb-[16px] items-center  '>
                                     <div className='w-full p-[24px] bg-[#ebf4fb] border rounded-md border-[rgb(195,229,255)]'>
                                         <h2 className='font-normal text-[21px] mb-8  '>Writing a good question</h2>
-                                        <p className='text-[15px] mb-0 clear-both mt-0 '>You’re ready to <Link className='text-blue-600 ' to='/'>ask</Link> a <Link className='text-blue-600 ' to='/'>programming-related question</Link> and this form will help guide you through the process.</p>
-                                        <p className='mb-[1em] text-[15px] clear-both '>Looking to ask a non-programming question? See <Link className='text-blue-600 ' to='/'>the topics here</Link> to find a relevant site.</p>
+                                        <p className='text-[15px] mb-0 clear-both mt-0 '>You’re ready to <Link to='/' className='text-blue-600 ' >ask</Link> a <Link to='/' className='text-blue-600 ' >programming-related question</Link> and this form will help guide you through the process.</p>
+                                        <p className='mb-[1em] text-[15px] clear-both '>Looking to ask a non-programming question? See <Link to='/' className='text-blue-600 '>the topics here</Link> to find a relevant site.</p>
                                         <h5 className='text-[13px] '>steps</h5>
                                         <ul className='mb-0 text-[13px] list-disc ml-[30px]'>
                                             <li>Summarize your problem in a one-line title.</li>

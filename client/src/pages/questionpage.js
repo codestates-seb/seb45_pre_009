@@ -170,7 +170,7 @@ function QuestionPage() {
                                                                 
                                                             </div>
                                                             <div className=' float-left ml-[8px] w-[calc(100%-40px)] break-all text-[13px] '>
-                                                                <Link className='text-blue-500' to='/'>{users[question.memberId]?.displayName || 'name...'}</Link>
+                                                                <Link to='/' className='text-blue-500' >{users[question.memberId]?.displayName || 'name...'}</Link>
                                                                 <div className=' text-[13px] '>
                                                                     {users[question.memberId]?.reputation || '0'}
                                                                 </div>
