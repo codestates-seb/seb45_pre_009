@@ -91,7 +91,8 @@ public class SecurityConfiguration {
         configuration.setAllowedOrigins(Arrays.asList(
                 "http://localhost:3000",
                 "http://localhost:8080",
-                "3.39.55.166:8080"));
+                "3.39.55.166:8080",
+                "http://preproject.s3-website.ap-northeast-2.amazonaws.com"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE", "OPTIONS", "PUT"));
         configuration.setExposedHeaders(Arrays.asList("Authorization", "Refresh"));
         configuration.setAllowCredentials(true);
