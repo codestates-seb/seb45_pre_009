@@ -36,4 +36,19 @@ public class Comment {
 
     @Column(nullable = true)
     private LocalDateTime modifiedAt;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(nullable = false)
+    private Comment.CommentStatus commentStatus = Comment.CommentStatus.COMMENT_EXIST;
+
+    public enum CommentStatus {
+        COMMENT_EXIST("존재하는 댓글"),
+        COMMENT_NOT_EXIST("존재하지 않는 댓글");
+
+        private String status;
+
+        CommentStatus(String status) {
+            this.status = status;
+        }
+    }
 }

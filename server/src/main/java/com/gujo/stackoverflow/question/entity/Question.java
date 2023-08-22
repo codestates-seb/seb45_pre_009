@@ -41,6 +41,21 @@ public class Question {
     @Column(nullable = false)
     private Long views = 0L;
 
+    @Enumerated(value = EnumType.STRING)
+    @Column(nullable = false)
+    private Question.QuestionStatus questionStatus = Question.QuestionStatus.QUESTION_EXIST;
+
+    public enum QuestionStatus {
+        QUESTION_EXIST("존재하는 질문글"),
+        QUESTION_NOT_EXIST("존재하지 않는 질문글");
+
+        private String status;
+
+        QuestionStatus(String status) {
+            this.status = status;
+        }
+    }
+
 //    1:N Answer와 양방향 매핑용
 //    mappedBy 값은 매핑하는 테이블에서 FK에 해당하는 필드
     @OneToMany(mappedBy = "question")

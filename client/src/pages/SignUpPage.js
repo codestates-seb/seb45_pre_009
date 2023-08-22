@@ -19,7 +19,7 @@ const SignUpPage = ({isLogin,setIsLogin}) => {
 
     return (
         <>
-        <div className="flex justify-center items-center min-h-screen bg-[#F2F2F2]">
+        <div className="flex justify-center items-center min-h-screen bg-[#F2F2F2] w-full">
         <div className="flex flex-col mr-4">
             <h1 className="fs-headline1 mb-10 lh-xs text-2xl text-bold">Join the Stack Overflow community</h1>
             

@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import "./Header.css";
 import Search from "./Search";
@@ -14,6 +15,7 @@ import DropdownBars from "../Dropdown/DropdownBars";
 import DropdownInbox from "../Dropdown/DropdownInbox";
 import DropdownQuestion from "../Dropdown/DropdownQuestion";
 import Dropdowntrophy from "../Dropdown/Dropdowntrophy";
+
 
 function Header({ isLogin, setIsLogin }) {
   // const handleGoLogin = () => {
@@ -33,6 +35,7 @@ function Header({ isLogin, setIsLogin }) {
         className="header_logo"
         src="https://velog.velcdn.com/images/devfrank9/post/1df259b2-e4cb-473b-8bcd-0388761a596a/image.png"
       />
+
 
       <button
         className="header_navigation"
@@ -88,6 +91,7 @@ function Header({ isLogin, setIsLogin }) {
       </div>
     </div>
   );
+
 }
 
 export default Header;
