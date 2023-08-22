@@ -25,7 +25,7 @@ const Mypage = () => {
     const buttonClasses = (buttonIndex) => {
         return `px-4 py-2 rounded-full mr-2 ${
             selectedButton === buttonIndex ? 'bg-orange-500': 'text-[black]'
-        } text-white`
+        }`
     }
 
     useEffect(()=>{

@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchData } from '../slicer/main';
 import Sidebar from '../components/Sidebar/Sidebar';
 // import { api } from '../api/api';
+import { Link } from 'react-router-dom';
 
 export default function UsersPage() {
 
@@ -35,11 +36,11 @@ export default function UsersPage() {
                                             {data.length} users
                                         </div>
                                         <div className='flex'>
-                                            <a href='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400 rounded-l-md'>Interesting</a>
-                                            <a href='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Bountied</a>
-                                            <a href='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Hot</a>
-                                            <a href='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Week</a>
-                                            <a href='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400 rounded-r-md'>Month</a>
+                                            <Link to='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400 rounded-l-md'>Interesting</Link>
+                                            <Link to='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Bountied</Link>
+                                            <Link to='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Hot</Link>
+                                            <Link to='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Week</Link>
+                                            <Link to='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400 rounded-r-md'>Month</Link>
                                         </div>
                                     </div>
                                 </div>
