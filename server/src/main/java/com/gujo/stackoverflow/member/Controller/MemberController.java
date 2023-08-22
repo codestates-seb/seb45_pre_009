@@ -64,7 +64,7 @@ public class MemberController {
 
     @PostMapping("/oauth")
     @ApiOperation(value = "OAuth 가입", notes = "OAuth 통해 회원 가입이 가능합니다.")
-    public ResponseEntity postOauthMember(@RequestBody MemberDto.OauthPostDto postDto) {
+    public ResponseEntity postOauthMember(@RequestBody @Valid MemberDto.OauthPostDto postDto) {
 
         Member member = mapper.oauthPostDtoToMember(postDto);
         member.setOauth(true);
