@@ -25,7 +25,7 @@ const NormalLogin = ({isLogin,setIsLogin}) => {
         }
 
         try {
-            const response = await axios.post("http://3.39.55.166:8080/login",{
+            const response = await axios.post("https://303c-14-52-249-197.ngrok-free.app/login",{
                 "username": email,
                 "password": password
             })
