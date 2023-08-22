@@ -1,5 +1,5 @@
-<img src="https://github.com/seoljuyeon/personal/assets/110334373/b6d1c7d7-8a42-4e01-a38d-5aedffd71e13" width="400" height="80"/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/seoljuyeon/personal/assets/110334373/cde25712-9307-40f4-868b-95c3ad297576" width="300" height="69"/>
+<img src="https://github.com/codestates-seb/seb45_pre_009/assets/110334373/719e4a65-f0c9-4b58-82ae-d4d5901f1540" width="400" height="80"/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/codestates-seb/seb45_pre_009/assets/110334373/3e88a826-5cf8-4cd3-8736-985e5cbad374" width="300" height="69"/>
 
 <br> <br> 팀 `구조`의 개발자 커뮤니티 `Stack Overflow` 클론 코딩 프로젝트 ( 8/4 ~ 8/23 )
 <br> <br>
@@ -7,7 +7,7 @@
 ### 🚨 구조 팀원 ❤️‍🔥 <br>
 |김진현<br>`FE` `부팀장`|강소이<br>`FE`|서강의<br>`FE`|서정욱<br>`BE` `팀장`|김동환<br>`BE`|설주연<br>`BE`|
 |:--:|:--:|:--:|:--:|:--:|:--:|
-|<img width = "100" alt = "profile" src= "https://github.com/seoljuyeon/personal/assets/110334373/3d7b7505-6a64-40d7-90d1-34eadb6c8315"/>|<img width = "100" alt = "profile" src= "https://github.com/seoljuyeon/personal/assets/110334373/35634f9d-bea6-4599-9737-e732e1863e78"/>|<img width = "100" alt = "profile" src= "https://github.com/seoljuyeon/personal/assets/110334373/20cba34e-eb79-425f-a299-41e749baba66"/>|<img width = "100" alt = "profile" src= "https://github.com/seoljuyeon/personal/assets/110334373/a85ffbb7-3e95-4e19-8248-5df312a51085"/>|<img width = "100" alt = "profile" src= "https://github.com/seoljuyeon/personal/assets/110334373/0350c5e9-e0a1-4461-a613-e05e645239f3"/>|<img width = "100" alt = "profile" src= "https://github.com/codestates-seb/seb45_pre_009/assets/110334373/170eca17-8eaa-4b03-a0cd-387675f786ef"/>|
+|<img width = "100" alt = "profile" src= "https://github.com/codestates-seb/seb45_pre_009/assets/110334373/30f567a6-18ee-4607-881b-2a0a5ddb2e64"/>|<img width = "100" alt = "profile" src= "https://github.com/codestates-seb/seb45_pre_009/assets/110334373/8eff0eaa-7e9d-4941-bb74-2eb3bd97fe87"/>|<img width = "100" alt = "profile" src= "https://github.com/codestates-seb/seb45_pre_009/assets/110334373/21737af1-1fbe-4091-9a9a-1891f4e85215"/>|<img width = "100" alt = "profile" src= "https://github.com/codestates-seb/seb45_pre_009/assets/110334373/47bf7d12-4971-469c-b1ac-f5a06b05f072"/>|<img width = "100" alt = "profile" src= "https://github.com/codestates-seb/seb45_pre_009/assets/110334373/35f6d225-e729-4b3a-b59b-4874c6026847"/>|<img width = "100" alt = "profile" src= "https://github.com/codestates-seb/seb45_pre_009/assets/110334373/170eca17-8eaa-4b03-a0cd-387675f786ef"/>|
 |[RunnerJinHyeon](https://github.com/RunnerJinHyeon)|[소이](https://github.com/sooooii)|[SGE](https://github.com/ColmiismaL)|[jungseo](https://github.com/Jung-seo)|[KimDONGHWAN9](https://github.com/KimDONGHWAN9)|[seoljuyeon](https://github.com/seoljuyeon)|
 
 <br>
