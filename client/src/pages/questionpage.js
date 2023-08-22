@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchData, fetchUserById, postData, patchData, fetchAnswersByQuestionId } from '../slicer/main';
 import Sidebar from '../components/Sidebar/Sidebar';
+import { CommentInput } from '../components/comment/comment';
 import moment from 'moment-timezone';
 import MyEditor from '../components/ckeditor5/editor';
 import { Link } from 'react-router-dom';
@@ -14,6 +15,7 @@ function QuestionPage() {
     const status = useSelector((state) => state.data.status);
     const users = useSelector((state) => state.data.users);
     const answers = useSelector((state) => state.data.answers);
+
     const [content, setContent] = useState('');
 
     function momenti (time) {
@@ -34,6 +36,11 @@ function QuestionPage() {
     const handleUpvote = () => {
         const updatedPoint = question.point + 1;
         dispatch(patchData({ path: `questions/${id}/up`, data: { point: updatedPoint } }));
+      };
+
+      const handleDownvote = () => {
+        const updatedPoint = question.point - 1;
+        dispatch(patchData({ path: `questions/${id}/down`, data: { point: updatedPoint } }));
       };
 
     useEffect(() => {
@@ -108,7 +115,7 @@ function QuestionPage() {
                                                 <div className='m-[2px] flex font-semibold text-[19px] text-black py-[4px] items-center flex-col '>
                                                     {question.point !== undefined ? question.point : '0'}
                                                 </div>
-                                                <button className=' m-[2px] cursor-pointer items-center rounded-[1000px] border p-[10px] hover:bg-orange-100 '>
+                                                <button onClick={handleDownvote} className=' m-[2px] cursor-pointer items-center rounded-[1000px] border p-[10px] hover:bg-orange-100 '>
                                                     <div className=' h-[18px] w-[18px] items-center '>
                                                         <div className='text-[14px] text-black'>하</div>
                                                     </div>
@@ -181,25 +188,123 @@ function QuestionPage() {
                                             </div>
                                         </div>
                                         <span></span>
-                                        <div id='comment' className='pr-[16px] grid-cols-[2] w-auto '>
+                                        {/* <div id='comment' className='pr-[16px] grid-cols-[2] w-auto '>
                                             <div className=' text-[13px] text-gray-400 '>
                                                 <Link to='/' className='p-[0,3px,2px] cursor-pointer  '>
                                                     Add a comment
                                                 </Link>
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </div>
-                                    <div id='answer' className='w-[auto] float-none pt-[10px] clear-both '>
+                                </div>
+                                <div id='answer' className='w-[auto] float-none pt-[10px] clear-both '>
                                             <div id='a-header' className=' w-full mt-[10px]  '>
                                                 <div id='sub-a-header' className='flex mb-[8px] items-center text-[19px] ' >
                                                     {Object.keys(answers).length > 0 ? `${Object.keys(answers).length} Answer` : ""}
                                                 </div>
                                             </div>
-                                            {answers && answers.map((answers) => (
-                                                <div id='subanswer' className='' key={answers.answerid}>
-                                                    {answers.content}
+                                            {/* {answers && answers.map((answer) => (
+                                                <div id='subanswer' className='' key={answer.answerid}>
+                                                    {answer.content}
                                                 </div>
-                                            ))}
+                                            ))} */}
+                                {answers && answers.map((answer) => (
+                                                <div id='sub-answer' className=' border-b w-full pb-[16px] pt-[16px]  '>
+                                                    <div id='post-layout' className=' grid grid-cols-[max-content,1fr]  '>
+                                                        <div id='vote' className='w-auto pr-[16px] align-top col-[1] min-h-[300px]  '>
+                                                            <div className='flex flex-col items-stretch justify-center text-[hsl(210,8%,75%)] '>
+                                                                <button onClick={handleUpvote} className=' m-[2px] cursor-pointer items-center rounded-[1000px] border p-[10px] hover:bg-orange-100 '>
+                                                                    <div className=' h-[18px] w-[18px] items-center '>
+                                                                        <div className='text-[14px] text-black'>상</div>
+                                                                    </div>
+                                                                </button>
+                                                                <div className='m-[2px] flex font-semibold text-[19px] text-black py-[4px] items-center flex-col '>
+                                                                    {answer.point !== undefined ? answer.point : '0'}
+                                                                </div>
+                                                                <button onClick={handleDownvote} className=' m-[2px] cursor-pointer items-center rounded-[1000px] border p-[10px] hover:bg-orange-100 '>
+                                                                    <div className=' h-[18px] w-[18px] items-center '>
+                                                                        <div className='text-[14px] text-black'>하</div>
+                                                                    </div>
+                                                                </button>
+                                                                <button className=' cursor-pointer py-[4px] text-center items-center justify-center content-center '>
+                                                                    <div className=' mx-auto h-[18px] w-[18px] items-center text-[13px] text-gray-400 hover:text-blue-600 '>
+                                                                        <div className=' '>즐</div>
+                                                                    </div>
+                                                                </button>
+                                                                <button className=' cursor-pointer py-[4px] text-center items-center justify-center content-center '>
+                                                                    <div className=' mx-auto h-[18px] w-[18px] items-center text-[13px] text-gray-400 hover:text-blue-600 '>
+                                                                        <div className=' '>히</div>
+                                                                    </div>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div id='post' className=' align-top pr-[16px] grid-cols-[2] w-auto min-w-0  '>
+                                                            <div className=' w-full min-h-[200px] '>
+                                                                {answer.content}
+                                                            </div>
+                                                            <div className=' mb-[12px] mt-[24px] '>
+                                                                <div className=' clear-both mb-[10px] flex flex-col mx-0 m-[-2]  '>
+                                                                    <div className=' mx-0 m-[2px] relative flex flex-wrap  '>
+                                                                        <ul className=' list-none ml-0 mb-[1em] text-[12px]  '>
+                                                                            <li className=''>
+                                                                                <Link to='/' className='block text-[hsl(205,47%,42%)] bg-[hsl(205,46%,92%)] border border-transparent rounded-md px-[6px] py-[4px] mr-[1px] mb-[1px] '>tag</Link>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className=' mb-0 block '>
+                                                                <div className=' flex pt-[4px] my-[16px] items-start justify-end flex-wrap mx-0  '>
+                                                                    <div className=' mx-0 m-[4px] w-[96px] mr-[16px] flex-auto  ' >
+                                                                        <div className=' pt-[2px]  '>
+                                                                            <div className=' flex flex-wrap m-[-4px] text-[13px] ' >
+                                                                                <div className=' m-[4px] block text-gray-500 hover:text-gray-300 ' >
+                                                                                    <Link to='/'>Share</Link>
+                                                                                </div>
+                                                                                <div className=' m-[4px] block text-gray-500 hover:text-gray-300 ' >
+                                                                                    <Link to='/'>Edit</Link>
+                                                                                </div>
+                                                                                <div className=' m-[4px] block text-gray-500 hover:text-gray-300 ' >
+                                                                                    <Link to='/'>Follow</Link>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className=' w-[200px] align-top m-[4px] rounded-[4px] bg-sky-100 '>
+                                                                        <div className=' px-[7px] py-[6px] table ' >
+                                                                            <div className=' mt-[1px] mb-[4px] text-[12px] text-gray-500 '>
+                                                                                <Link to='/'>edited 
+                                                                                    {answer.modifiedAt 
+                                                                                        ? momenti(answer.modifiedAt)
+                                                                                        : momenti(answer.createdAt)}
+                                                                                </Link>
+                                                                            </div>
+                                                                            <div className=' float-left w-[32px] h-[32px] rounded-[1px] border border-black '>
+                                                                                
+                                                                            </div>
+                                                                            <div className=' float-left ml-[8px] w-[calc(100%-40px)] break-all text-[13px] '>
+                                                                                <Link to='/' className='text-blue-500' >{users[answer.memberId]?.displayName || 'name...'}</Link>
+                                                                                <div className=' text-[13px] '>
+                                                                                    {users[answer.memberId]?.reputation || '0'}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <span></span>
+                                                        <CommentInput questionId={id} answerId={answer.answerId} ></CommentInput>
+                                                        {/* <div id='comment' className='pr-[16px] grid-cols-[2] w-auto '>
+                                                            <div className=' text-[13px] text-gray-400 '>
+                                                                <Link to='/' className='p-[0,3px,2px] cursor-pointer  '>
+                                                                    Add a comment
+                                                                </Link>
+                                                            </div>
+                                                        </div> */}
+                                                    </div>
+                                                </div>
+                                ))}
                                             <form id='post' className='mb-[8px] min-w-[430px] '>
                                                 <h2 className='pt-[20px] mb-[20px] font-normal text-[19px]'>
                                                     Your Answer
@@ -209,7 +314,6 @@ function QuestionPage() {
                                                     Post your Answer
                                                 </button>
                                             </form>
-                                    </div>
                                 </div>
                             </div>
                             <div id='right-sidebar' className='relative float-right block vx:w-full vv:w-72 vv:ml-6 vx:float-none vx:clear-both vx:m-[0,auto] '>

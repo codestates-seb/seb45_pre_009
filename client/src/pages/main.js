@@ -3,11 +3,11 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchData, fetchUserById } from '../slicer/main';
 import moment from 'moment-timezone';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 
 export default function Main() {
-
+    const { id } = useParams();
     const dispatch = useDispatch();
     const data = useSelector((state) => state.data.items);
     const status = useSelector((state) => state.data.status);
@@ -17,7 +17,7 @@ export default function Main() {
         if (status === 'idle') {
             dispatch(fetchData('questions?page=0&size=10'));
         }
-    }, [status, dispatch]);
+    }, [status, dispatch, id]);
 
     useEffect(() => {
         data.forEach((item) => {

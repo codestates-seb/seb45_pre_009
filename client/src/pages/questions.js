@@ -1,13 +1,14 @@
 
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchData, fetchUserById } from '../slicer/main';
+import { fetchData, fetchUserById, routeChanged } from '../slicer/main';
 import moment from 'moment-timezone';
 // import { api } from '../api/api';
 import { Link } from 'react-router-dom';
+import ReactHtmlParser from "react-html-parser";
 
 export default function Questions() {
-
+    
     const dispatch = useDispatch();
     const data = useSelector((state) => state.data.items);
     const status = useSelector((state) => state.data.status);
@@ -73,7 +74,7 @@ export default function Questions() {
                                     <div className='p-4 relative border-b flex w-full vx:flex-col ' key={item.questionId}>
                                         <div className='flex vv:flex-col vx:w-auto vv:w-[108px] vx:flex-row vv:flex-wrap vv:content-end vv:flex-shrink-0 mr-4 vv:mb-4 vx:mb-1 gap-[6px]'>
                                             <div className='inline-flex gap-[0.3em] justify-end content-end whitespace-nowrap border border-transparent '>
-                                                <span className='text-xs'>0</span><span className='text-xs'>votes</span>
+                                                <span className='text-xs'>{item.point !== undefined ? item.point : '0'}</span><span className='text-xs'>votes</span>
                                             </div>
                                             <div className='inline-flex gap-[0.3em] justify-end content-end whitespace-nowrap border border-transparent text-[#6a737c] '>
                                                 <span className='text-xs'>0</span><span className='text-xs'>answers</span>
@@ -84,7 +85,7 @@ export default function Questions() {
                                         </div>
                                         <div className='max-w-full flex-grow'>
                                             <h3 className='mb-1 pr-6 text-[#0074cc]'><Link to={`/questions/${item.questionId}`}>{item.title}</Link></h3>
-                                            <div className='text-[13px] mb-1 text-[#3d4042] break-words overflow-hidden hyphens-auto break-all'><Link to={`/questions/${item.questionId}`}>{truncateString(item.content)}</Link></div>
+                                            <div className='text-[13px] mb-1 text-[#3d4042] break-words overflow-hidden hyphens-auto break-all'><Link to={`/questions/${item.questionId}`}>{ReactHtmlParser(truncateString(item.content))}</Link></div>
                                             <div className='flex flex-wrap flex-1 items-center justify-between gap-y-2 gap-x-2 relative text-[12px]' >
                                                 <ul className='ml-0 '>
                                                     <li>

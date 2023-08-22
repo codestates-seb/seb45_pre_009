@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { postData } from '../slicer/main';
+import MyEditor from '../components/ckeditor5/editor';
 
 
 
@@ -75,15 +76,52 @@ export default function Ask() {
                                 </div>
                             </div>
                         </div>
-                        <form>
-                            <main>
-                                <div>
-                                    title
-                                    <input className='border' value={title} onChange={e => setTitle(e.target.value)} />
+                        <form id='askquestion' className='  '>
+                            <main className=' mb-[48px]  '>
+                                <div className=' flex w-full bg-white rounded-[4px] border  '>
+                                    <div className=' p-[24px] gap-[16px] w-full '>
+                                        <div className=' flex flex-col mx-0 my-[-2px]  '>
+                                            <div className=' flex flex-col mx-0 my-[2px]  ' >
+                                                <div className='  '>
+                                                    <label className=' cursor-pointer text-[15px] font-semibold '>
+                                                        Title
+                                                    </label>
+                                                </div>
+                                                <div className=' flex  '>
+                                                    <div className=' my-[2px]  '>
+                                                        <label className=' text-[12px]  '>
+                                                            Be specific and imagine you’re asking a question to another person.
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className=' mx-0 my-[2px] relative flex  '>
+                                                <input className='border w-full rounded-[6px] border-gray-300 px-[9px] py-[7px] ' placeholder='Write here...' value={title} onChange={e => setTitle(e.target.value)} > 
+                                                </input>
+                                            </div>
+                                            <button className='mt-[8px] p-[14px] '>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-                                    content
-                                    <input className='border' value={content} onChange={e => setContent(e.target.value)} />
+                                <div id='content' className=' w-full flex mt-[12px] '>
+                                    <div className=' w-full bg-white rounded-[4px] border min-h-[320px]'>
+                                        <div className=' p-[24px]  ' >
+                                            <div className=' flex flex-col my-[-2px]  '>
+                                                <div className=' my-[2px]  '>
+                                                    <label className=' text-[15px] ' >
+                                                        What are the details of your problem?
+                                                        <p className=' text-[12px] ' >
+                                                            Introduce the problem and expand on what you put in the title. Minimum 20 characters.
+                                                        </p>
+                                                    </label>
+                                                </div>
+                                                <div className='  '>
+                                                    <MyEditor onContentChange={setContent}></MyEditor>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div>
                                     <button className='border' onClick={handleSubmit}>

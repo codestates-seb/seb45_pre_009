@@ -27,7 +27,6 @@ export const fetchAnswersByQuestionId = createAsyncThunk('data/fetchAnswersByQue
         return response;
     });
     
-    
 export const dataSlice = createSlice({
         name: 'data',
         initialState: {
@@ -65,7 +64,7 @@ export const dataSlice = createSlice({
                 state.question.point = updatedPoint;
             })
             .addCase(fetchData.rejected, (state) => {
-            state.status = 'failed';
+                state.status = 'failed';
             });
         },
     });
