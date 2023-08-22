@@ -14,7 +14,12 @@
 
 ### 🔗 주요 문서 📁
 
-[사용자 요구사항 정의서](https://github.com/seoljuyeon/personal/files/12408788/Stack.Overflow.-.-3.pdf)
+[사용자 요구사항 정의서](https://github.com/seoljuyeon/personal/files/12408788/Stack.Overflow.-.-3.pdf)<br>
+[ERD](https://www.erdcloud.com/d/caQ6PDp6qzi77zMpj)<br>
+[API 명세서](http://3.39.55.166:8080/swagger-ui/index.html)<br>
+
+사용자 테스트 체크리스트 는 아직~
+
 
 
 <br>
