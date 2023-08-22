@@ -1,6 +1,7 @@
 package com.gujo.stackoverflow.member.service;
 
 
+import com.gujo.stackoverflow.answer.entity.Answer;
 import com.gujo.stackoverflow.auth.utils.CustomAuthorityUtils;
 import com.gujo.stackoverflow.exception.ExceptionCode;
 import com.gujo.stackoverflow.exception.BusinessLogicException;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -104,18 +106,29 @@ public class MemberService {
 
     @Transactional(readOnly = true)
     public Member findMember(Long memberId) {
-        return findVerifiedMember(memberId);
+        Member member = findVerifiedMember(memberId);
+
+        if( member.getMemberStatus() == Member.MemberStatus.MEMBER_EXIST ) {
+            return member;
+        } else throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
     }
 
     public List<Member> findMembers() {
-        return memberRepository.findAll();
+        List<Member> allMembers = memberRepository.findAll();
+
+        return allMembers.stream()
+                .filter(answer -> answer.getMemberStatus() == Member.MemberStatus.MEMBER_EXIST)
+                .collect(Collectors.toList());
     }
 
     public void deleteMember(Long memberId) {
         Member findMember = findVerifiedMember(memberId);
         checkLoginMemberWrote(findMember.getMemberId());
 
-        memberRepository.deleteById(findMember.getMemberId());
+        findMember.setMemberStatus(Member.MemberStatus.MEMBER_NOT_EXIST);
+
+        memberRepository.save(findMember);
+//        memberRepository.deleteById(findMember.getMemberId());
     }
 
     // 중복 displayName 확인

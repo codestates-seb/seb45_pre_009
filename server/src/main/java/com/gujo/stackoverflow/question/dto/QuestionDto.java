@@ -49,7 +49,7 @@ public class QuestionDto {
     public static class getAllResponseDto {
         private Long questionId;
 
-        private Member member;
+        private Long memberId;
 
         private String title;
 

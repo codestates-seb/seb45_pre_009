@@ -94,7 +94,7 @@ public class QuestionController {
     public ResponseEntity deleteQuestion(@PathVariable("question-id") @Positive @ApiParam(value = "질문 Id") Long questionId) {
         service.deleteQuestion(questionId);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 //    추천

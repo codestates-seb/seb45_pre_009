@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -44,12 +46,20 @@ public class AnswerService {
 
     @Transactional(readOnly = true)
     public Answer findAnswer(Long answerId) {
-        return findVerifiedAnswer(answerId);
+        Answer answer = findVerifiedAnswer(answerId);
+
+        if( answer.getAnswerStatus() == Answer.AnswerStatus.ANSWER_EXIST ) {
+            return answer;
+        } else throw new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND);
     }
 
     @Transactional(readOnly = true)
     public List<Answer> findAnswers() {
-        return answerRepository.findAll();
+        List<Answer> allAnswers = answerRepository.findAll();
+
+        return allAnswers.stream()
+                .filter(answer -> answer.getAnswerStatus() == Answer.AnswerStatus.ANSWER_EXIST)
+                .collect(Collectors.toList());
     }
 
     public void deleteAnswer(Long answerId) {
