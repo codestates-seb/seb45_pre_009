@@ -121,7 +121,9 @@ function App() {
   const showSidebar = () =>
     showSidebarPaths.includes(location.pathname);
 
-  
+
+  const [isLogin,setIsLogin] = useState(true);
+  console.log(isLogin);
 
   return (
 
