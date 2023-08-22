@@ -12,7 +12,8 @@ module.exports = {
         vx: { max: "980px" },
         min1264: {min:"1264px"},
         nm9801264: {min:"980px", max:"1264px"},
-        nm640980: {min:"640px", max:"980px"}
+        nm640980: {min:"640px", max:"980px"},
+        v640: {max:"640px"}
     },
 },
   plugins: [],

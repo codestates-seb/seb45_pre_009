@@ -19,9 +19,9 @@ function getToken() {
 export function getApi(url) {
 
     return axios.get(`${apiUrl}/${url}`)
-    .then((Response)=>{
-        console.log(Response.data)
-        return Response.data;
+    .then((response)=>{
+        console.log(response.data)
+        return response.data;
     }).catch((Error)=>{
 
         console.log(Error);
@@ -36,8 +36,20 @@ export function postApi(url, data) {
     return axios.post(`${apiUrl}/${url}`, data, { headers })
     .then((response) => {
         console.log(response.data);
-        console.log(response);
         console.log(headers);
+        return response.data;
+    })
+        .catch((error) => {
+        console.log(error);
+        throw error;
+    });
+
+}
+
+export function patchApi(url, data) {
+    return axios.patch(`${apiUrl}/${url}`, data, { headers })
+    .then((response) => {
+        console.log(response.data);
         return response.data;
     })
         .catch((error) => {

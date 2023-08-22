@@ -66,8 +66,8 @@ export default function Questions() {
                                 </div>
                             </div>
                         </div>
-                        <div id='qlist-wrapper' className='border-t'>
-                            <div>
+                        <div id='qlist-wrapper' className=''>
+                            <div className='w-[auto] float-none mb-[20px] clear-both ml-[-24px] border-t '>
                                 {data && data.map((item) => (
                                     <div className='p-4 relative border-b flex w-full vx:flex-col ' key={item.questionId}>
                                         <div className='flex vv:flex-col vx:w-auto vv:w-[108px] vx:flex-row vv:flex-wrap vv:content-end vv:flex-shrink-0 mr-4 vv:mb-4 vx:mb-1 gap-[6px]'>

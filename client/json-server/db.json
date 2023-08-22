@@ -78,26 +78,6 @@
       ]
     }
   ],
-  "answer": [
-    {
-      "id": 0,
-      "question_id": 0,
-      "user_id": 1,
-      "content": "test answer0",
-      "point": 0,
-      "created_at": "2023-08-10,09:00:00",
-      "modified_at": ""
-    },
-    {
-      "id": 1,
-      "question_id": 0,
-      "user_id": 0,
-      "content": "test answer1",
-      "point": "0",
-      "created_at": "2023-08-10,09:00:00",
-      "modified_at": ""
-    }
-  ],
   "questions": [
     {
       "id": 0,
@@ -108,7 +88,16 @@
       "point": 0,
       "views": 3000,
       "createdAt": [2023,8,18,3,49,44,55159000],
-      "modified_at": ""
+      "modified_at": "",
+      "answer": {
+        "id": 0,
+        "question_id": 0,
+        "user_id": 1,
+        "content": "test answer0",
+        "point": 0,
+        "created_at": "2023-08-10,09:00:00",
+        "modified_at": ""
+      }
     },
     {
       "id": 1,
@@ -158,7 +147,7 @@
       "id": 5,
       "questionId": 5,
       "memberId": 5,
-      "title": "test question title2",
+      "title": "test question title6",
       "content": "test question content2",
       "point": 1,
       "views": 0,
@@ -169,7 +158,7 @@
       "id": 6,
       "questionId": 6,
       "memberId": 6,
-      "title": "test question title2",
+      "title": "test question title7",
       "content": "test question content2",
       "point": 1,
       "views": 0,
@@ -180,7 +169,7 @@
       "id": 7,
       "questionId": 7,
       "memberId": 0,
-      "title": "test question title2",
+      "title": "test question title8",
       "content": "test question content2",
       "point": 1,
       "views": 0,
@@ -191,7 +180,7 @@
       "id": 8,
       "questionId": 8,
       "memberId": 1,
-      "title": "test question title2",
+      "title": "test question title9",
       "content": "test question content2",
       "point": 1,
       "views": 0,
@@ -202,7 +191,7 @@
       "id": 9,
       "questionId": 9,
       "memberId": 2,
-      "title": "test question title2",
+      "title": "test question title10",
       "content": "test question content2",
       "point": 1,
       "views": 0,
@@ -213,7 +202,7 @@
       "id": 10,
       "questionId": 10,
       "memberId": 3,
-      "title": "test question title2",
+      "title": "test question title11",
       "content": "test question content2",
       "point": 1,
       "views": 0,
@@ -224,7 +213,7 @@
       "id": 11,
       "questionId": 11,
       "memberId": 4,
-      "title": "test question title2",
+      "title": "test question title12",
       "content": "test question content2",
       "point": 1,
       "views": 0,
@@ -235,7 +224,7 @@
       "id": 12,
       "questionId": 12,
       "memberId": 5,
-      "title": "test question title2",
+      "title": "test question title13",
       "content": "test question content2",
       "point": 1,
       "views": 0,
@@ -246,7 +235,7 @@
       "id": 13,
       "questionId": 13,
       "memberId": 6,
-      "title": "test question title2",
+      "title": "test question title14",
       "content": "test question content2",
       "point": 1,
       "views": 0,
@@ -257,7 +246,7 @@
       "id": 14,
       "questionId": 14,
       "memberId": 0,
-      "title": "test question title2",
+      "title": "test question title15",
       "content": "test question content2",
       "point": 1,
       "views": 0,

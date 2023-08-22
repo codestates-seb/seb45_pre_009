@@ -6,7 +6,7 @@ import { faCircleInfo, faEarthAsia, faSquareVirus, faLock } from '@fortawesome/f
 
 function Sidebar() {
     return (
-        <div className="sidebar_container">
+        <div className="sidebar_container min-w-[164px] v640:hidden ">
           <div className='sidebar_container_sticky'>
                <div className="sidebar_title"><a href='/'>Home</a></div>
                <div className="sidebar_title">PUBLC</div>

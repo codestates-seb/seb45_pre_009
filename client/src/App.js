@@ -125,10 +125,10 @@ function App() {
 
   return (
 
-    <div className="App">
+    <div className="App flex min-h-full min-w-[auto] flex-col">
 
       <Header isLogin={isLogin} setIsLogin={setIsLogin}/>
-      <div className='flex'>
+      <div className='flex flex-[1_0_auto] max-w-[1264px] w-full justify-between m-[0_auto] '>
         {showSidebar() && <Sidebar />}
         <Routes>
                 <Route path='/oauth' element={<Main/>}></Route>

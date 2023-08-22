@@ -55,9 +55,9 @@ export default function Main() {
                                 </div>
                             </div>
                         </div>
-                        <div id='qlist-wrapper' className='border-t'>
+                        <div id='qlist-wrapper' className=''>
                             <div id='question-mini-list' className='mb-8'>
-                                <div>
+                                <div className='w-[auto] float-none mb-[20px] clear-both ml-[-24px] border-t '>
                                     {data && data.map((item) => (
                                         <div className='p-4 relative border-b flex vx:flex-col ' key={item.memberId}>
                                             <div className='flex vv:flex-col vx:w-auto vv:w-[108px] vx:flex-row vv:flex-wrap vv:content-end vv:flex-shrink-0 mr-4 vv:mb-4 vx:mb-1 gap-[6px]'>
@@ -72,7 +72,7 @@ export default function Main() {
                                                 </div>
                                             </div>
                                             <div className='max-w-full flex-grow'>
-                                                <h3 className='mb-1 pr-6 text-[#0074cc]'><a href='/'>{item.title}</a></h3>
+                                                <h3 className='mb-1 pr-6 text-[#0074cc]'><a href={`/questions/${item.questionId}`}>{item.title}</a></h3>
                                                 <div className='flex flex-wrap flex-1 items-center justify-between gap-y-2 gap-x-2 relative text-[12px]' >
                                                     <ul className='ml-0 '>
                                                         <li className='flex flex-row'>

@@ -1,6 +1,6 @@
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getApi, postApi } from '../api/api.js';
+import { getApi, postApi, patchApi } from '../api/api.js';
 
 
     
@@ -16,6 +16,16 @@ export const fetchUserById = createAsyncThunk('data/fetchUserById', async (membe
     const response = await getApi(`members/${memberId}`); 
     return { memberId, user: response };
     });
+
+export const patchData = createAsyncThunk('data/patchData', async ({ path, data }) => {
+        return await patchApi(path, data);
+    });
+
+export const fetchAnswersByQuestionId = createAsyncThunk('data/fetchAnswersByQuestionId', async (questionId) => {
+        const response = await getApi(`questions/${questionId}/answers`);
+        
+        return response;
+    });
     
     
 export const dataSlice = createSlice({
@@ -24,6 +34,7 @@ export const dataSlice = createSlice({
         items: [],
         question: null,
         users: {},
+        answers: [],
         status: 'idle',
         },
         extraReducers: (builder) => {
@@ -45,6 +56,13 @@ export const dataSlice = createSlice({
                 } else {
                     state.question = action.payload; // 객체 응답을 question에 저장
                 }
+            })
+            .addCase(fetchAnswersByQuestionId.fulfilled, (state, action) => {
+                state.answers = action.payload;
+            })
+            .addCase(patchData.fulfilled, (state, action) => {
+                const updatedPoint = action.payload.point;
+                state.question.point = updatedPoint;
             })
             .addCase(fetchData.rejected, (state) => {
             state.status = 'failed';
