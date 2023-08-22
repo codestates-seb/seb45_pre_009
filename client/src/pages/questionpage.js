@@ -1,9 +1,10 @@
 import { useParams } from 'react-router-dom';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchData, fetchUserById } from '../slicer/main';
+import { fetchData, fetchUserById, postData, patchData, fetchAnswersByQuestionId } from '../slicer/main';
 import Sidebar from '../components/Sidebar/Sidebar';
 import moment from 'moment-timezone';
+import MyEditor from '../components/ckeditor5/editor';
 
 function QuestionPage() {
     const { id } = useParams();
@@ -11,6 +12,8 @@ function QuestionPage() {
     const question = useSelector((state) => state.data.question);
     const status = useSelector((state) => state.data.status);
     const users = useSelector((state) => state.data.users);
+    const answers = useSelector((state) => state.data.answers);
+    const [content, setContent] = useState('');
 
     function momenti (time) {
         return moment
@@ -18,6 +21,19 @@ function QuestionPage() {
             .tz("Asia/Seoul")
             .fromNow()
     }
+
+    const handleSubmit = () => {
+        const myAnswer = {
+            content
+        };
+        console.log(myAnswer);
+        dispatch(postData({ path: `questions/${id}/answers`, data: myAnswer }));
+    };
+
+    const handleUpvote = () => {
+        const updatedPoint = question.point + 1;
+        dispatch(patchData({ path: `questions/${id}/up`, data: { point: updatedPoint } }));
+      };
 
     useEffect(() => {
     if (status === 'idle') {
@@ -31,8 +47,16 @@ function QuestionPage() {
         }
     }, [question, dispatch]);
 
+    useEffect(() => {
+        if (question && question.questionId) {
+            dispatch(fetchAnswersByQuestionId(question.questionId));
+        }
+    }, [question, dispatch]);
+
+    console.log(answers)
+
     return (
-        <div className='flex justify-between z-0 w-full '>
+        <div className='flex z-0 w-full '>
             <Sidebar></Sidebar>
                 <div id='content' className='block p-6 h-full max-w-6xl w-full'>
                     <div>
@@ -75,7 +99,7 @@ function QuestionPage() {
                                     <div id='post-layout' className=' grid grid-cols-[max-content,1fr]  '>
                                         <div id='vote' className='w-auto pr-[16px] align-top col-[1] min-h-[300px]  '>
                                             <div className='flex flex-col items-stretch justify-center text-[hsl(210,8%,75%)] '>
-                                                <button className=' m-[2px] cursor-pointer items-center rounded-[1000px] border p-[10px] hover:bg-orange-100 '>
+                                                <button onClick={handleUpvote} className=' m-[2px] cursor-pointer items-center rounded-[1000px] border p-[10px] hover:bg-orange-100 '>
                                                     <div className=' h-[18px] w-[18px] items-center '>
                                                         <div className='text-[14px] text-black'>상</div>
                                                     </div>
@@ -163,6 +187,27 @@ function QuestionPage() {
                                                 </a>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div id='answer' className='w-[auto] float-none pt-[10px] clear-both '>
+                                            <div id='a-header' className=' w-full mt-[10px]  '>
+                                                <div id='sub-a-header' className='flex mb-[8px] items-center text-[19px] ' >
+                                                    {Object.keys(answers).length > 0 ? `${Object.keys(answers).length} Answer` : ""}
+                                                </div>
+                                            </div>
+                                            {answers && answers.map((answers) => (
+                                                <div id='subanswer' className='' key={answers.answerid}>
+                                                    {answers.content}
+                                                </div>
+                                            ))}
+                                            <form id='post' className='mb-[8px] min-w-[430px] '>
+                                                <h2 className='pt-[20px] mb-[20px] font-normal text-[19px]'>
+                                                    Your Answer
+                                                </h2>
+                                                    <MyEditor onContentChange={setContent}></MyEditor>
+                                                <button onClick={handleSubmit} className=''>
+                                                    Post your Answer
+                                                </button>
+                                            </form>
                                     </div>
                                 </div>
                             </div>

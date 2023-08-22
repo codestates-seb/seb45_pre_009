@@ -51,14 +51,19 @@
 
 .header_navigation {
     font-size: 13px;
-    padding-right: 22px;
+    
     border-radius: 20px;
 
     background-color: white;
     border: 0 white none;
     top: 50%;
     color: #535353;
-    
+    padding: 4px;
+    padding-right: 22px;
+}
+
+.header_navigation:active  {
+    background-color:rgb(255, 153, 0);
 }
 
 .navigation_box {
@@ -96,9 +101,14 @@
 .header_nav {
     display: flex;
     justify-content: space-evenly;
-    padding: 20px;
     font-size: 18px;
     color: #585757;
+    margin: 0px 10px;
+
+}
+
+.header_nav button {
+    padding: 0px 10px;
 }
 
 .fainbox {
@@ -199,3 +209,4 @@
 .font2 {
     color: #767373;
 }
+

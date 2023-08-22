@@ -35,6 +35,7 @@ public class AnswerDto {
     public static class ResponseDto {
         private Long answerId;
         private Long questionId;
+        private Long memberId;
         private String content;
         private Long point;
         private LocalDateTime createdAt;

@@ -5,6 +5,8 @@ import com.gujo.stackoverflow.comment.dto.CommentDto;
 import com.gujo.stackoverflow.comment.entity.Comment;
 import com.gujo.stackoverflow.comment.mapper.CommentMapper;
 import com.gujo.stackoverflow.comment.service.CommentService;
+import com.gujo.stackoverflow.member.entity.Member;
+import com.gujo.stackoverflow.member.service.MemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -23,12 +25,14 @@ public class CommentController {
 
     private CommentService service;
     private AnswerService answerService;
+    private MemberService memberService;
     private CommentMapper mapper;
 
-    public CommentController(AnswerService answerService, CommentService service, CommentMapper mapper) {
+    public CommentController(AnswerService answerService, CommentService service, MemberService memberService, CommentMapper mapper) {
         this.service = service;
         this.mapper = mapper;
         this.answerService = answerService;
+        this.memberService = memberService;
     }
 
     @PostMapping
@@ -38,6 +42,10 @@ public class CommentController {
 
         Comment comment = mapper.postDtoToComment(postDto);
         comment.setAnswer(answerService.findVerifiedAnswer(answerId));
+
+        Member loginMember = memberService.findLoginMember();
+        comment.setMember(loginMember);
+
         Comment created = service.createComment(comment);
 
         CommentDto.ResponseDto responseDto = mapper.commentToResponseDto(created);

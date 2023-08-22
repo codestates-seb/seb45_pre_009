@@ -121,34 +121,36 @@ function App() {
   const showSidebar = () =>
     showSidebarPaths.includes(location.pathname);
 
+
   
+  console.log(isLogin);
 
   return (
 
-    <div className="App">
+    <div className="App flex min-h-full min-w-[auto] flex-col">
 
       <Header isLogin={isLogin} setIsLogin={setIsLogin}/>
-      <div className='flex'>
+      <div className='flex flex-[1_0_auto] max-w-[1264px] w-full justify-between m-[0_auto] '>
         {showSidebar() && <Sidebar />}
         <Routes>
-                <Route path='/oauth' element={<Main/>}></Route>
-                <Route path='/kakao/callback' element={<Main/>}></Route>
+                <Route path='./oauth' element={<Main/>}></Route>
+                <Route path='./kakao/callback' element={<Main/>}></Route>
                 <Route path="/" element={<Main></Main>}>
               </Route>
-                <Route path="/signup" element={<SignUpPage isLogin={isLogin} setIsLogin={setIsLogin}/>}>
+                <Route path="./signup" element={<SignUpPage isLogin={isLogin} setIsLogin={setIsLogin}/>}>
               </Route>
-                <Route path="/login" element={<LoginPage isLogin={isLogin} setIsLogin={setIsLogin}/>}>
+                <Route path="./login" element={<LoginPage isLogin={isLogin} setIsLogin={setIsLogin}/>}>
               </Route>
-                <Route path="/questions" element={<Questions/>}>
+                <Route path="./questions" element={<Questions/>}>
               </Route>
-                <Route path="/questions/:id" element={<QuestionPage/>}>
+                <Route path="./questions/:id" element={<QuestionPage/>}>
               </Route>
-                <Route path="/userspage" element={<UsersPage/>}>
+                <Route path="./userspage" element={<UsersPage/>}>
               </Route>
-                <Route path="/questions/ask" element={<Ask/>}>
+                <Route path="./questions/ask" element={<Ask/>}>
               </Route>
 
-              <Route path="/mypage" element={<Mypage username={username} setUserName={setUserName} email={email} setEmail={setEmail} />}/>
+              <Route path="./mypage" element={<Mypage username={username} setUserName={setUserName} email={email} setEmail={setEmail} />}/>
         </Routes>
       </div>
       {showHeaderFooter() && <Footer />}

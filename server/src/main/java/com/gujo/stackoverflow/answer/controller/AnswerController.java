@@ -4,6 +4,8 @@ import com.gujo.stackoverflow.answer.dto.AnswerDto;
 import com.gujo.stackoverflow.answer.entity.Answer;
 import com.gujo.stackoverflow.answer.mapper.AnswerMapper;
 import com.gujo.stackoverflow.answer.service.AnswerService;
+import com.gujo.stackoverflow.member.entity.Member;
+import com.gujo.stackoverflow.member.service.MemberService;
 import com.gujo.stackoverflow.question.service.QuestionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,11 +24,14 @@ import java.util.List;
 public class AnswerController {
     private final AnswerService answerService;
     private final QuestionService questionService;
+    private final MemberService memberService;
+
     private final AnswerMapper mapper;
 
-    public AnswerController(AnswerService answerService, QuestionService questionService, AnswerMapper mapper) {
+    public AnswerController(AnswerService answerService, QuestionService questionService, MemberService memberService, AnswerMapper mapper) {
         this.answerService = answerService;
         this.questionService = questionService;
+        this.memberService = memberService;
         this.mapper = mapper;
     }
 
@@ -37,6 +42,9 @@ public class AnswerController {
 
         Answer answer = mapper.answerPostDtoToAnswer(postDto);
         answer.setQuestion(questionService.findVerifiedQuestion(questionId));
+        Member loginMember = memberService.findLoginMember();
+        answer.setMember(loginMember);
+
         Answer response = answerService.createAnswer(answer);
 
         return new ResponseEntity<>(mapper.answerToAnswerResponseDto(response), HttpStatus.CREATED);

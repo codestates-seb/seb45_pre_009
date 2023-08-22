@@ -1,5 +1,6 @@
 package com.gujo.stackoverflow.question.service;
 
+import com.gujo.stackoverflow.answer.entity.Answer;
 import com.gujo.stackoverflow.exception.BusinessLogicException;
 import com.gujo.stackoverflow.exception.ExceptionCode;
 import com.gujo.stackoverflow.member.service.MemberService;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -31,8 +33,9 @@ public class QuestionService {
 
     @Transactional(readOnly = true)
     public Page<Question> getQuestionsWithPreview(Pageable pageable) {
+//        Page<Question> questionPage = repository.findAll(pageable);
 
-        Page<Question> questionPage = repository.findAll(pageable);
+        Page<Question> questionPage = repository.findByQuestionStatus(Question.QuestionStatus.QUESTION_EXIST, pageable);
         for (Question question : questionPage) {
             if (question.getContent().length() >= 100) {
                 question.setContent(question.getContent().substring(0, 100));
@@ -43,18 +46,24 @@ public class QuestionService {
 
     @Transactional(readOnly = true)
     public List<Question> getQuestionsWithoutContent(Pageable pageable) {
-        return repository.findAll(pageable).getContent();
+        Page<Question> questionPage = repository.findByQuestionStatus(Question.QuestionStatus.QUESTION_EXIST, pageable);
+        return questionPage.getContent();
+
+//        return repository.findAll(pageable).getContent();
     }
 
     public Question getQuestion(Long questionId) {
         Question question = findVerifiedQuestion(questionId);
-        question.setViews(question.getViews() + 1);
+        if( question.getQuestionStatus() == Question.QuestionStatus.QUESTION_EXIST ) {
+            question.setViews(question.getViews() + 1);
+        } else throw new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND);
+
         return question;
     }
 
     public Question updateQuestion(Long questionId, Question question) {
         Question findQuestion = findVerifiedQuestion(questionId);
-        memberService.checkLoginMemberWrote(findQuestion.getMember().getMemberId());
+        memberService.checkLoginMemberHasAuthority(findQuestion.getMember().getMemberId());
 
         Optional.ofNullable(question.getTitle()).ifPresent(findQuestion::setTitle);
         Optional.ofNullable(question.getContent()).ifPresent(findQuestion::setContent);
@@ -67,9 +76,11 @@ public class QuestionService {
 
     public void deleteQuestion(Long questionId) {
         Question findQuestion = findVerifiedQuestion(questionId);
-        memberService.checkLoginMemberWrote(findQuestion.getMember().getMemberId());
+        memberService.checkLoginMemberHasAuthority(findQuestion.getMember().getMemberId());
 
-        repository.deleteById(questionId);
+        findQuestion.setQuestionStatus(Question.QuestionStatus.QUESTION_NOT_EXIST);
+
+        repository.save(findQuestion);
     }
 
     public Question getPoint(Long questionId) {

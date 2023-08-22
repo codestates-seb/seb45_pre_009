@@ -46,8 +46,5 @@ public class MemberAuthenticationSuccessHandler implements AuthenticationSuccess
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(jsonResponse);
-
-
-        // 로그인 인증 성공하면 홈화면으로 가는 등 머가 더 있어야 할 거 같아요 ...
     }
 }

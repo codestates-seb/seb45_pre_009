@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -31,7 +33,7 @@ public class AnswerService {
 
     public Answer updateAnswer(Answer answer) {
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
-        memberService.checkLoginMemberWrote(findAnswer.getMember().getMemberId());
+        memberService.checkLoginMemberHasAuthority(findAnswer.getMember().getMemberId());
 
         Optional.ofNullable(answer.getContent())
                 .ifPresent(content -> findAnswer.setContent(content));
@@ -44,17 +46,25 @@ public class AnswerService {
 
     @Transactional(readOnly = true)
     public Answer findAnswer(Long answerId) {
-        return findVerifiedAnswer(answerId);
+        Answer answer = findVerifiedAnswer(answerId);
+
+        if( answer.getAnswerStatus() == Answer.AnswerStatus.ANSWER_EXIST ) {
+            return answer;
+        } else throw new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND);
     }
 
     @Transactional(readOnly = true)
     public List<Answer> findAnswers() {
-        return answerRepository.findAll();
+        List<Answer> allAnswers = answerRepository.findAll();
+
+        return allAnswers.stream()
+                .filter(answer -> answer.getAnswerStatus() == Answer.AnswerStatus.ANSWER_EXIST)
+                .collect(Collectors.toList());
     }
 
     public void deleteAnswer(Long answerId) {
         Answer answer = findVerifiedAnswer(answerId);
-        memberService.checkLoginMemberWrote(answer.getMember().getMemberId());
+        memberService.checkLoginMemberHasAuthority(answer.getMember().getMemberId());
 
         answer.setAnswerStatus(Answer.AnswerStatus.ANSWER_NOT_EXIST);
 

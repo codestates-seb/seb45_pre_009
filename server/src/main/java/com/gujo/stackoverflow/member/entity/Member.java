@@ -55,6 +55,21 @@ public class Member {
     @Column(nullable = false)
     private Long reputation = 1L;
 
+    @Enumerated(value = EnumType.STRING)
+    @Column(nullable = false)
+    private Member.MemberStatus memberStatus = Member.MemberStatus.MEMBER_EXIST;
+
+    public enum MemberStatus {
+        MEMBER_EXIST("존재하는 회원"),
+        MEMBER_NOT_EXIST("존재하지 않는 회원");
+
+        private String status;
+
+        MemberStatus(String status) {
+            this.status = status;
+        }
+    }
+
     public Member(String email) {
         this.email = email;
     }

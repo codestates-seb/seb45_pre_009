@@ -1,6 +1,7 @@
 package com.gujo.stackoverflow.member.service;
 
 
+import com.gujo.stackoverflow.answer.entity.Answer;
 import com.gujo.stackoverflow.auth.utils.CustomAuthorityUtils;
 import com.gujo.stackoverflow.exception.ExceptionCode;
 import com.gujo.stackoverflow.exception.BusinessLogicException;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -87,7 +89,7 @@ public class MemberService {
     public Member updateMember(Member member) {
         Member findMember = findVerifiedMember(member.getMemberId());
 
-        checkLoginMemberWrote(findMember.getMemberId());
+        checkLoginMemberHasAuthority(findMember.getMemberId());
 
         if (member.getDisplayName() != null) {
             findMember.setDisplayName(member.getDisplayName());
@@ -104,18 +106,29 @@ public class MemberService {
 
     @Transactional(readOnly = true)
     public Member findMember(Long memberId) {
-        return findVerifiedMember(memberId);
+        Member member = findVerifiedMember(memberId);
+
+        if( member.getMemberStatus() == Member.MemberStatus.MEMBER_EXIST ) {
+            return member;
+        } else throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
     }
 
     public List<Member> findMembers() {
-        return memberRepository.findAll();
+        List<Member> allMembers = memberRepository.findAll();
+
+        return allMembers.stream()
+                .filter(answer -> answer.getMemberStatus() == Member.MemberStatus.MEMBER_EXIST)
+                .collect(Collectors.toList());
     }
 
     public void deleteMember(Long memberId) {
         Member findMember = findVerifiedMember(memberId);
-        checkLoginMemberWrote(findMember.getMemberId());
+        checkLoginMemberHasAuthority(findMember.getMemberId());
 
-        memberRepository.deleteById(findMember.getMemberId());
+        findMember.setMemberStatus(Member.MemberStatus.MEMBER_NOT_EXIST);
+
+        memberRepository.save(findMember);
+//        memberRepository.deleteById(findMember.getMemberId());
     }
 
     // 중복 displayName 확인
@@ -160,13 +173,15 @@ public class MemberService {
         throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_AUTHENTICATED);
     }
 
-//    현재 로그인한 회원 ID와 입력된 ID값 비교 후 같으면 로그인 회원 리턴
-    public Member checkLoginMemberWrote(Long memberId) {
+//    admin 일 경우, 로그인한 회원 ID와 게시물을 작성한 회원 ID가 같으면 패스
+    public void checkLoginMemberHasAuthority(Long wroteMemberId) {
         Member loginMember = findLoginMember();
-        if (!memberId.equals(loginMember.getMemberId())) {
+        if (loginMember.getRoles().contains("ADMIN")) {
+            return;
+        }
+        if (!wroteMemberId.equals(loginMember.getMemberId())) {
             throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_AUTHENTICATED);
         }
-        return loginMember;
     }
 
 //    추천 혹은 비추천 시 로직
@@ -180,6 +195,7 @@ public class MemberService {
 
         postMember.setReputation(postMember.getReputation() + score);
 
+//        평판이 1 미만으로 내려갈 시 최소 점수 1 부여
         if (postMember.getReputation() < 1) {
             postMember.setReputation(1L);
         }

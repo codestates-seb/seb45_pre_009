@@ -26,6 +26,7 @@
     display: flex;
     padding-bottom: 13px;
     padding-right: 9px;
+    white-space : nowrap;
 }
 
 .sidebar_nav {

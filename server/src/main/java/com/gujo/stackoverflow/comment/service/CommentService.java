@@ -1,5 +1,6 @@
 package com.gujo.stackoverflow.comment.service;
 
+import com.gujo.stackoverflow.answer.entity.Answer;
 import com.gujo.stackoverflow.comment.entity.Comment;
 import com.gujo.stackoverflow.comment.repository.CommentRepository;
 import com.gujo.stackoverflow.exception.BusinessLogicException;
@@ -35,7 +36,7 @@ public class CommentService {
 
     public Comment updateComment(Comment comment, Long commentId) {
         Comment findComment = findVeridiedComment(commentId);
-        memberService.checkLoginMemberWrote(findComment.getMember().getMemberId());
+        memberService.checkLoginMemberHasAuthority(findComment.getMember().getMemberId());
 
         findComment.setContent(comment.getContent());
 
@@ -45,9 +46,12 @@ public class CommentService {
 
     public void deleteComment(Long commentId) {
         Comment findComment = findVeridiedComment(commentId);
-        memberService.checkLoginMemberWrote(findComment.getMember().getMemberId());
+        memberService.checkLoginMemberHasAuthority(findComment.getMember().getMemberId());
 
-        repository.deleteById(commentId);
+        findComment.setCommentStatus(Comment.CommentStatus.COMMENT_NOT_EXIST);
+
+        repository.save(findComment);
+//        repository.deleteById(commentId);
     }
 
     public Comment getPoint(Long commentId) {

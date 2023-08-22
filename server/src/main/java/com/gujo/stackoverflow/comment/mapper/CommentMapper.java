@@ -15,6 +15,7 @@ public interface CommentMapper {
 
         responseDto.setCommentId(comment.getCommentId());
         responseDto.setAnswerId(comment.getAnswer().getAnswerId());
+        responseDto.setMemberId(comment.getMember().getMemberId());
         responseDto.setContent(comment.getContent());
         responseDto.setPoint(comment.getPoint());
         responseDto.setCreatedAt(comment.getCreatedAt());
