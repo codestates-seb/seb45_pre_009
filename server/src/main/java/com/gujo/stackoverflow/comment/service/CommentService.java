@@ -36,7 +36,7 @@ public class CommentService {
 
     public Comment updateComment(Comment comment, Long commentId) {
         Comment findComment = findVeridiedComment(commentId);
-        memberService.checkLoginMemberWrote(findComment.getMember().getMemberId());
+        memberService.checkLoginMemberHasAuthority(findComment.getMember().getMemberId());
 
         findComment.setContent(comment.getContent());
 
@@ -46,7 +46,7 @@ public class CommentService {
 
     public void deleteComment(Long commentId) {
         Comment findComment = findVeridiedComment(commentId);
-        memberService.checkLoginMemberWrote(findComment.getMember().getMemberId());
+        memberService.checkLoginMemberHasAuthority(findComment.getMember().getMemberId());
 
         findComment.setCommentStatus(Comment.CommentStatus.COMMENT_NOT_EXIST);
 

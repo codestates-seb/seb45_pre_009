@@ -33,7 +33,7 @@ public class AnswerService {
 
     public Answer updateAnswer(Answer answer) {
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
-        memberService.checkLoginMemberWrote(findAnswer.getMember().getMemberId());
+        memberService.checkLoginMemberHasAuthority(findAnswer.getMember().getMemberId());
 
         Optional.ofNullable(answer.getContent())
                 .ifPresent(content -> findAnswer.setContent(content));
@@ -64,7 +64,7 @@ public class AnswerService {
 
     public void deleteAnswer(Long answerId) {
         Answer answer = findVerifiedAnswer(answerId);
-        memberService.checkLoginMemberWrote(answer.getMember().getMemberId());
+        memberService.checkLoginMemberHasAuthority(answer.getMember().getMemberId());
 
         answer.setAnswerStatus(Answer.AnswerStatus.ANSWER_NOT_EXIST);
 
