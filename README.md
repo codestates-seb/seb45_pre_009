@@ -8,7 +8,7 @@
 |김진현<br>`FE` `부팀장`|강소이<br>`FE`|서강의<br>`FE`|서정욱<br>`BE` `팀장`|김동환<br>`BE`|설주연<br>`BE`|
 |:--:|:--:|:--:|:--:|:--:|:--:|
 |<img width = "100" alt = "profile" src= "https://github.com/seoljuyeon/personal/assets/110334373/3d7b7505-6a64-40d7-90d1-34eadb6c8315"/>|<img width = "100" alt = "profile" src= "https://github.com/seoljuyeon/personal/assets/110334373/35634f9d-bea6-4599-9737-e732e1863e78"/>|<img width = "100" alt = "profile" src= "https://github.com/seoljuyeon/personal/assets/110334373/20cba34e-eb79-425f-a299-41e749baba66"/>|<img width = "100" alt = "profile" src= "https://github.com/seoljuyeon/personal/assets/110334373/a85ffbb7-3e95-4e19-8248-5df312a51085"/>|<img width = "100" alt = "profile" src= "https://github.com/seoljuyeon/personal/assets/110334373/0350c5e9-e0a1-4461-a613-e05e645239f3"/>|<img width = "100" alt = "profile" src= "https://github.com/seoljuyeon/personal/assets/110334373/9137e6ab-c4c5-4fa5-ae65-4c4d698e9c79"/>|
-|[RunnerJinHyeon](https://github.com/RunnerJinHyeon)|[소이](https://github.com/moonozz)|[SGE](https://github.com/ColmiismaL)|[jungseo](https://github.com/Jung-seo)|[KimDONGHWAN9](https://github.com/KimDONGHWAN9)|[seoljuyeon](https://github.com/seoljuyeon)|
+|[RunnerJinHyeon](https://github.com/RunnerJinHyeon)|[소이](https://github.com/sooooii)|[SGE](https://github.com/ColmiismaL)|[jungseo](https://github.com/Jung-seo)|[KimDONGHWAN9](https://github.com/KimDONGHWAN9)|[seoljuyeon](https://github.com/seoljuyeon)|
 
 <br>
 
