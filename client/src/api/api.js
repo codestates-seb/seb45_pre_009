@@ -2,7 +2,7 @@
 import axios from 'axios'
 
 
-export const apiUrl = `http://3.39.55.166:8080`;
+export const apiUrl = `https://303c-14-52-249-197.ngrok-free.app/`;
 export const jsonUrl = `http://localhost:5002`;
 
 function getToken() {
