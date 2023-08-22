@@ -26,6 +26,12 @@
     -->
     <title>React App</title>
     <script src="%PUBLIC_URL%/ckeditor5/build/ckeditor.js"></script>
+    <script type="text/javascript">
+      if (document.getElementById('root')) {
+        var path = window.location.pathname.slice(1);
+        window.location.replace('/' + path);
+      }
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

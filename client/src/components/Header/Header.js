@@ -52,10 +52,10 @@ function Header({ isLogin, setIsLogin }) {
         {!isLogin ? (
           <>
             <button className="mr-4">
-              <a href="/login">log in</a>
+              <Link to="/login">log in</Link>
             </button>
             <button>
-              <a href="/signup">Sign up</a>
+              <Link to="/signup">Sign up</Link>
             </button>
           </>
         ) : (
