@@ -54,7 +54,7 @@ public class QuestionService {
 
     public Question updateQuestion(Long questionId, Question question) {
         Question findQuestion = findVerifiedQuestion(questionId);
-        memberService.checkLoginMemberWrote(findQuestion.getMember().getMemberId());
+        memberService.checkLoginMemberHasAuthority(findQuestion.getMember().getMemberId());
 
         Optional.ofNullable(question.getTitle()).ifPresent(findQuestion::setTitle);
         Optional.ofNullable(question.getContent()).ifPresent(findQuestion::setContent);
@@ -67,7 +67,7 @@ public class QuestionService {
 
     public void deleteQuestion(Long questionId) {
         Question findQuestion = findVerifiedQuestion(questionId);
-        memberService.checkLoginMemberWrote(findQuestion.getMember().getMemberId());
+        memberService.checkLoginMemberHasAuthority(findQuestion.getMember().getMemberId());
 
         repository.deleteById(questionId);
     }

@@ -87,7 +87,7 @@ public class MemberService {
     public Member updateMember(Member member) {
         Member findMember = findVerifiedMember(member.getMemberId());
 
-        checkLoginMemberWrote(findMember.getMemberId());
+        checkLoginMemberHasAuthority(findMember.getMemberId());
 
         if (member.getDisplayName() != null) {
             findMember.setDisplayName(member.getDisplayName());
@@ -113,7 +113,7 @@ public class MemberService {
 
     public void deleteMember(Long memberId) {
         Member findMember = findVerifiedMember(memberId);
-        checkLoginMemberWrote(findMember.getMemberId());
+        checkLoginMemberHasAuthority(findMember.getMemberId());
 
         memberRepository.deleteById(findMember.getMemberId());
     }
@@ -160,13 +160,15 @@ public class MemberService {
         throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_AUTHENTICATED);
     }
 
-//    현재 로그인한 회원 ID와 입력된 ID값 비교 후 같으면 로그인 회원 리턴
-    public Member checkLoginMemberWrote(Long memberId) {
+//    admin 일 경우, 로그인한 회원 ID와 게시물을 작성한 회원 ID가 같으면 패스
+    public void checkLoginMemberHasAuthority(Long wroteMemberId) {
         Member loginMember = findLoginMember();
-        if (!memberId.equals(loginMember.getMemberId())) {
+        if (loginMember.getRoles().contains("ADMIN")) {
+            return;
+        }
+        if (!wroteMemberId.equals(loginMember.getMemberId())) {
             throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_AUTHENTICATED);
         }
-        return loginMember;
     }
 
 //    추천 혹은 비추천 시 로직
@@ -180,6 +182,7 @@ public class MemberService {
 
         postMember.setReputation(postMember.getReputation() + score);
 
+//        평판이 1 미만으로 내려갈 시 최소 점수 1 부여
         if (postMember.getReputation() < 1) {
             postMember.setReputation(1L);
         }
