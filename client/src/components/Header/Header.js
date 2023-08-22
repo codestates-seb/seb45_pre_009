@@ -85,7 +85,7 @@ function Header({ isLogin, setIsLogin }) {
               onClick={() => setIsOpen({ ...isOpen, Bars: !isOpen.Bars })}
             >
               <FontAwesomeIcon icon={faBars} />
-              {isOpen.Bars ? <DropdownBars /> : null}
+              {isOpen.Bars ? <DropdownBars setIsLogin={setIsLogin}/> : null}
             </button>
           </>
         )}
