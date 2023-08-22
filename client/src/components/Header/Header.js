@@ -31,12 +31,12 @@ function Header({ isLogin, setIsLogin }) {
 
   return (
     <div className="header">
-      <a href="/"><img
+      <Link to="/"><img
         className="header_logo"
         src="https://velog.velcdn.com/images/devfrank9/post/1df259b2-e4cb-473b-8bcd-0388761a596a/image.png"
         alt="메인로고"
       />
-        </a>
+        </Link>
 
       <button
         className="header_navigation"
@@ -53,10 +53,10 @@ function Header({ isLogin, setIsLogin }) {
         {!isLogin ? (
           <>
             <button className="mr-4">
-              <a href="/login">log in</a>
+              <Link to="/login">log in</Link>
             </button>
             <button>
-              <a href="/signup">Sign up</a>
+              <Link to="/signup">Sign up</Link>
             </button>
           </>
         ) : (
