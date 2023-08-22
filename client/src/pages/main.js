@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchData, fetchUserById } from '../slicer/main';
 import moment from 'moment-timezone';
+import { Link } from 'react-router-dom';
 
 
 export default function Main() {
@@ -33,9 +34,9 @@ export default function Main() {
                     <div className='flex mb-[12px] flex-wrap'>
                             <h1 className='flex-auto leading-[1.3] text-[27px] mb-[12px] mr-[12px]'>Top Questions</h1>
                             <div className='flex ml-3 mb-[12px]'>
-                                <a href="/questions/ask" className='p-[0.8em] rounded-[6px] border border-transparent text-[13px] leading-normal bg-[hsl(206,100%,52%);] text-white whitespace-nowrap text-center relative '>
+                                <Link to="/questions/ask" className='p-[0.8em] rounded-[6px] border border-transparent text-[13px] leading-normal bg-[hsl(206,100%,52%);] text-white whitespace-nowrap text-center relative '>
                                     Ask Question
-                                </a>
+                                </Link>
                             </div>
                         </div>
                         <div>
@@ -45,11 +46,11 @@ export default function Main() {
                                         <div className='flex flex-auto mr-auto text-[17px]'>
                                         </div>
                                         <div className='flex'>
-                                            <a href='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400 rounded-l-md'>Interesting</a>
-                                            <a href='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Bountied</a>
-                                            <a href='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Hot</a>
-                                            <a href='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Week</a>
-                                            <a href='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400 rounded-r-md'>Month</a>
+                                            <Link to='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400 rounded-l-md'>Interesting</Link>
+                                            <Link to='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Bountied</Link>
+                                            <Link to='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Hot</Link>
+                                            <Link to='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Week</Link>
+                                            <Link to='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400 rounded-r-md'>Month</Link>
                                         </div>
                                     </div>
                                 </div>
@@ -72,29 +73,29 @@ export default function Main() {
                                                 </div>
                                             </div>
                                             <div className='max-w-full flex-grow'>
-                                                <h3 className='mb-1 pr-6 text-[#0074cc]'><a href={`/questions/${item.questionId}`}>{item.title}</a></h3>
+                                                <h3 className='mb-1 pr-6 text-[#0074cc]'><Link to={`/questions/${item.questionId}`}>{item.title}</Link></h3>
                                                 <div className='flex flex-wrap flex-1 items-center justify-between gap-y-2 gap-x-2 relative text-[12px]' >
                                                     <ul className='ml-0 '>
                                                         <li className='flex flex-row'>
-                                                            <a href='/' className='block text-[12px] text-[hsl(205,47%,42%)] bg-[hsl(205,46%,92%)] border border-transparent rounded-md px-[6px] py-[4px] mr-[1px] mb-[1px] '>
+                                                            <Link to='/' className='block text-[12px] text-[hsl(205,47%,42%)] bg-[hsl(205,46%,92%)] border border-transparent rounded-md px-[6px] py-[4px] mr-[1px] mb-[1px] '>
                                                             tag1
-                                                            </a>
-                                                            <a href='/' className='block text-[12px] text-[hsl(205,47%,42%)] bg-[hsl(205,46%,92%)] border border-transparent rounded-md px-[6px] py-[4px] mr-[1px] mb-[1px] '>
+                                                            </Link>
+                                                            <Link to='/' className='block text-[12px] text-[hsl(205,47%,42%)] bg-[hsl(205,46%,92%)] border border-transparent rounded-md px-[6px] py-[4px] mr-[1px] mb-[1px] '>
                                                             tag2
-                                                            </a>
-                                                            <a href='/' className='block text-[12px] text-[hsl(205,47%,42%)] bg-[hsl(205,46%,92%)] border border-transparent rounded-md px-[6px] py-[4px] mr-[1px] mb-[1px] '>
+                                                            </Link>
+                                                            <Link to='/' className='block text-[12px] text-[hsl(205,47%,42%)] bg-[hsl(205,46%,92%)] border border-transparent rounded-md px-[6px] py-[4px] mr-[1px] mb-[1px] '>
                                                             looooooooooooooooooooooon-tag
-                                                            </a>
-                                                            <a href='/' className='block text-[12px] text-[hsl(205,47%,42%)] bg-[hsl(205,46%,92%)] border border-transparent rounded-md px-[6px] py-[4px] mr-[1px] mb-[1px] '>
+                                                            </Link>
+                                                            <Link to='/' className='block text-[12px] text-[hsl(205,47%,42%)] bg-[hsl(205,46%,92%)] border border-transparent rounded-md px-[6px] py-[4px] mr-[1px] mb-[1px] '>
                                                             tag3
-                                                            </a>
-                                                            <a href='/' className='block text-[12px] text-[hsl(205,47%,42%)] bg-[hsl(205,46%,92%)] border border-transparent rounded-md px-[6px] py-[4px] mr-[1px] mb-[1px] '>
+                                                            </Link>
+                                                            <Link to='/' className='block text-[12px] text-[hsl(205,47%,42%)] bg-[hsl(205,46%,92%)] border border-transparent rounded-md px-[6px] py-[4px] mr-[1px] mb-[1px] '>
                                                             tag4
-                                                            </a>
+                                                            </Link>
                                                         </li>
                                                     </ul>
                                                     <div className='ml-auto text-right flex-wrap flex justify-end gap-1'>
-                                                        <a href='/' className='text-[#0074cc]'>{users[item.memberId]?.displayName || 'name...'}</a>
+                                                        <Link to='/' className='text-[#0074cc]'>{users[item.memberId]?.displayName || 'name...'}</Link>
                                                         <div className='text-[#525960] font-bold'>
                                                             {users[item.memberId]?.reputation !== undefined ? users[item.memberId]?.reputation : '0'}
                                                         </div>
@@ -134,7 +135,7 @@ export default function Main() {
                                             펜
                                         </div>
                                         <div className='min-w-0 text-[13px] text-[#232629]'>
-                                            <a href='/' className=''>Want better answers from your data? Ask better questions</a>
+                                            <Link to='/' className=''>Want better answers from your data? Ask better questions</Link>
                                         </div>
                                     </li>
                                     <li className='px-[16px] my-[12px] h-full flex'>
@@ -142,7 +143,7 @@ export default function Main() {
                                             펜
                                         </div>
                                         <div className='min-w-0 text-[13px] text-[#232629]'>
-                                            <a href='/' className=''>Making event-driven development predictable with Discover</a>
+                                            <Link to='/' className=''>Making event-driven development predictable with Discover</Link>
                                             <div className=' text-[#6a737c] '>sponsored post</div>
                                         </div>
                                     </li>
@@ -154,7 +155,7 @@ export default function Main() {
                                             말
                                         </div>
                                         <div className='min-w-0 text-[13px] text-[#3b4045]'>
-                                            <a href='/' className=''>Moderation strike: Results of negotiations</a>
+                                            <Link to='/' className=''>Moderation strike: Results of negotiations</Link>
                                         </div>
                                     </li>
                                     <li className='px-[16px] my-[12px] h-full flex'>
@@ -162,7 +163,7 @@ export default function Main() {
                                             말
                                         </div>
                                         <div className='min-w-0 text-[13px] text-[#3b4045]'>
-                                            <a href='/' className=''>Our Design Vision for Stack Overflow and the Stack Exchange network</a>
+                                            <Link to='/' className=''>Our Design Vision for Stack Overflow and the Stack Exchange network</Link>
                                         </div>
                                     </li>
                                     <li className='px-[16px] my-[12px] h-full flex'>
@@ -170,7 +171,7 @@ export default function Main() {
                                             책
                                         </div>
                                         <div className='min-w-0 text-[13px] text-[#3b4045]'>
-                                            <a href='/' className=''>Temporary policy: Generative AI (e.g., ChatGPT) is banned</a>
+                                            <Link to='/' className=''>Temporary policy: Generative AI (e.g., ChatGPT) is banned</Link>
                                         </div>
                                     </li>
                                     <li className='px-[16px] my-[12px] h-full flex'>
@@ -178,7 +179,7 @@ export default function Main() {
                                             책
                                         </div>
                                         <div className='min-w-0 text-[13px] text-[#3b4045]'>
-                                            <a href='/' className=''>Collections: A New Feature for Collectives on Stack Overflow</a>
+                                            <Link to='/' className=''>Collections: A New Feature for Collectives on Stack Overflow</Link>
                                         </div>
                                     </li>
                                     <li className='px-[16px] my-[12px] h-full flex'>
@@ -186,7 +187,7 @@ export default function Main() {
                                             책
                                         </div>
                                         <div className='min-w-0 text-[13px] text-[#3b4045]'>
-                                            <a href='/' className=''>Preview of Search and Question-Asking Powered by GenAI</a>
+                                            <Link to='/' className=''>Preview of Search and Question-Asking Powered by GenAI</Link>
                                         </div>
                                     </li>
                                     <li className='px-[16px] my-[12px] h-full flex'>
@@ -194,7 +195,7 @@ export default function Main() {
                                             책
                                         </div>
                                         <div className='min-w-0 text-[13px] text-[#3b4045]'>
-                                            <a href='/' className=''>Call for volunteer reviewers for an updated search experience: OverflowAI Search</a>
+                                            <Link to='/' className=''>Call for volunteer reviewers for an updated search experience: OverflowAI Search</Link>
                                         </div>
                                     </li>
                                 </ul>
@@ -221,9 +222,9 @@ export default function Main() {
                                         <p className='my-[calc(16px/2);] block text-[hsl(210,8%,35%)] text-[13px]'>
                                             Watch tags to curate your list of questions.
                                         </p>
-                                        <a href='/' className='my-[calc(16px/2);] block text-[12px] text-[hsl(205,47%,42%)] bg-[hsl(205,46%,92%)] border border-transparent rounded-md p-2 '>
+                                        <Link to='/' className='my-[calc(16px/2);] block text-[12px] text-[hsl(205,47%,42%)] bg-[hsl(205,46%,92%)] border border-transparent rounded-md p-2 '>
                                             Watch a tag
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
