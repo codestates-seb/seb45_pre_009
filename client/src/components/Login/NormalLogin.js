@@ -1,13 +1,13 @@
 import axios from "axios";
 import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const NormalLogin = ({isLogin,setIsLogin}) => {
     //입력받은 이메일, 비밀번호 
     const [email , setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordError, setPasswordError] = useState('')//비밀번호 오류 메세지를 위한 상태변수
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     //비밀번호 유효성 검사 함수
     const isPasswordValid = () => {
