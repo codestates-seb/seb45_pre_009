@@ -31,11 +31,12 @@ function Header({ isLogin, setIsLogin }) {
 
   return (
     <div className="header">
-      <img
+      <a href="/"><img
         className="header_logo"
         src="https://velog.velcdn.com/images/devfrank9/post/1df259b2-e4cb-473b-8bcd-0388761a596a/image.png"
+        alt="메인로고"
       />
-
+        </a>
 
       <button
         className="header_navigation"
