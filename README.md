@@ -1,8 +1,11 @@
 <img src="https://github.com/codestates-seb/seb45_pre_009/assets/110334373/719e4a65-f0c9-4b58-82ae-d4d5901f1540" width="400" height="80"/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/codestates-seb/seb45_pre_009/assets/110334373/3e88a826-5cf8-4cd3-8736-985e5cbad374" width="300" height="69"/>
 
-<br> <br> 팀 `구조`의 개발자 커뮤니티 `Stack Overflow` 클론 코딩 프로젝트 ( 8/4 ~ 8/23 )
-<br> <br>
+
+<br> <br> 팀 `구조`의 개발자 커뮤니티 `Stack Overflow` 클론 코딩 프로젝트 ( 8/4 ~ 8/23 )  [ 🔗 구조 Stack Overflow ](http://preproject.s3-website.ap-northeast-2.amazonaws.com)
+<br> 
+<br>
+<br> 
 
 ### 🚨 구조 팀원 ❤️‍🔥 <br>
 |김진현<br>`FE` `부팀장`|강소이<br>`FE`|서강의<br>`FE`|서정욱<br>`BE` `팀장`|김동환<br>`BE`|설주연<br>`BE`|
@@ -17,8 +20,7 @@
 [사용자 요구사항 정의서](https://github.com/codestates-seb/seb45_pre_009/files/12409061/Stack.Overflow.-.-3.pdf)<br>
 [ERD](https://www.erdcloud.com/d/caQ6PDp6qzi77zMpj)<br>
 [API 명세서](http://3.39.55.166:8080/swagger-ui/index.html)<br>
-
-사용자 테스트 체크리스트 는 아직~
+[테스트 체크리스트](https://github.com/codestates-seb/seb45_pre_009/files/12414550/Stack_Overflow_-_.pdf)<br>
 
 
 
