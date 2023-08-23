@@ -63,7 +63,7 @@ function Header({ isLogin, setIsLogin }) {
           </>
         ) : (
           <>
-            <a href="/Mypage">
+            <a href="/mypage">
             <button><img className="w-[25px] h-[25px] rounded-[3px] m-2" src="images.jpeg" alt='' /></button>
             </a>
             <button className="p-2.5 hover:bg-gray-300"
@@ -90,7 +90,7 @@ function Header({ isLogin, setIsLogin }) {
               onClick={() => setIsOpen({ ...isOpen, Bars: !isOpen.Bars })}
             >
               <FontAwesomeIcon icon={faBars} />
-              {isOpen.Bars ? <DropdownBars setIsLogin={setIsLogin}/> : null}
+              {isOpen.Bars ? <DropdownBars setIsLogin={setIsLogin} isLogin={isLogin}/> : null}
             </button>
           </>
         )}
