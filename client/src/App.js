@@ -122,8 +122,6 @@ function App() {
     showSidebarPaths.includes(location.pathname);
 
 
-  
-  console.log(isLogin);
 
   return (
 
