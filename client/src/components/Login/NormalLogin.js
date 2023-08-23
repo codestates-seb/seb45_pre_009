@@ -36,14 +36,15 @@ const NormalLogin = ({isLogin,setIsLogin}) => {
             sessionStorage.setItem("isLogin", true);
             console.log(response.headers.authorization)
             localStorage.setItem("jwt",response.headers.authorization)
+            localStorage.setItem("memberId",response.data.memberId)
             console.log(response.headers.refresh)
-            localStorage.setItem("refrest_token",response.headers.refresh);
+            localStorage.setItem("refresh_token",response.headers.refresh);
             navigate("../");
 
 
         } catch (error) {
             console.error('로그인 에러',error)
-            setIsLogin(false);
+            // setIsLogin(false);
         }
     }
     return (

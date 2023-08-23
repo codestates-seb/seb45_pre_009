@@ -26,7 +26,7 @@ import Mypage from './pages/Mypage';
 
 function App() {
 
-  const [isLogin,setIsLogin] = useState(sessionStorage.getItem("isLogin"));
+  const [isLogin,setIsLogin] = useState(sessionStorage.getItem("isLogin")==="true");
   const navigate = useNavigate();
 
   // const displayName = sessionStorage.getItem("username");

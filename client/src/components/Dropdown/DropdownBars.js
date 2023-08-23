@@ -6,7 +6,7 @@ import Search from '../Header/Search';
 import { Link } from "react-router-dom";
 
 
-const DropdownBars = ({setIsLogin}) => {
+const DropdownBars = ({setIsLogin,isLogin}) => {
   const handleLogout = () =>{
     setIsLogin(false)
     sessionStorage.setItem("isLogin",false);
