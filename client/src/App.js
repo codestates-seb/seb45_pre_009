@@ -37,12 +37,12 @@ function App() {
   
 
   useEffect(()=>{
-    axios.post("https://303c-14-52-249-197.ngrok-free.app/members/oauth",{
+    axios.post("http://3.39.55.166:8080/members/oauth",{
       "displayName": displayName,
       "email": email
     }).then(res=>{
       console.log('회원가입 성공',res)
-      axios.post("https://303c-14-52-249-197.ngrok-free.app/login",{
+      axios.post("http://3.39.55.166:8080/login",{
         "username":email
       }).then(loginRes=>{
         console.log("로그인 성공",loginRes)
@@ -60,7 +60,7 @@ function App() {
     }).catch(err=>{
       console.log(err)
       if(err.response && err.response.status === 409) {
-        axios.post("https://303c-14-52-249-197.ngrok-free.app/login",{
+        axios.post("http://3.39.55.166:8080/login",{
           "username": email
         }).then(loginRes=>{
           console.log("로그인 성공",loginRes)
@@ -75,7 +75,7 @@ function App() {
           // setIsLogin(false);
         })
       } else if(err.response && err.response.status === 500){
-        axios.post("https://303c-14-52-249-197.ngrok-free.app/login",{
+        axios.post("http://3.39.55.166:8080/login",{
           "username": email
         }).then(loginRes=>{
           console.log("로그인 성공",loginRes)
@@ -173,3 +173,4 @@ export default App;
 
 // 의존성배열에 새로운 값 추가해서 useEffect 두번 실행되지 않도록 해보자.
 // 다시는 세션스토리지를 쓰지 않도록.
+// 수정용
