@@ -34,7 +34,7 @@ function getToken() {
 // }
 
 export function getApi(url) {
-    const fullUrl = `${jsonUrl}/${url}`;
+    const fullUrl = `${apiUrl}/${url}`;
     console.log("api:", fullUrl);
 
     return axios.get(fullUrl)
@@ -49,7 +49,7 @@ export function getApi(url) {
 }
 
 export function postApi(url, data) {
-    const fullUrl = `${jsonUrl}/${url}`;
+    const fullUrl = `${apiUrl}/${url}`;
     console.log("api:", fullUrl); // 여기에 URL을 로깅합니다.
 
     return axios.post(fullUrl, data, { headers })
@@ -83,10 +83,27 @@ export function postApi(url, data) {
 // }
 
 export function patchApi(url, data) {
-    const fullUrl = `${jsonUrl}/${url}`;
+    const fullUrl = `${apiUrl}/${url}`;
     console.log("api:", fullUrl); 
 
     return axios.patch(fullUrl, data, { headers })
+    .then((response) => {
+        console.log("Response Data",response.data);
+        console.log("Response received:", response);
+        return response.data;
+    })
+        .catch((error) => {
+        console.log(error);
+        throw error;
+    });
+
+}
+
+export function deleteApi(url, data) {
+    const fullUrl = `${apiUrl}/${url}`;
+    console.log("api:", fullUrl); 
+
+    return axios.delete(fullUrl, data, { headers })
     .then((response) => {
         console.log("Response Data",response.data);
         console.log("Response received:", response);

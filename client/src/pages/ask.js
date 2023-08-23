@@ -51,7 +51,7 @@ export default function Ask() {
 
     return (
         <>
-            <div id='container' className='max-w-full w-full justify-center '>
+            <div id='container' className='max-w-full w-full justify-center  '>
                 <div id='content' className='min-h-[750px] overflow-visible max-w-[1264px] p-[24px] pt-0'>
                     <div id='boxborder' className='w-full'>
                         <div id='upperbox' className='flex flex-col '>
@@ -124,8 +124,8 @@ export default function Ask() {
                                     </div>
                                 </div>
                                 <div>
-                                    <button className='border' onClick={handleSubmit}>
-                                        send
+                                    <button className='mt-[10px] p-[0.8em] rounded-[6px] border border-transparent text-[13px] leading-normal bg-[hsl(206,100%,52%);] text-white whitespace-nowrap text-center relative' onClick={handleSubmit}>
+                                        Send
                                     </button>
                                 </div>
                             </main>

@@ -1,7 +1,7 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate  } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchData, fetchUserById, postData, patchData, fetchAnswersByQuestionId } from '../slicer/main';
+import { fetchData, fetchUserById, postData, patchData, fetchAnswersByQuestionId, ckEditorRemoveTags, deleteData } from '../slicer/main';
 import Sidebar from '../components/Sidebar/Sidebar';
 import { CommentInput } from '../components/comment/comment';
 import moment from 'moment-timezone';
@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 
 function QuestionPage() {
     const { id } = useParams();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const question = useSelector((state) => state.data.question);
     const status = useSelector((state) => state.data.status);
@@ -60,6 +61,11 @@ function QuestionPage() {
             dispatch(fetchAnswersByQuestionId(question.questionId));
         }
     }, [question, dispatch]);
+
+    const handleDelete = (id) => {
+        dispatch(deleteData({ path: `questions/${id}`, data: {} }));
+        navigate('/questions');
+    };
 
     console.log(answers)
 
@@ -134,7 +140,7 @@ function QuestionPage() {
                                         </div>
                                         <div id='post' className=' align-top pr-[16px] grid-cols-[2] w-auto min-w-0  '>
                                             <div className=' w-full min-h-[200px] '>
-                                                {question.content}
+                                                {ckEditorRemoveTags(question.content)}
                                             </div>
                                             <div className=' mb-[12px] mt-[24px] '>
                                                 <div className=' clear-both mb-[10px] flex flex-col mx-0 m-[-2]  '>
@@ -153,7 +159,7 @@ function QuestionPage() {
                                                         <div className=' pt-[2px]  '>
                                                             <div className=' flex flex-wrap m-[-4px] text-[13px] ' >
                                                                 <div className=' m-[4px] block text-gray-500 hover:text-gray-300 ' >
-                                                                    <Link to='/'>Share</Link>
+                                                                    <button onClick={() => handleDelete(question.questionId)}>Delete</button>
                                                                 </div>
                                                                 <div className=' m-[4px] block text-gray-500 hover:text-gray-300 ' >
                                                                     <Link to='/'>Edit</Link>
@@ -240,7 +246,7 @@ function QuestionPage() {
                                                         </div>
                                                         <div id='post' className=' align-top pr-[16px] grid-cols-[2] w-auto min-w-0  '>
                                                             <div className=' w-full min-h-[200px] '>
-                                                                {answer.content}
+                                                                {ckEditorRemoveTags(answer.content)}
                                                             </div>
                                                             <div className=' mb-[12px] mt-[24px] '>
                                                                 <div className=' clear-both mb-[10px] flex flex-col mx-0 m-[-2]  '>
@@ -259,7 +265,7 @@ function QuestionPage() {
                                                                         <div className=' pt-[2px]  '>
                                                                             <div className=' flex flex-wrap m-[-4px] text-[13px] ' >
                                                                                 <div className=' m-[4px] block text-gray-500 hover:text-gray-300 ' >
-                                                                                    <Link to='/'>Share</Link>
+                                                                                    <Link to='/'>Delete</Link>
                                                                                 </div>
                                                                                 <div className=' m-[4px] block text-gray-500 hover:text-gray-300 ' >
                                                                                     <Link to='/'>Edit</Link>

@@ -1,11 +1,10 @@
 
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchData, fetchUserById, routeChanged } from '../slicer/main';
+import { fetchData, fetchUserById, ckEditorRemoveTags } from '../slicer/main';
 import moment from 'moment-timezone';
 // import { api } from '../api/api';
 import { Link } from 'react-router-dom';
-import ReactHtmlParser from "react-html-parser";
 
 export default function Questions() {
     
@@ -85,7 +84,7 @@ export default function Questions() {
                                         </div>
                                         <div className='max-w-full flex-grow'>
                                             <h3 className='mb-1 pr-6 text-[#0074cc]'><Link to={`/questions/${item.questionId}`}>{item.title}</Link></h3>
-                                            <div className='text-[13px] mb-1 text-[#3d4042] break-words overflow-hidden hyphens-auto break-all'><Link to={`/questions/${item.questionId}`}>{ReactHtmlParser(truncateString(item.content))}</Link></div>
+                                            <div className='text-[13px] mb-1 text-[#3d4042] break-words overflow-hidden hyphens-auto break-all'><Link to={`/questions/${item.questionId}`}>{ckEditorRemoveTags(truncateString(item.content))}</Link></div>
                                             <div className='flex flex-wrap flex-1 items-center justify-between gap-y-2 gap-x-2 relative text-[12px]' >
                                                 <ul className='ml-0 '>
                                                     <li>
