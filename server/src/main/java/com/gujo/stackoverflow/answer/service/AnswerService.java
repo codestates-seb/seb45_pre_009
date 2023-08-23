@@ -62,6 +62,15 @@ public class AnswerService {
                 .collect(Collectors.toList());
     }
 
+    public List<Answer> findAnswersForQuestion(Long questionId) {
+        List<Answer> answersForQuestion = answerRepository.findByQuestion(questionId);
+
+        return answersForQuestion.stream()
+                .filter(answer -> answer.getAnswerStatus() == Answer.AnswerStatus.ANSWER_EXIST)
+                .collect(Collectors.toList());
+    }
+
+
     public void deleteAnswer(Long answerId) {
         Answer answer = findVerifiedAnswer(answerId);
         memberService.checkLoginMemberHasAuthority(answer.getMember().getMemberId());

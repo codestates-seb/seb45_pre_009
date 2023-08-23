@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo, faEarthAsia, faSquareVirus, faLock } from '@fortawesome/free-solid-svg-icons';
-
+import { Link } from 'react-router-dom';
 
 function Sidebar() {
     return (

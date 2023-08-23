@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchData } from '../slicer/main';
 import Sidebar from '../components/Sidebar/Sidebar';
 // import { api } from '../api/api';
+import { Link } from 'react-router-dom';
 
 export default function UsersPage() {
 

@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import profile from "../images/profile.png"
 import pfEdit from "../images/pfEdit.png";
 import nwEdit from "../images/nwEdit.png";
+import { Link } from 'react-router-dom';
 
 const Mypage = () => {
 
@@ -25,7 +26,7 @@ const Mypage = () => {
     const buttonClasses = (buttonIndex) => {
         return `px-4 py-2 rounded-full mr-2 ${
             selectedButton === buttonIndex ? 'bg-orange-500': 'text-[black]'
-        } text-white`
+        }`
     }
 
     useEffect(()=>{

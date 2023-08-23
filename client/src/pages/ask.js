@@ -1,7 +1,8 @@
-
+import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { postData } from '../slicer/main';
+import MyEditor from '../components/ckeditor5/editor';
 
 
 
@@ -50,7 +51,7 @@ export default function Ask() {
 
     return (
         <>
-            <div id='container' className='max-w-full w-full justify-center '>
+            <div id='container' className='max-w-full w-full justify-center  '>
                 <div id='content' className='min-h-[750px] overflow-visible max-w-[1264px] p-[24px] pt-0'>
                     <div id='boxborder' className='w-full'>
                         <div id='upperbox' className='flex flex-col '>
@@ -61,8 +62,8 @@ export default function Ask() {
                                 <div className='w-full flex mb-[16px] items-center  '>
                                     <div className='w-full p-[24px] bg-[#ebf4fb] border rounded-md border-[rgb(195,229,255)]'>
                                         <h2 className='font-normal text-[21px] mb-8  '>Writing a good question</h2>
-                                        <p className='text-[15px] mb-0 clear-both mt-0 '>You’re ready to <a className='text-blue-600 ' href='/'>ask</a> a <a className='text-blue-600 ' href='/'>programming-related question</a> and this form will help guide you through the process.</p>
-                                        <p className='mb-[1em] text-[15px] clear-both '>Looking to ask a non-programming question? See <a className='text-blue-600 ' href='/'>the topics here</a> to find a relevant site.</p>
+                                        <p className='text-[15px] mb-0 clear-both mt-0 '>You’re ready to <a href='/' className='text-blue-600 ' >ask</a> a <a href='/' className='text-blue-600 ' >programming-related question</a> and this form will help guide you through the process.</p>
+                                        <p className='mb-[1em] text-[15px] clear-both '>Looking to ask a non-programming question? See <a href='/' className='text-blue-600 '>the topics here</a> to find a relevant site.</p>
                                         <h5 className='text-[13px] '>steps</h5>
                                         <ul className='mb-0 text-[13px] list-disc ml-[30px]'>
                                             <li>Summarize your problem in a one-line title.</li>
@@ -75,19 +76,56 @@ export default function Ask() {
                                 </div>
                             </div>
                         </div>
-                        <form>
-                            <main>
-                                <div>
-                                    title
-                                    <input className='border' value={title} onChange={e => setTitle(e.target.value)} />
+                        <form id='askquestion' className='  '>
+                            <main className=' mb-[48px]  '>
+                                <div className=' flex w-full bg-white rounded-[4px] border  '>
+                                    <div className=' p-[24px] gap-[16px] w-full '>
+                                        <div className=' flex flex-col mx-0 my-[-2px]  '>
+                                            <div className=' flex flex-col mx-0 my-[2px]  ' >
+                                                <div className='  '>
+                                                    <label className=' cursor-pointer text-[15px] font-semibold '>
+                                                        Title
+                                                    </label>
+                                                </div>
+                                                <div className=' flex  '>
+                                                    <div className=' my-[2px]  '>
+                                                        <label className=' text-[12px]  '>
+                                                            Be specific and imagine you’re asking a question to another person.
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className=' mx-0 my-[2px] relative flex  '>
+                                                <input className='border w-full rounded-[6px] border-gray-300 px-[9px] py-[7px] ' placeholder='Write here...' value={title} onChange={e => setTitle(e.target.value)} > 
+                                                </input>
+                                            </div>
+                                            <button className='mt-[8px] p-[14px] '>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id='content' className=' w-full flex mt-[12px] '>
+                                    <div className=' w-full bg-white rounded-[4px] border min-h-[320px]'>
+                                        <div className=' p-[24px]  ' >
+                                            <div className=' flex flex-col my-[-2px]  '>
+                                                <div className=' my-[2px]  '>
+                                                    <label className=' text-[15px] ' >
+                                                        What are the details of your problem?
+                                                        <p className=' text-[12px] ' >
+                                                            Introduce the problem and expand on what you put in the title. Minimum 20 characters.
+                                                        </p>
+                                                    </label>
+                                                </div>
+                                                <div className='  '>
+                                                    <MyEditor onContentChange={setContent}></MyEditor>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div>
-                                    content
-                                    <input className='border' value={content} onChange={e => setContent(e.target.value)} />
-                                </div>
-                                <div>
-                                    <button className='border' onClick={handleSubmit}>
-                                        send
+                                    <button className='mt-[10px] p-[0.8em] rounded-[6px] border border-transparent text-[13px] leading-normal bg-[hsl(206,100%,52%);] text-white whitespace-nowrap text-center relative' onClick={handleSubmit}>
+                                        Send
                                     </button>
                                 </div>
                             </main>
