@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import profile from "../images/profile.png"
 import pfEdit from "../images/pfEdit.png";
 import nwEdit from "../images/nwEdit.png";
+import { Link } from 'react-router-dom';
 
 const Mypage = () => {
 

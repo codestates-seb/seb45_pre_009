@@ -1,7 +1,16 @@
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getApi, postApi, patchApi } from '../api/api.js';
+import { getApi, postApi, patchApi, deleteApi } from '../api/api.js';
 
+
+export function ckEditorRemoveTags(data) {
+    return data
+        .replace(/<p>/g, '')
+        .replace(/<\/p>/g, '')
+        .replace(/<figure class="image">/g, ',')
+        .replace(/<img src="/g, '')
+        .replace(/"><\/figure>/g, '');
+    }
 
     
 export const fetchData = createAsyncThunk('data/fetchData', async (path) => {
@@ -10,6 +19,10 @@ export const fetchData = createAsyncThunk('data/fetchData', async (path) => {
 
 export const postData = createAsyncThunk('data/postData', async ({ path, data }) => {
         return await postApi(path, data);
+    });
+
+export const deleteData = createAsyncThunk('data/deleteData', async ({ path, data }) => {
+        return await deleteApi(path, data);
     });
 
 export const fetchUserById = createAsyncThunk('data/fetchUserById', async (memberId) => {
@@ -26,7 +39,6 @@ export const fetchAnswersByQuestionId = createAsyncThunk('data/fetchAnswersByQue
         
         return response;
     });
-    
     
 export const dataSlice = createSlice({
         name: 'data',
@@ -65,7 +77,16 @@ export const dataSlice = createSlice({
                 state.question.point = updatedPoint;
             })
             .addCase(fetchData.rejected, (state) => {
-            state.status = 'failed';
+                state.status = 'failed';
+            })
+            .addCase(deleteData.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(deleteData.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+            })
+            .addCase(deleteData.rejected, (state, action) => {
+                state.status = 'failed';
             });
         },
     });

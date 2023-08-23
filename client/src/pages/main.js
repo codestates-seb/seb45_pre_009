@@ -1,29 +1,38 @@
 
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchData, fetchUserById } from '../slicer/main';
+import { fetchData, fetchUserById, fetchAnswersByQuestionId } from '../slicer/main';
 import moment from 'moment-timezone';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 
 export default function Main() {
-
+    const { id } = useParams();
     const dispatch = useDispatch();
     const data = useSelector((state) => state.data.items);
     const status = useSelector((state) => state.data.status);
     const users = useSelector((state) => state.data.users);
+    const answers = useSelector((state) => state.data.answers);
 
     useEffect(() => {
         if (status === 'idle') {
             dispatch(fetchData('questions?page=0&size=10'));
         }
-    }, [status, dispatch]);
+    }, [status, dispatch, id]);
 
     useEffect(() => {
         data.forEach((item) => {
         dispatch(fetchUserById(item.memberId));
         });
     }, [data, dispatch]);
+
+    useEffect(() => {
+        if (data && data.questionId) {
+            dispatch(fetchAnswersByQuestionId(data.questionId));
+        }
+    }, [data, dispatch]);
+
+    
     
 
     return (
@@ -63,10 +72,10 @@ export default function Main() {
                                         <div className='p-4 relative border-b flex vx:flex-col ' key={item.memberId}>
                                             <div className='flex vv:flex-col vx:w-auto vv:w-[108px] vx:flex-row vv:flex-wrap vv:content-end vv:flex-shrink-0 mr-4 vv:mb-4 vx:mb-1 gap-[6px]'>
                                                 <div className='inline-flex gap-[0.3em] justify-end content-end whitespace-nowrap border border-transparent '>
-                                                    <span className='text-xs'>0</span><span className='text-xs'>votes</span>
+                                                    <span className='text-xs'>{item.point !== undefined ? item.point : '0'}</span><span className='text-xs'>votes</span>
                                                 </div>
                                                 <div className='inline-flex gap-[0.3em] justify-end content-end whitespace-nowrap border border-transparent text-[#6a737c] '>
-                                                    <span className='text-xs'>0</span><span className='text-xs'>answers</span>
+                                                    <span className='text-xs'>{Object.keys(answers).length > 0 ? `${Object.keys(answers).length} Answer` : "0"}</span><span className='text-xs'>answers</span>
                                                 </div>
                                                 <div className='inline-flex gap-[0.3em] justify-end content-end whitespace-nowrap border border-transparent text-[#6a737c] '>
                                                     <span className='text-xs'>{item.views !== undefined ? item.views : '0'}</span><span className='text-xs'>views</span>
