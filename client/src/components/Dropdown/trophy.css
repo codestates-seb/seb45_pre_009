@@ -1,0 +1,61 @@
+.trophy_container {
+    position: absolute;
+    top: 78%;
+    width: 375px;
+    height: 422px;
+    background-color: #ffffff;
+    border: 1px solid rgb(223, 221, 221);
+    box-shadow: 0 0 8px rgb(223, 221, 221);
+    right: 0%;
+    margin-top: 11px;
+    z-index: 10;
+
+    margin: 5px;
+   
+}
+
+.trophy_header {
+    width: 100%;
+    height: 32px;
+    background-color: rgb(243, 241, 241);
+
+    justify-content: space-between;
+    display: flex;
+    font-size: 11px;
+    padding: 5px;
+  
+}
+
+.trophy_achievements {
+    font-weight: bold;
+    color: rgb(86, 86, 86);
+    
+}
+
+.trophy_time {
+    font-weight: lighter;
+    font-size: 11px;
+    padding-left: 3px;
+}
+
+.trophy_side {
+    font-size: 12px;
+    color: rgb(4, 100, 184);
+}
+
+.trophy_box {
+    text-align: left;
+    font-size: 12px;
+    padding: 4px;
+    color: rgb(44, 44, 44);
+}
+
+.trophy_explain {
+    padding-bottom: 8px;
+    
+}
+
+.trophy_under {
+    text-decoration: underline;
+    color: rgb(4, 100, 184);
+}
