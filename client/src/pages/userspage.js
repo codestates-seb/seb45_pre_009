@@ -36,11 +36,11 @@ export default function UsersPage() {
                                             {data.length} users
                                         </div>
                                         <div className='flex'>
-                                            <Link to='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400 rounded-l-md'>Interesting</Link>
-                                            <Link to='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Bountied</Link>
-                                            <Link to='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Hot</Link>
-                                            <Link to='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Week</Link>
-                                            <Link to='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400 rounded-r-md'>Month</Link>
+                                            <a href='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400 rounded-l-md'>Interesting</a>
+                                            <a href='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Bountied</a>
+                                            <a href='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Hot</a>
+                                            <a href='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Week</a>
+                                            <a href='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400 rounded-r-md'>Month</a>
                                         </div>
                                     </div>
                                 </div>
