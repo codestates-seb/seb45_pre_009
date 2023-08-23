@@ -42,9 +42,9 @@ export default function Questions() {
                         <div className='flex mb-[12px] flex-wrap'>
                             <h1 className='flex-auto leading-[1.3] text-[27px] mb-[12px] mr-[12px]'>All Questions</h1>
                             <div className='flex ml-3 mb-[12px]'>
-                                <Link to="/questions/ask" className='p-[0.8em] rounded-[6px] border border-transparent text-[13px] leading-normal bg-[hsl(206,100%,52%);] text-white whitespace-nowrap text-center relative '>
+                                <a href="/questions/ask" className='p-[0.8em] rounded-[6px] border border-transparent text-[13px] leading-normal bg-[hsl(206,100%,52%);] text-white whitespace-nowrap text-center relative '>
                                     Ask Question
-                                </Link>
+                                </a>
                             </div>
                         </div>
                         <div>
@@ -56,11 +56,11 @@ export default function Questions() {
                                             {data.length} questions
                                         </div>
                                         <div className='flex'>
-                                            <Link to='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400 rounded-l-md'>Interesting</Link>
-                                            <Link to='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Bountied</Link>
-                                            <Link to='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Hot</Link>
-                                            <Link to='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Week</Link>
-                                            <Link to='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400 rounded-r-md'>Month</Link>
+                                            <a href='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400 rounded-l-md'>Interesting</a>
+                                            <a href='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Bountied</a>
+                                            <a href='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Hot</a>
+                                            <a href='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400' >Week</a>
+                                            <a href='/' className='p-2 -mr-[1px] -mb-[1px] border border-gray-400 rounded-r-md'>Month</a>
                                         </div>
                                     </div>
                                 </div>
@@ -83,16 +83,16 @@ export default function Questions() {
                                             </div>
                                         </div>
                                         <div className='max-w-full flex-grow'>
-                                            <h3 className='mb-1 pr-6 text-[#0074cc]'><Link to={`/questions/${item.questionId}`}>{item.title}</Link></h3>
-                                            <div className='text-[13px] mb-1 text-[#3d4042] break-words overflow-hidden hyphens-auto break-all'><Link to={`/questions/${item.questionId}`}>{ckEditorRemoveTags(truncateString(item.content))}</Link></div>
+                                            <h3 className='mb-1 pr-6 text-[#0074cc]'><a href={`/questions/${item.questionId}`}>{item.title}</a></h3>
+                                            <div className='text-[13px] mb-1 text-[#3d4042] break-words overflow-hidden hyphens-auto break-all'><a href={`/questions/${item.questionId}`}>{ckEditorRemoveTags(truncateString(item.content))}</a></div>
                                             <div className='flex flex-wrap flex-1 items-center justify-between gap-y-2 gap-x-2 relative text-[12px]' >
                                                 <ul className='ml-0 '>
                                                     <li>
-                                                        <Link to='/' className='block text-[hsl(205,47%,42%)] bg-[hsl(205,46%,92%)] border border-transparent rounded-md px-[6px] py-[4px] mr-[1px] mb-[1px] '>tag</Link>
+                                                        <a href='/' className='block text-[hsl(205,47%,42%)] bg-[hsl(205,46%,92%)] border border-transparent rounded-md px-[6px] py-[4px] mr-[1px] mb-[1px] '>tag</a>
                                                     </li>
                                                 </ul>
                                                 <div className='ml-auto text-right flex-wrap flex justify-end gap-1'>
-                                                    <Link to='/' className='text-[#0074cc]'>{users[item.memberId]?.displayName || 'name...'}</Link>
+                                                    <a href='/' className='text-[#0074cc]'>{users[item.memberId]?.displayName || 'name...'}</a>
                                                     <div className='text-[#525960] font-bold'>
                                                         {users[item.memberId]?.reputation !== undefined ? users[item.memberId]?.reputation : '0'}
                                                     </div>
@@ -131,7 +131,7 @@ export default function Questions() {
                                             펜
                                         </div>
                                         <div className='min-w-0 text-[13px] text-[#232629]'>
-                                            <Link to='/' className=''>Want better answers from your data? Ask better questions</Link>
+                                            <a href='/' className=''>Want better answers from your data? Ask better questions</a>
                                         </div>
                                     </li>
                                     <li className='px-[16px] my-[12px] h-full flex'>
@@ -139,7 +139,7 @@ export default function Questions() {
                                             펜
                                         </div>
                                         <div className='min-w-0 text-[13px] text-[#232629]'>
-                                            <Link to='/' className=''>Making event-driven development predictable with Discover</Link>
+                                            <a href='/' className=''>Making event-driven development predictable with Discover</a>
                                             <div className=' text-[#6a737c] '>sponsored post</div>
                                         </div>
                                     </li>
@@ -151,7 +151,7 @@ export default function Questions() {
                                             말
                                         </div>
                                         <div className='min-w-0 text-[13px] text-[#3b4045]'>
-                                            <Link to='/' className=''>Moderation strike: Results of negotiations</Link>
+                                            <a href='/' className=''>Moderation strike: Results of negotiations</a>
                                         </div>
                                     </li>
                                     <li className='px-[16px] my-[12px] h-full flex'>
@@ -159,7 +159,7 @@ export default function Questions() {
                                             말
                                         </div>
                                         <div className='min-w-0 text-[13px] text-[#3b4045]'>
-                                            <Link to='/' className=''>Our Design Vision for Stack Overflow and the Stack Exchange network</Link>
+                                            <a href='/' className=''>Our Design Vision for Stack Overflow and the Stack Exchange network</a>
                                         </div>
                                     </li>
                                     <li className='px-[16px] my-[12px] h-full flex'>
@@ -167,7 +167,7 @@ export default function Questions() {
                                             책
                                         </div>
                                         <div className='min-w-0 text-[13px] text-[#3b4045]'>
-                                            <Link to='/' className=''>Temporary policy: Generative AI (e.g., ChatGPT) is banned</Link>
+                                            <a href='/' className=''>Temporary policy: Generative AI (e.g., ChatGPT) is banned</a>
                                         </div>
                                     </li>
                                     <li className='px-[16px] my-[12px] h-full flex'>
@@ -175,7 +175,7 @@ export default function Questions() {
                                             책
                                         </div>
                                         <div className='min-w-0 text-[13px] text-[#3b4045]'>
-                                            <Link to='/' className=''>Collections: A New Feature for Collectives on Stack Overflow</Link>
+                                            <a href='/' className=''>Collections: A New Feature for Collectives on Stack Overflow</a>
                                         </div>
                                     </li>
                                     <li className='px-[16px] my-[12px] h-full flex'>
@@ -183,7 +183,7 @@ export default function Questions() {
                                             책
                                         </div>
                                         <div className='min-w-0 text-[13px] text-[#3b4045]'>
-                                            <Link to='/' className=''>Preview of Search and Question-Asking Powered by GenAI</Link>
+                                            <a href='/' className=''>Preview of Search and Question-Asking Powered by GenAI</a>
                                         </div>
                                     </li>
                                     <li className='px-[16px] my-[12px] h-full flex'>
@@ -191,7 +191,7 @@ export default function Questions() {
                                             책
                                         </div>
                                         <div className='min-w-0 text-[13px] text-[#3b4045]'>
-                                            <Link to='/' className=''>Call for volunteer reviewers for an updated search experience: OverflowAI Search</Link>
+                                            <a href='/' className=''>Call for volunteer reviewers for an updated search experience: OverflowAI Search</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -218,9 +218,9 @@ export default function Questions() {
                                         <p className='my-[calc(16px/2);] block text-[hsl(210,8%,35%)] text-[13px]'>
                                             Watch tags to curate your list of questions.
                                         </p>
-                                        <Link to='/' className='my-[calc(16px/2);] block text-[12px] text-[hsl(205,47%,42%)] bg-[hsl(205,46%,92%)] border border-transparent rounded-md p-2 '>
+                                        <a href='/' className='my-[calc(16px/2);] block text-[12px] text-[hsl(205,47%,42%)] bg-[hsl(205,46%,92%)] border border-transparent rounded-md p-2 '>
                                             Watch a tag
-                                        </Link>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

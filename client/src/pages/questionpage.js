@@ -81,9 +81,9 @@ function QuestionPage() {
                                     {question.title}
                                 </h1>
                                 <div className='flex ml-3 mb-[12px]'>
-                                    <Link to="/questions/ask" className='p-[0.8em] rounded-[6px] border border-transparent text-[13px] leading-normal bg-[hsl(206,100%,52%);] text-white whitespace-nowrap text-center relative '>
+                                    <a href="/questions/ask" className='p-[0.8em] rounded-[6px] border border-transparent text-[13px] leading-normal bg-[hsl(206,100%,52%);] text-white whitespace-nowrap text-center relative '>
                                         Ask Question
-                                    </Link>
+                                    </a>
                                 </div>
                             </div>
                             <div id='createdat etc' className='flex pb-[8px] mb-[16px] flex-wrap border-b border-b-[#e3e6e8] text-[13px]'>
@@ -147,7 +147,7 @@ function QuestionPage() {
                                                     <div className=' mx-0 m-[2px] relative flex flex-wrap  '>
                                                         <ul className=' list-none ml-0 mb-[1em] text-[12px]  '>
                                                             <li className=''>
-                                                                <Link to='/' className='block text-[hsl(205,47%,42%)] bg-[hsl(205,46%,92%)] border border-transparent rounded-md px-[6px] py-[4px] mr-[1px] mb-[1px] '>tag</Link>
+                                                                <a href='/' className='block text-[hsl(205,47%,42%)] bg-[hsl(205,46%,92%)] border border-transparent rounded-md px-[6px] py-[4px] mr-[1px] mb-[1px] '>tag</a>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -162,10 +162,10 @@ function QuestionPage() {
                                                                     <button onClick={() => handleDelete(question.questionId)}>Delete</button>
                                                                 </div>
                                                                 <div className=' m-[4px] block text-gray-500 hover:text-gray-300 ' >
-                                                                    <Link to='/'>Edit</Link>
+                                                                    <a href='/'>Edit</a>
                                                                 </div>
                                                                 <div className=' m-[4px] block text-gray-500 hover:text-gray-300 ' >
-                                                                    <Link to='/'>Follow</Link>
+                                                                    <a href='/'>Follow</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -173,17 +173,17 @@ function QuestionPage() {
                                                     <div className=' w-[200px] align-top m-[4px] rounded-[4px] bg-sky-100 '>
                                                         <div className=' px-[7px] py-[6px] table ' >
                                                             <div className=' mt-[1px] mb-[4px] text-[12px] text-gray-500 '>
-                                                                <Link to='/'>edited 
+                                                                <a href='/'>edited 
                                                                     {question.modifiedAt 
                                                                         ? momenti(question.modifiedAt)
                                                                         : momenti(question.createdAt)}
-                                                                </Link>
+                                                                </a>
                                                             </div>
                                                             <div className=' float-left w-[32px] h-[32px] rounded-[1px] border border-black '>
                                                                 
                                                             </div>
                                                             <div className=' float-left ml-[8px] w-[calc(100%-40px)] break-all text-[13px] '>
-                                                                <Link to='/' className='text-blue-500' >{users[question.memberId]?.displayName || 'name...'}</Link>
+                                                                <a href='/' className='text-blue-500' >{users[question.memberId]?.displayName || 'name...'}</a>
                                                                 <div className=' text-[13px] '>
                                                                     {users[question.memberId]?.reputation || '0'}
                                                                 </div>
@@ -196,9 +196,9 @@ function QuestionPage() {
                                         <span></span>
                                         {/* <div id='comment' className='pr-[16px] grid-cols-[2] w-auto '>
                                             <div className=' text-[13px] text-gray-400 '>
-                                                <Link to='/' className='p-[0,3px,2px] cursor-pointer  '>
+                                                <a href='/' className='p-[0,3px,2px] cursor-pointer  '>
                                                     Add a comment
-                                                </Link>
+                                                </a>
                                             </div>
                                         </div> */}
                                     </div>
@@ -333,7 +333,7 @@ function QuestionPage() {
                                                 펜
                                             </div>
                                             <div className='min-w-0 text-[13px] text-[#232629]'>
-                                                <Link to='/' className=''>Want better answers from your data? Ask better questions</Link>
+                                                <a href='/' className=''>Want better answers from your data? Ask better questions</a>
                                             </div>
                                         </li>
                                         <li className='px-[16px] my-[12px] h-full flex'>
@@ -341,7 +341,7 @@ function QuestionPage() {
                                                 펜
                                             </div>
                                             <div className='min-w-0 text-[13px] text-[#232629]'>
-                                                <Link to='/' className=''>Making event-driven development predictable with Discover</Link>
+                                                <a href='/' className=''>Making event-driven development predictable with Discover</a>
                                                 <div className=' text-[#6a737c] '>sponsored post</div>
                                             </div>
                                         </li>
@@ -353,7 +353,7 @@ function QuestionPage() {
                                                 말
                                             </div>
                                             <div className='min-w-0 text-[13px] text-[#3b4045]'>
-                                                <Link to='/' className=''>Moderation strike: Results of negotiations</Link>
+                                                <a href='/' className=''>Moderation strike: Results of negotiations</a>
                                             </div>
                                         </li>
                                         <li className='px-[16px] my-[12px] h-full flex'>
@@ -361,7 +361,7 @@ function QuestionPage() {
                                                 말
                                             </div>
                                             <div className='min-w-0 text-[13px] text-[#3b4045]'>
-                                                <Link to='/' className=''>Our Design Vision for Stack Overflow and the Stack Exchange network</Link>
+                                                <a href='/' className=''>Our Design Vision for Stack Overflow and the Stack Exchange network</a>
                                             </div>
                                         </li>
                                         <li className='px-[16px] my-[12px] h-full flex'>
@@ -369,7 +369,7 @@ function QuestionPage() {
                                                 책
                                             </div>
                                             <div className='min-w-0 text-[13px] text-[#3b4045]'>
-                                                <Link to='/' className=''>Temporary policy: Generative AI (e.g., ChatGPT) is banned</Link>
+                                                <a href='/' className=''>Temporary policy: Generative AI (e.g., ChatGPT) is banned</a>
                                             </div>
                                         </li>
                                         <li className='px-[16px] my-[12px] h-full flex'>
@@ -377,7 +377,7 @@ function QuestionPage() {
                                                 책
                                             </div>
                                             <div className='min-w-0 text-[13px] text-[#3b4045]'>
-                                                <Link to='/' className=''>Collections: A New Feature for Collectives on Stack Overflow</Link>
+                                                <a href='/' className=''>Collections: A New Feature for Collectives on Stack Overflow</a>
                                             </div>
                                         </li>
                                         <li className='px-[16px] my-[12px] h-full flex'>
@@ -385,7 +385,7 @@ function QuestionPage() {
                                                 책
                                             </div>
                                             <div className='min-w-0 text-[13px] text-[#3b4045]'>
-                                                <Link to='/' className=''>Preview of Search and Question-Asking Powered by GenAI</Link>
+                                                <a href='/' className=''>Preview of Search and Question-Asking Powered by GenAI</a>
                                             </div>
                                         </li>
                                         <li className='px-[16px] my-[12px] h-full flex'>
@@ -393,7 +393,7 @@ function QuestionPage() {
                                                 책
                                             </div>
                                             <div className='min-w-0 text-[13px] text-[#3b4045]'>
-                                                <Link to='/' className=''>Call for volunteer reviewers for an updated search experience: OverflowAI Search</Link>
+                                                <a href='/' className=''>Call for volunteer reviewers for an updated search experience: OverflowAI Search</a>
                                             </div>
                                         </li>
                                     </ul>

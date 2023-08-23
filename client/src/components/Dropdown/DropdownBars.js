@@ -3,8 +3,16 @@ import "./Bars.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import Search from '../Header/Search';
+import { Link } from "react-router-dom";
 
-const DropdownBars = () => {
+const DropdownBars = ({setIsLogin}) => {
+  const handleLogout = () =>{
+    setIsLogin(false)
+    sessionStorage.setItem("isLogin",false);
+    localStorage.setItem("jwt","");
+    localStorage.setItem("refresh_token","");
+    
+}
   return (
     <div className="bars_container">
       
@@ -13,7 +21,7 @@ const DropdownBars = () => {
           <div className="bars_header2"><img className="bars_img" src="Stack_Overflow_icon.png" /> Stack Overflow</div>
           <button className="bars_ect">help</button> 
           <button className="bars_ect">chat</button> 
-          <button className="bars_ect">log out</button>
+          <button className="bars_ect" onClick={handleLogout}><a href="/">log out</a></button>
           </div>
           <div className="bars_content">┕<img className="bars_img2" src="Stack.png" />
           Meta Stack Overflow</div>
